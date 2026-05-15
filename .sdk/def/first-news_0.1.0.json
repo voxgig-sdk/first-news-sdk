@@ -1,0 +1,406 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "FIRST News API",
+    "description": "Public query for FIRST News with additional parameters for filtering results. No credentials required.",
+    "version": "1.0.0",
+    "contact": {
+      "name": "FIRST.Org",
+      "url": "https://www.first.org"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://api.first.org/data/v1",
+      "description": "FIRST API v1 Production Server"
+    }
+  ],
+  "paths": {
+    "/news": {
+      "get": {
+        "summary": "Get FIRST News",
+        "description": "Public query for FIRST News. Returns a list of news items similar to what you'd find in a RSS feed. No additional credentials are required to access this information. The API limits apply (the maximum allowed resultset is 10,000 objects). Use time-based pagination to fetch smaller datasets.",
+        "operationId": "getNews",
+        "parameters": [
+          {
+            "name": "channel",
+            "in": "query",
+            "description": "Title of the news channel the news should be listed on. Each news item may be linked to more than one News Channel.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "What's New"
+          },
+          {
+            "name": "link",
+            "in": "query",
+            "description": "News item URL. Items published at FIRST website do not contain the domain name.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "before",
+            "in": "query",
+            "description": "ISO 8601 Formatted date. Returns only news older than the input. If the timezone is not specified, it'll be considered UTC.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "after",
+            "in": "query",
+            "description": "ISO 8601 Formatted date. Returns only news newer than the input. If the timezone is not specified, it'll be considered UTC.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "q",
+            "in": "query",
+            "description": "Free text search at the news title, summary and URL.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Maximum number of results to return. The maximum allowed resultset is 10,000 objects.",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 100,
+              "maximum": 10000
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Number of results to skip for pagination.",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 0
+            }
+          },
+          {
+            "name": "pretty",
+            "in": "query",
+            "description": "Format the JSON response for better readability.",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with news items",
+            "headers": {
+              "Last-Modified": {
+                "description": "The last modified date of the news data",
+                "schema": {
+                  "type": "string",
+                  "format": "date-time"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NewsListResponse"
+                },
+                "example": {
+                  "status": "OK",
+                  "status-code": 200,
+                  "version": "1",
+                  "last-modified": "Tue, 12 Jul 2016 15:42:31 GMT",
+                  "total": 249,
+                  "limit": 3,
+                  "offset": 0,
+                  "access": "public",
+                  "data": [
+                    {
+                      "id": 40558,
+                      "title": "FIRST calls for participants for a new Special Interest Group (SIG) on Malware Analysis",
+                      "summary": "Forum invites stakeholders to get involved in sharing best practice to mitigate malware incidents.",
+                      "link": "https://www.first.org/newsroom/releases/20160711",
+                      "published": "Mon, 11 Jul 2016 18:54:00 GMT"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - Invalid parameters"
+          },
+          "429": {
+            "description": "Rate limit exceeded"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "tags": [
+          "News"
+        ]
+      }
+    },
+    "/news/{id}": {
+      "get": {
+        "summary": "Get FIRST News Item by ID",
+        "description": "Preview a specific news item by ID. This fetches the full content and the channels the news item was published on.",
+        "operationId": "getNewsById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The unique identifier of the news item",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "example": 40558
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with detailed news item",
+            "headers": {
+              "Last-Modified": {
+                "description": "The last modified date of the news item",
+                "schema": {
+                  "type": "string",
+                  "format": "date-time"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NewsDetailResponse"
+                },
+                "example": {
+                  "status": "OK",
+                  "status-code": 200,
+                  "version": "1",
+                  "last-modified": "Mon, 11 Jul 2016 18:58:35 GMT",
+                  "access": "public",
+                  "data": {
+                    "id": 40558,
+                    "title": "FIRST calls for participants for a new Special Interest Group (SIG) on Malware Analysis",
+                    "summary": "Forum invites stakeholders to get involved in sharing best practice to mitigate malware incidents.",
+                    "link": "https://www.first.org/newsroom/releases/20160711",
+                    "content": "<p><strong>Forum invites stakeholders to get involved in sharing best practice to mitigate malware incidents</strong></p>",
+                    "channels": [
+                      "FIRST Newsroom",
+                      "Press Releases",
+                      "What's New"
+                    ],
+                    "published": "Mon, 11 Jul 2016 18:54:00 GMT"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "News item not found"
+          },
+          "429": {
+            "description": "Rate limit exceeded"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "tags": [
+          "News"
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "NewsListResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "Status of the API response",
+            "example": "OK"
+          },
+          "status-code": {
+            "type": "integer",
+            "description": "HTTP status code",
+            "example": 200
+          },
+          "version": {
+            "type": "string",
+            "description": "API version",
+            "example": "1"
+          },
+          "last-modified": {
+            "type": "string",
+            "description": "Last modified timestamp",
+            "example": "Tue, 12 Jul 2016 15:42:31 GMT"
+          },
+          "total": {
+            "type": "integer",
+            "description": "Total number of news items matching the query",
+            "example": 249
+          },
+          "limit": {
+            "type": "integer",
+            "description": "Maximum number of results returned",
+            "example": 3
+          },
+          "offset": {
+            "type": "integer",
+            "description": "Number of results skipped",
+            "example": 0
+          },
+          "access": {
+            "type": "string",
+            "description": "Access level of the endpoint",
+            "example": "public"
+          },
+          "data": {
+            "type": "array",
+            "description": "Array of news items",
+            "items": {
+              "$ref": "#/components/schemas/NewsItem"
+            }
+          }
+        }
+      },
+      "NewsDetailResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "Status of the API response",
+            "example": "OK"
+          },
+          "status-code": {
+            "type": "integer",
+            "description": "HTTP status code",
+            "example": 200
+          },
+          "version": {
+            "type": "string",
+            "description": "API version",
+            "example": "1"
+          },
+          "last-modified": {
+            "type": "string",
+            "description": "Last modified timestamp",
+            "example": "Mon, 11 Jul 2016 18:58:35 GMT"
+          },
+          "access": {
+            "type": "string",
+            "description": "Access level of the endpoint",
+            "example": "public"
+          },
+          "data": {
+            "$ref": "#/components/schemas/NewsItemDetail"
+          }
+        }
+      },
+      "NewsItem": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Unique identifier for the news item",
+            "example": 40558
+          },
+          "title": {
+            "type": "string",
+            "description": "Title of the news item",
+            "example": "FIRST calls for participants for a new Special Interest Group (SIG) on Malware Analysis"
+          },
+          "summary": {
+            "type": "string",
+            "description": "Brief summary of the news item",
+            "example": "Forum invites stakeholders to get involved in sharing best practice to mitigate malware incidents."
+          },
+          "link": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL to the full news article",
+            "example": "https://www.first.org/newsroom/releases/20160711"
+          },
+          "published": {
+            "type": "string",
+            "description": "Publication date and time",
+            "example": "Mon, 11 Jul 2016 18:54:00 GMT"
+          }
+        }
+      },
+      "NewsItemDetail": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Unique identifier for the news item",
+            "example": 40558
+          },
+          "title": {
+            "type": "string",
+            "description": "Title of the news item",
+            "example": "FIRST calls for participants for a new Special Interest Group (SIG) on Malware Analysis"
+          },
+          "summary": {
+            "type": "string",
+            "description": "Brief summary of the news item",
+            "example": "Forum invites stakeholders to get involved in sharing best practice to mitigate malware incidents."
+          },
+          "link": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL to the full news article",
+            "example": "https://www.first.org/newsroom/releases/20160711"
+          },
+          "content": {
+            "type": "string",
+            "description": "Full HTML content of the news item",
+            "example": "<p><strong>Forum invites stakeholders to get involved in sharing best practice to mitigate malware incidents</strong></p>"
+          },
+          "channels": {
+            "type": "array",
+            "description": "List of news channels this item is published on",
+            "items": {
+              "type": "string"
+            },
+            "example": [
+              "FIRST Newsroom",
+              "Press Releases",
+              "What's New"
+            ]
+          },
+          "published": {
+            "type": "string",
+            "description": "Publication date and time",
+            "example": "Mon, 11 Jul 2016 18:54:00 GMT"
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "News",
+      "description": "Operations related to FIRST news items"
+    }
+  ]
+}

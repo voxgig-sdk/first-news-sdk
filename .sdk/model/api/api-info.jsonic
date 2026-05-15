@@ -1,0 +1,24 @@
+# API Information
+
+
+main: {
+  kit: {
+    info: {
+      contact: {
+        name: "FIRST.Org"
+        url: "https://www.first.org"
+      }
+      description: "Public query for FIRST News with additional parameters for filtering results. No credentials required."
+      servers: [
+        {
+          description: "FIRST API v1 Production Server"
+          url: "https://api.first.org/data/v1"
+        }
+      ]
+      title: "FIRST News API"
+      version: "1.0.0"
+    }
+  }
+}
+
+}

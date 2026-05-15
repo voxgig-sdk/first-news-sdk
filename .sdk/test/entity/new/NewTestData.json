@@ -1,0 +1,61 @@
+{
+  "existing": {
+    "new": {
+      "NEW00": {
+        "access": "s6e",
+        "data": {},
+        "id": "NEW00",
+        "last_modified": "s71",
+        "link": "s72",
+        "published": "s73",
+        "status": "s74",
+        "status_code": "s75",
+        "summary": "s76",
+        "title": "s77",
+        "version": "s78"
+      },
+      "NEW01": {
+        "access": "sdc",
+        "data": {},
+        "id": "NEW01",
+        "last_modified": "sdf",
+        "link": "se0",
+        "published": "se1",
+        "status": "se2",
+        "status_code": "se3",
+        "summary": "se4",
+        "title": "se5",
+        "version": "se6"
+      },
+      "NEW02": {
+        "access": "s14a",
+        "data": {},
+        "id": "NEW02",
+        "last_modified": "s14d",
+        "link": "s14e",
+        "published": "s14f",
+        "status": "s150",
+        "status_code": "s151",
+        "summary": "s152",
+        "title": "s153",
+        "version": "s154"
+      }
+    }
+  },
+  "new": {
+    "new": {
+      "new_ref01": {
+        "access": "s1b8",
+        "data": {},
+        "last_modified": "s1bb",
+        "link": "s1bc",
+        "published": "s1bd",
+        "status": "s1be",
+        "status_code": "s1bf",
+        "summary": "s1c0",
+        "title": "s1c1",
+        "version": "s1c2"
+      }
+    }
+  }
+}

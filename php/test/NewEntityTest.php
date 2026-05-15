@@ -1,0 +1,129 @@
+<?php
+declare(strict_types=1);
+
+// New entity test
+
+require_once __DIR__ . '/../firstnews_sdk.php';
+require_once __DIR__ . '/Runner.php';
+
+use PHPUnit\Framework\TestCase;
+use Voxgig\Struct\Struct as Vs;
+
+class NewEntityTest extends TestCase
+{
+    public function test_create_instance(): void
+    {
+        $testsdk = FirstNewsSDK::test(null, null);
+        $ent = $testsdk->New(null);
+        $this->assertNotNull($ent);
+    }
+
+    public function test_basic_flow(): void
+    {
+        $setup = new_basic_setup(null);
+        // Per-op sdk-test-control.json skip.
+        $_live = !empty($setup["live"]);
+        foreach (["list", "load"] as $_op) {
+            [$_shouldSkip, $_reason] = Runner::is_control_skipped("entityOp", "new." . $_op, $_live ? "live" : "unit");
+            if ($_shouldSkip) {
+                $this->markTestSkipped($_reason ?? "skipped via sdk-test-control.json");
+                return;
+            }
+        }
+        // The basic flow consumes synthetic IDs from the fixture. In live mode
+        // without an *_ENTID env override, those IDs hit the live API and 4xx.
+        if (!empty($setup["synthetic_only"])) {
+            $this->markTestSkipped("live entity test uses synthetic IDs from fixture — set FIRSTNEWS_TEST_NEW_ENTID JSON to run live");
+            return;
+        }
+        $client = $setup["client"];
+
+        // Bootstrap entity data from existing test data.
+        $new_ref01_data_raw = Vs::items(Helpers::to_map(
+            Vs::getpath($setup["data"], "existing.new")));
+        $new_ref01_data = null;
+        if (count($new_ref01_data_raw) > 0) {
+            $new_ref01_data = Helpers::to_map($new_ref01_data_raw[0][1]);
+        }
+
+        // LIST
+        $new_ref01_ent = $client->New(null);
+        $new_ref01_match = [];
+
+        [$new_ref01_list_result, $err] = $new_ref01_ent->list($new_ref01_match, null);
+        $this->assertNull($err);
+        $this->assertIsArray($new_ref01_list_result);
+
+        // LOAD
+        $new_ref01_match_dt0 = [
+            "id" => $new_ref01_data["id"],
+        ];
+        [$new_ref01_data_dt0_loaded, $err] = $new_ref01_ent->load($new_ref01_match_dt0, null);
+        $this->assertNull($err);
+        $new_ref01_data_dt0_load_result = Helpers::to_map($new_ref01_data_dt0_loaded);
+        $this->assertNotNull($new_ref01_data_dt0_load_result);
+        $this->assertEquals($new_ref01_data_dt0_load_result["id"], $new_ref01_data["id"]);
+
+    }
+}
+
+function new_basic_setup($extra)
+{
+    Runner::load_env_local();
+
+    $entity_data_file = __DIR__ . '/../../.sdk/test/entity/new/NewTestData.json';
+    $entity_data_source = file_get_contents($entity_data_file);
+    $entity_data = json_decode($entity_data_source, true);
+
+    $options = [];
+    $options["entity"] = $entity_data["existing"];
+
+    $client = FirstNewsSDK::test($options, $extra);
+
+    // Generate idmap.
+    $idmap = [];
+    foreach (["new01", "new02", "new03"] as $k) {
+        $idmap[$k] = strtoupper($k);
+    }
+
+    // Detect ENTID env override before envOverride consumes it. When live
+    // mode is on without a real override, the basic test runs against synthetic
+    // IDs from the fixture and 4xx's. Surface this so the test can skip.
+    $entid_env_raw = getenv("FIRSTNEWS_TEST_NEW_ENTID");
+    $idmap_overridden = $entid_env_raw !== false && str_starts_with(trim($entid_env_raw), "{");
+
+    $env = Runner::env_override([
+        "FIRSTNEWS_TEST_NEW_ENTID" => $idmap,
+        "FIRSTNEWS_TEST_LIVE" => "FALSE",
+        "FIRSTNEWS_TEST_EXPLAIN" => "FALSE",
+        "FIRSTNEWS_APIKEY" => "NONE",
+    ]);
+
+    $idmap_resolved = Helpers::to_map(
+        $env["FIRSTNEWS_TEST_NEW_ENTID"]);
+    if ($idmap_resolved === null) {
+        $idmap_resolved = Helpers::to_map($idmap);
+    }
+
+    if ($env["FIRSTNEWS_TEST_LIVE"] === "TRUE") {
+        $merged_opts = Vs::merge([
+            [
+                "apikey" => $env["FIRSTNEWS_APIKEY"],
+            ],
+            $extra ?? [],
+        ]);
+        $client = new FirstNewsSDK(Helpers::to_map($merged_opts));
+    }
+
+    $live = $env["FIRSTNEWS_TEST_LIVE"] === "TRUE";
+    return [
+        "client" => $client,
+        "data" => $entity_data,
+        "idmap" => $idmap_resolved,
+        "env" => $env,
+        "explain" => $env["FIRSTNEWS_TEST_EXPLAIN"] === "TRUE",
+        "live" => $live,
+        "synthetic_only" => $live && !$idmap_overridden,
+        "now" => (int)(microtime(true) * 1000),
+    ];
+}
