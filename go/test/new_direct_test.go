@@ -6,8 +6,8 @@ import (
 	"strings"
 	"testing"
 
-	sdk "github.com/voxgig-sdk/first-news-sdk"
-	"github.com/voxgig-sdk/first-news-sdk/core"
+	sdk "github.com/voxgig-sdk/first-news-sdk/go"
+	"github.com/voxgig-sdk/first-news-sdk/go/core"
 )
 
 func TestNewDirect(t *testing.T) {

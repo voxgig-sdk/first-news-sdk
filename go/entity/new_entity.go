@@ -1,9 +1,9 @@
 package entity
 
 import (
-	"github.com/voxgig-sdk/first-news-sdk/core"
+	"github.com/voxgig-sdk/first-news-sdk/go/core"
 
-	vs "github.com/voxgig/struct"
+	vs "github.com/voxgig-sdk/first-news-sdk/go/utility/struct"
 )
 
 type NewEntity struct {

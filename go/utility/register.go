@@ -1,6 +1,6 @@
 package utility
 
-import "github.com/voxgig-sdk/first-news-sdk/core"
+import "github.com/voxgig-sdk/first-news-sdk/go/core"
 
 func init() {
 	core.UtilityRegistrar = registerAll
