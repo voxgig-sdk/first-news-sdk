@@ -121,14 +121,12 @@ function new_direct_setup($mockres)
     $env = Runner::env_override([
         "FIRSTNEWS_TEST_NEW_ENTID" => [],
         "FIRSTNEWS_TEST_LIVE" => "FALSE",
-        "FIRSTNEWS_APIKEY" => "NONE",
     ]);
 
     $live = $env["FIRSTNEWS_TEST_LIVE"] === "TRUE";
 
     if ($live) {
         $merged_opts = [
-            "apikey" => $env["FIRSTNEWS_APIKEY"],
         ];
         $client = new FirstNewsSDK($merged_opts);
         return [

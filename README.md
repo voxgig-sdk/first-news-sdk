@@ -1,9 +1,99 @@
 # FirstNews SDK
 
+Query public news items published by FIRST.org, the global incident response community
 
+> TypeScript, Python, PHP, Golang, Ruby, Lua SDKs, a CLI, an interactive REPL, and an MCP server for AI agents — all generated from one OpenAPI spec by [@voxgig/sdkgen](https://github.com/voxgig/sdkgen).
 
-Available for [Golang](go/) and [Go CLI](go-cli/) and [Go MCP server](go-mcp/) and [Lua](lua/) and [PHP](php/) and [Python](py/) and [Ruby](rb/) and [TypeScript](ts/).
+## About FIRST News API
 
+The FIRST News API is part of the public data services run by [FIRST.org](https://www.first.org/) (the Forum of Incident Response and Security Teams), a global association of computer security incident response teams (CSIRTs). The `data/v1` service exposes a small set of read-only endpoints for member directory, news, channels, country data, and EPSS vulnerability scores.
+
+This SDK wraps the news endpoint, which returns news items the organisation has published. Queries follow the common FIRST URL scheme: `[endpoint][.format]?[parameters]`, where the format may be JSON (default), YAML, XML, CSV, or Excel, and parameters can filter the result set.
+
+Operational notes:
+
+- Base URL: `https://api.first.org/data/v1`
+- No authentication — only public data is exposed
+- CORS is enabled for browser clients
+- Rate limit: 1000 requests/minute for unauthenticated callers
+
+## Try it
+
+**TypeScript**
+```bash
+npm install first-news
+```
+
+**Python**
+```bash
+pip install first-news-sdk
+```
+
+**PHP**
+```bash
+composer require voxgig/first-news-sdk
+```
+
+**Golang**
+```bash
+go get github.com/voxgig-sdk/first-news-sdk/go
+```
+
+**Ruby**
+```bash
+gem install first-news-sdk
+```
+
+**Lua**
+```bash
+luarocks install first-news-sdk
+```
+
+## 30-second quickstart
+
+### TypeScript
+
+```ts
+import { FirstNewsSDK } from 'first-news'
+
+const client = new FirstNewsSDK({})
+
+// List all news
+const news = await client.New().list()
+```
+
+See the [TypeScript README](ts/README.md) for the
+full guide, or scroll down for the same example in other languages.
+
+## What's in the box
+
+| Surface | Use it for | Path |
+| --- | --- | --- |
+| **SDK** (TypeScript, Python, PHP, Golang, Ruby, Lua) | App integration | `ts/` `py/` `php/` `go/` `rb/` `lua/` |
+| **CLI** | Scripts, CI, ops, one-off API calls | `go-cli/` |
+| **MCP server** | AI agents (Claude, Cursor, Cline) | `go-mcp/` |
+
+## Use it from an AI agent (MCP)
+
+The generated MCP server exposes every operation in this SDK as an
+[MCP](https://modelcontextprotocol.io) tool that Claude, Cursor or Cline
+can call directly. Build and register it:
+
+```bash
+cd go-mcp && go build -o first-news-mcp .
+```
+
+Then add it to your agent's MCP config (Claude Desktop, Cursor, etc.):
+
+```json
+{
+  "mcpServers": {
+    "first-news": {
+      "command": "/abs/path/to/first-news-mcp"
+    }
+  }
+}
+```
 
 ## Entities
 
@@ -11,110 +101,19 @@ The API exposes one entity:
 
 | Entity | Description | API path |
 | --- | --- | --- |
-| **New** |  | `/news` |
+| **New** | A news item published by FIRST.org; served from `GET /news` with optional filter parameters and an optional `.format` suffix (json, yaml, xml, csv, xlsx). | `/news` |
 
-Each entity supports the following operations where available: **load**, **list**, **create**,
-**update**, and **remove**.
+Each entity supports the following operations where available: **load**,
+**list**, **create**, **update**, and **remove**.
 
-
-## Architecture
-
-### Entity-operation model
-
-Every SDK call follows the same pipeline:
-
-1. **Point** — resolve the API endpoint from the operation definition.
-2. **Spec** — build the HTTP specification (URL, method, headers, body).
-3. **Request** — send the HTTP request.
-4. **Response** — receive and parse the response.
-5. **Result** — extract the result data for the caller.
-
-At each stage a feature hook fires (e.g. `PrePoint`, `PreSpec`,
-`PreRequest`), allowing features to inspect or modify the pipeline.
-
-### Features
-
-Features are hook-based middleware that extend SDK behaviour.
-
-| Feature | Purpose |
-| --- | --- |
-| **TestFeature** | In-memory mock transport for testing without a live server |
-
-You can add custom features by passing them in the `extend` option at
-construction time.
-
-### Direct and Prepare
-
-For endpoints not covered by the entity model, use the low-level methods:
-
-- **`direct(fetchargs)`** — build and send an HTTP request in one step.
-- **`prepare(fetchargs)`** — build the request without sending it.
-
-Both accept a map with `path`, `method`, `params`, `query`, `headers`,
-and `body`.
-
-
-## Quick start
-
-### Golang
-
-```go
-import sdk "github.com/voxgig-sdk/first-news-sdk/go"
-
-client := sdk.NewFirstNewsSDK(map[string]any{
-    "apikey": os.Getenv("FIRST-NEWS_APIKEY"),
-})
-
-// List all news
-news, err := client.New(nil).List(nil, nil)
-```
-
-### Lua
-
-```lua
-local sdk = require("first-news_sdk")
-
-local client = sdk.new({
-  apikey = os.getenv("FIRST-NEWS_APIKEY"),
-})
-
--- List all news
-local news, err = client:New(nil):list(nil, nil)
-
--- Load a specific new
-local new, err = client:New(nil):load(
-  { id = "example_id" }, nil
-)
-```
-
-### PHP
-
-```php
-<?php
-require_once 'firstnews_sdk.php';
-
-$client = new FirstNewsSDK([
-    "apikey" => getenv("FIRST-NEWS_APIKEY"),
-]);
-
-// List all news
-[$news, $err] = $client->New(null)->list(null, null);
-
-// Load a specific new
-[$new, $err] = $client->New(null)->load(
-    ["id" => "example_id"], null
-);
-```
+## Quickstart in other languages
 
 ### Python
 
 ```python
-import os
 from firstnews_sdk import FirstNewsSDK
 
-client = FirstNewsSDK({
-    "apikey": os.environ.get("FIRST-NEWS_APIKEY"),
-})
+client = FirstNewsSDK({})
 
 # List all news
 news, err = client.New(None).list(None, None)
@@ -125,14 +124,40 @@ new, err = client.New(None).load(
 )
 ```
 
+### PHP
+
+```php
+<?php
+require_once 'firstnews_sdk.php';
+
+$client = new FirstNewsSDK([]);
+
+// List all news
+[$news, $err] = $client->New(null)->list(null, null);
+
+// Load a specific new
+[$new, $err] = $client->New(null)->load(
+    ["id" => "example_id"], null
+);
+```
+
+### Golang
+
+```go
+import sdk "github.com/voxgig-sdk/first-news-sdk/go"
+
+client := sdk.NewFirstNewsSDK(map[string]any{})
+
+// List all news
+news, err := client.New(nil).List(nil, nil)
+```
+
 ### Ruby
 
 ```ruby
 require_relative "FirstNews_sdk"
 
-client = FirstNewsSDK.new({
-  "apikey" => ENV["FIRST-NEWS_APIKEY"],
-})
+client = FirstNewsSDK.new({})
 
 # List all news
 news, err = client.New(nil).list(nil, nil)
@@ -143,40 +168,41 @@ new, err = client.New(nil).load(
 )
 ```
 
-### TypeScript
-
-```ts
-import { FirstNewsSDK } from 'first-news'
-
-const client = new FirstNewsSDK({
-  apikey: process.env.FIRST-NEWS_APIKEY,
-})
-
-// List all news
-const news = await client.New().list()
-```
-
-
-## Testing
-
-Both SDKs provide a test mode that replaces the HTTP transport with an
-in-memory mock, so tests run without a network connection.
-
-### Golang
-
-```go
-client := sdk.TestSDK(nil, nil)
-result, err := client.New(nil).Load(
-    map[string]any{"id": "test01"}, nil,
-)
-```
-
 ### Lua
 
 ```lua
-local client = sdk.test(nil, nil)
-local result, err = client:New(nil):load(
-  { id = "test01" }, nil
+local sdk = require("first-news_sdk")
+
+local client = sdk.new({})
+
+-- List all news
+local news, err = client:New(nil):list(nil, nil)
+
+-- Load a specific new
+local new, err = client:New(nil):load(
+  { id = "example_id" }, nil
+)
+```
+
+## Unit testing in offline mode
+
+Every SDK ships a test mode that swaps the HTTP transport for an
+in-memory mock, so unit tests run offline.
+
+### TypeScript
+
+```ts
+const client = FirstNewsSDK.test()
+const result = await client.New().load({ id: 'test01' })
+// result.ok === true, result.data contains mock data
+```
+
+### Python
+
+```python
+client = FirstNewsSDK.test(None, None)
+result, err = client.New(None).load(
+    {"id": "test01"}, None
 )
 ```
 
@@ -189,12 +215,12 @@ $client = FirstNewsSDK::test(null, null);
 );
 ```
 
-### Python
+### Golang
 
-```python
-client = FirstNewsSDK.test(None, None)
-result, err = client.New(None).load(
-    {"id": "test01"}, None
+```go
+client := sdk.TestSDK(nil, nil)
+result, err := client.New(nil).Load(
+    map[string]any{"id": "test01"}, nil,
 )
 ```
 
@@ -207,14 +233,46 @@ result, err = client.New(nil).load(
 )
 ```
 
-### TypeScript
+### Lua
 
-```ts
-const client = FirstNewsSDK.test()
-const result = await client.New().load({ id: 'test01' })
-// result.ok === true, result.data contains mock data
+```lua
+local client = sdk.test(nil, nil)
+local result, err = client:New(nil):load(
+  { id = "test01" }, nil
+)
 ```
 
+## How it works
+
+Every SDK call runs the same five-stage pipeline:
+
+1. **Point** — resolve the API endpoint from the operation definition.
+2. **Spec** — build the HTTP specification (URL, method, headers, body).
+3. **Request** — send the HTTP request.
+4. **Response** — receive and parse the response.
+5. **Result** — extract the result data for the caller.
+
+A feature hook fires at each stage (e.g. `PrePoint`, `PreSpec`,
+`PreRequest`), so features can inspect or modify the pipeline without
+forking the SDK.
+
+### Features
+
+| Feature | Purpose |
+| --- | --- |
+| **TestFeature** | In-memory mock transport for testing without a live server |
+
+Pass custom features via the `extend` option at construction time.
+
+### Direct and Prepare
+
+For endpoints the entity model doesn't cover, use the low-level methods:
+
+- **`direct(fetchargs)`** — build and send an HTTP request in one step.
+- **`prepare(fetchargs)`** — build the request without sending it.
+
+Both accept a map with `path`, `method`, `params`, `query`,
+`headers`, and `body`. See the [How-to guides](#how-to-guides) below.
 
 ## How-to guides
 
@@ -222,21 +280,22 @@ const result = await client.New().load({ id: 'test01' })
 
 When the entity interface does not cover an endpoint, use `direct`:
 
-**Go:**
-```go
-result, err := client.Direct(map[string]any{
-    "path":   "/api/resource/{id}",
-    "method": "GET",
-    "params": map[string]any{"id": "example"},
+**TypeScript:**
+```ts
+const result = await client.direct({
+  path: '/api/resource/{id}',
+  method: 'GET',
+  params: { id: 'example' },
 })
+console.log(result.data)
 ```
 
-**Lua:**
-```lua
-local result, err = client:direct({
-  path = "/api/resource/{id}",
-  method = "GET",
-  params = { id = "example" },
+**Python:**
+```python
+result, err = client.direct({
+    "path": "/api/resource/{id}",
+    "method": "GET",
+    "params": {"id": "example"},
 })
 ```
 
@@ -249,12 +308,12 @@ local result, err = client:direct({
 ]);
 ```
 
-**Python:**
-```python
-result, err = client.direct({
-    "path": "/api/resource/{id}",
+**Go:**
+```go
+result, err := client.Direct(map[string]any{
+    "path":   "/api/resource/{id}",
     "method": "GET",
-    "params": {"id": "example"},
+    "params": map[string]any{"id": "example"},
 })
 ```
 
@@ -267,25 +326,33 @@ result, err = client.direct({
 })
 ```
 
-**TypeScript:**
-```ts
-const result = await client.direct({
-  path: '/api/resource/{id}',
-  method: 'GET',
-  params: { id: 'example' },
+**Lua:**
+```lua
+local result, err = client:direct({
+  path = "/api/resource/{id}",
+  method = "GET",
+  params = { id = "example" },
 })
-console.log(result.data)
 ```
 
+## Per-language documentation
 
-## Language-specific documentation
+- [TypeScript](ts/README.md)
+- [Python](py/README.md)
+- [PHP](php/README.md)
+- [Golang](go/README.md)
+- [Ruby](rb/README.md)
+- [Lua](lua/README.md)
 
-- [Golang SDK](go/README.md)
-- [Go CLI SDK](go-cli/README.md)
-- [Go MCP server SDK](go-mcp/README.md)
-- [Lua SDK](lua/README.md)
-- [PHP SDK](php/README.md)
-- [Python SDK](py/README.md)
-- [Ruby SDK](rb/README.md)
-- [TypeScript SDK](ts/README.md)
+## Using the FIRST News API
 
+- Upstream: [https://api.first.org/](https://api.first.org/)
+
+- Copyright Forum of Incident Response and Security Teams, Inc. (2015 onward)
+- API returns public information only; no authentication is offered or required
+- Unauthenticated access is rate-limited to 1000 requests per minute (HTTP 429 on overage)
+- FIRST members can request higher limits through the FIRST support portal
+
+---
+
+Generated from the FIRST News API OpenAPI spec by [@voxgig/sdkgen](https://github.com/voxgig/sdkgen).

@@ -117,14 +117,12 @@ function directSetup(mockres?: any) {
   const env = envOverride({
     'FIRSTNEWS_TEST_NEW_ENTID': {},
     'FIRSTNEWS_TEST_LIVE': 'FALSE',
-    'FIRSTNEWS_APIKEY': 'NONE',
   })
 
   const live = 'TRUE' === env.FIRSTNEWS_TEST_LIVE
 
   if (live) {
     const client = new FirstNewsSDK({
-      apikey: env.FIRSTNEWS_APIKEY,
     })
 
     let idmap: any = env['FIRSTNEWS_TEST_NEW_ENTID']

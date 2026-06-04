@@ -106,14 +106,12 @@ def _new_direct_setup(mockres):
     env = runner.env_override({
         "FIRSTNEWS_TEST_NEW_ENTID": {},
         "FIRSTNEWS_TEST_LIVE": "FALSE",
-        "FIRSTNEWS_APIKEY": "NONE",
     })
 
     live = env.get("FIRSTNEWS_TEST_LIVE") == "TRUE"
 
     if live:
         merged_opts = {
-            "apikey": env.get("FIRSTNEWS_APIKEY"),
         }
         client = FirstNewsSDK(merged_opts)
         return {

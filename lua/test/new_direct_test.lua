@@ -115,14 +115,12 @@ function new_direct_setup(mockres)
   local env = runner.env_override({
     ["FIRSTNEWS_TEST_NEW_ENTID"] = {},
     ["FIRSTNEWS_TEST_LIVE"] = "FALSE",
-    ["FIRSTNEWS_APIKEY"] = "NONE",
   })
 
   local live = env["FIRSTNEWS_TEST_LIVE"] == "TRUE"
 
   if live then
     local merged_opts = {
-      apikey = env["FIRSTNEWS_APIKEY"],
     }
     local client = sdk.new(merged_opts)
     return {
