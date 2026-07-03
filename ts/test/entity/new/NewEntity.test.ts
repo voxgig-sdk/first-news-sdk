@@ -120,6 +120,7 @@ function basicSetup(extra?: any) {
     'FIRST_NEWS_TEST_NEW_ENTID': idmap,
     'FIRST_NEWS_TEST_LIVE': 'FALSE',
     'FIRST_NEWS_TEST_EXPLAIN': 'FALSE',
+    'FIRST_NEWS_APIKEY': 'NONE',
   })
 
   idmap = env['FIRST_NEWS_TEST_NEW_ENTID']
@@ -129,6 +130,7 @@ function basicSetup(extra?: any) {
   if (live) {
     client = new FirstNewsSDK(merge([
       {
+        apikey: env.FIRST_NEWS_APIKEY,
       },
       extra
     ]))

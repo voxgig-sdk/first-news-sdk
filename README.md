@@ -1,21 +1,8 @@
 # FirstNews SDK
 
-Query public news items published by FIRST.org, the global incident response community
+FIRST News API client, generated from the OpenAPI spec.
 
 > TypeScript, Python, PHP, Golang, Ruby, Lua SDKs, a CLI, an interactive REPL, and an MCP server for AI agents — all generated from one OpenAPI spec by [@voxgig/sdkgen](https://github.com/voxgig/sdkgen).
-
-## About FIRST News API
-
-The FIRST News API is part of the public data services run by [FIRST.org](https://www.first.org/) (the Forum of Incident Response and Security Teams), a global association of computer security incident response teams (CSIRTs). The `data/v1` service exposes a small set of read-only endpoints for member directory, news, channels, country data, and EPSS vulnerability scores.
-
-This SDK wraps the news endpoint, which returns news items the organisation has published. Queries follow the common FIRST URL scheme: `[endpoint][.format]?[parameters]`, where the format may be JSON (default), YAML, XML, CSV, or Excel, and parameters can filter the result set.
-
-Operational notes:
-
-- Base URL: `https://api.first.org/data/v1`
-- No authentication — only public data is exposed
-- CORS is enabled for browser clients
-- Rate limit: 1000 requests/minute for unauthenticated callers
 
 ## Try it
 
@@ -49,29 +36,31 @@ gem install first-news-sdk
 luarocks install first-news-sdk
 ```
 
-## 30-second quickstart
+## Quickstart
 
 ### TypeScript
 
 ```ts
 import { FirstNewsSDK } from 'first-news'
 
-const client = new FirstNewsSDK({})
+const client = new FirstNewsSDK({
+  apikey: process.env.FIRST-NEWS_APIKEY,
+})
 
 // List all news
 const news = await client.New().list()
+console.log(news.data)
 ```
 
-See the [TypeScript README](ts/README.md) for the
-full guide, or scroll down for the same example in other languages.
+See the [TypeScript README](ts/README.md) for the full guide.
 
-## What's in the box
+## Surfaces
 
-| Surface | Use it for | Path |
-| --- | --- | --- |
-| **SDK** (TypeScript, Python, PHP, Golang, Ruby, Lua) | App integration | `ts/` `py/` `php/` `go/` `rb/` `lua/` |
-| **CLI** | Scripts, CI, ops, one-off API calls | `go-cli/` |
-| **MCP server** | AI agents (Claude, Cursor, Cline) | `go-mcp/` |
+| Surface | Path |
+| --- | --- |
+| **SDK** (TypeScript, Python, PHP, Golang, Ruby, Lua) | `ts/` `py/` `php/` `go/` `rb/` `lua/` |
+| **CLI** | `go-cli/` |
+| **MCP server** | `go-mcp/` |
 
 ## Use it from an AI agent (MCP)
 
@@ -101,7 +90,7 @@ The API exposes one entity:
 
 | Entity | Description | API path |
 | --- | --- | --- |
-| **New** | A news item published by FIRST.org; served from `GET /news` with optional filter parameters and an optional `.format` suffix (json, yaml, xml, csv, xlsx). | `/news` |
+| **New** |  | `/news` |
 
 Each entity supports the following operations where available: **load**,
 **list**, **create**, **update**, and **remove**.
@@ -111,17 +100,20 @@ Each entity supports the following operations where available: **load**,
 ### Python
 
 ```python
+import os
 from firstnews_sdk import FirstNewsSDK
 
-client = FirstNewsSDK({})
+client = FirstNewsSDK({
+    "apikey": os.environ.get("FIRST-NEWS_APIKEY"),
+})
 
 # List all news
-news, err = client.New(None).list(None, None)
+news, err = client.New().list()
+print(news)
 
 # Load a specific new
-new, err = client.New(None).load(
-    {"id": "example_id"}, None
-)
+new, err = client.New().load({"id": "example_id"})
+print(new)
 ```
 
 ### PHP
@@ -130,15 +122,17 @@ new, err = client.New(None).load(
 <?php
 require_once 'firstnews_sdk.php';
 
-$client = new FirstNewsSDK([]);
+$client = new FirstNewsSDK([
+    "apikey" => getenv("FIRST-NEWS_APIKEY"),
+]);
 
 // List all news
-[$news, $err] = $client->New(null)->list(null, null);
+[$news, $err] = $client->New()->list();
+print_r($news);
 
 // Load a specific new
-[$new, $err] = $client->New(null)->load(
-    ["id" => "example_id"], null
-);
+[$new, $err] = $client->New()->load(["id" => "example_id"]);
+print_r($new);
 ```
 
 ### Golang
@@ -146,10 +140,13 @@ $client = new FirstNewsSDK([]);
 ```go
 import sdk "github.com/voxgig-sdk/first-news-sdk/go"
 
-client := sdk.NewFirstNewsSDK(map[string]any{})
+client := sdk.NewFirstNewsSDK(map[string]any{
+    "apikey": os.Getenv("FIRST-NEWS_APIKEY"),
+})
 
 // List all news
 news, err := client.New(nil).List(nil, nil)
+fmt.Println(news)
 ```
 
 ### Ruby
@@ -157,15 +154,17 @@ news, err := client.New(nil).List(nil, nil)
 ```ruby
 require_relative "FirstNews_sdk"
 
-client = FirstNewsSDK.new({})
+client = FirstNewsSDK.new({
+  "apikey" => ENV["FIRST-NEWS_APIKEY"],
+})
 
 # List all news
-news, err = client.New(nil).list(nil, nil)
+news, err = client.New().list
+puts news
 
 # Load a specific new
-new, err = client.New(nil).load(
-  { "id" => "example_id" }, nil
-)
+new, err = client.New().load({ "id" => "example_id" })
+puts new
 ```
 
 ### Lua
@@ -173,15 +172,17 @@ new, err = client.New(nil).load(
 ```lua
 local sdk = require("first-news_sdk")
 
-local client = sdk.new({})
+local client = sdk.new({
+  apikey = os.getenv("FIRST-NEWS_APIKEY"),
+})
 
 -- List all news
-local news, err = client:New(nil):list(nil, nil)
+local news, err = client:New():list()
+print(news)
 
 -- Load a specific new
-local new, err = client:New(nil):load(
-  { id = "example_id" }, nil
-)
+local new, err = client:New():load({ id = "example_id" })
+print(new)
 ```
 
 ## Unit testing in offline mode
@@ -200,25 +201,21 @@ const result = await client.New().load({ id: 'test01' })
 ### Python
 
 ```python
-client = FirstNewsSDK.test(None, None)
-result, err = client.New(None).load(
-    {"id": "test01"}, None
-)
+client = FirstNewsSDK.test()
+result, err = client.New().load({"id": "test01"})
 ```
 
 ### PHP
 
 ```php
-$client = FirstNewsSDK::test(null, null);
-[$result, $err] = $client->New(null)->load(
-    ["id" => "test01"], null
-);
+$client = FirstNewsSDK::test();
+[$result, $err] = $client->New()->load(["id" => "test01"]);
 ```
 
 ### Golang
 
 ```go
-client := sdk.TestSDK(nil, nil)
+client := sdk.Test()
 result, err := client.New(nil).Load(
     map[string]any{"id": "test01"}, nil,
 )
@@ -227,19 +224,15 @@ result, err := client.New(nil).Load(
 ### Ruby
 
 ```ruby
-client = FirstNewsSDK.test(nil, nil)
-result, err = client.New(nil).load(
-  { "id" => "test01" }, nil
-)
+client = FirstNewsSDK.test
+result, err = client.New().load({ "id" => "test01" })
 ```
 
 ### Lua
 
 ```lua
-local client = sdk.test(nil, nil)
-local result, err = client:New(nil):load(
-  { id = "test01" }, nil
-)
+local client = sdk.test()
+local result, err = client:New():load({ id = "test01" })
 ```
 
 ## How it works
@@ -343,15 +336,6 @@ local result, err = client:direct({
 - [Golang](go/README.md)
 - [Ruby](rb/README.md)
 - [Lua](lua/README.md)
-
-## Using the FIRST News API
-
-- Upstream: [https://api.first.org/](https://api.first.org/)
-
-- Copyright Forum of Incident Response and Security Teams, Inc. (2015 onward)
-- API returns public information only; no authentication is offered or required
-- Unauthenticated access is rate-limited to 1000 requests per minute (HTTP 429 on overage)
-- FIRST members can request higher limits through the FIRST support portal
 
 ---
 

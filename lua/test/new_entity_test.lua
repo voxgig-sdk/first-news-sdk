@@ -102,6 +102,7 @@ function new_basic_setup(extra)
     ["FIRSTNEWS_TEST_NEW_ENTID"] = idmap,
     ["FIRSTNEWS_TEST_LIVE"] = "FALSE",
     ["FIRSTNEWS_TEST_EXPLAIN"] = "FALSE",
+    ["FIRSTNEWS_APIKEY"] = "NONE",
   })
 
   local idmap_resolved = helpers.to_map(
@@ -113,6 +114,7 @@ function new_basic_setup(extra)
   if env["FIRSTNEWS_TEST_LIVE"] == "TRUE" then
     local merged_opts = vs.merge({
       {
+        apikey = env["FIRSTNEWS_APIKEY"],
       },
       extra or {},
     })

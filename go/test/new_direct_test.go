@@ -175,12 +175,14 @@ func newDirectSetup(mockres any) *newDirectSetupResult {
 	env := envOverride(map[string]any{
 		"FIRSTNEWS_TEST_NEW_ENTID": map[string]any{},
 		"FIRSTNEWS_TEST_LIVE":    "FALSE",
+		"FIRSTNEWS_APIKEY":       "NONE",
 	})
 
 	live := env["FIRSTNEWS_TEST_LIVE"] == "TRUE"
 
 	if live {
 		mergedOpts := map[string]any{
+			"apikey": env["FIRSTNEWS_APIKEY"],
 		}
 		client := sdk.NewFirstNewsSDK(mergedOpts)
 

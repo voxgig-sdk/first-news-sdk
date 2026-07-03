@@ -17,28 +17,7 @@ main: {
       ]
       title: "FIRST News API"
       version: "1.0.0"
-      tagline: "Query public news items published by FIRST.org, the global incident response community"
-      homepage: "https://api.first.org/"
-      docs_url: "https://api.first.org/"
-      license_short: "Copyright Forum of Incident Response and Security Teams, Inc. — public data accessible without authentication"
-      license_md: `- Copyright Forum of Incident Response and Security Teams, Inc. (2015 onward)
-- API returns public information only; no authentication is offered or required
-- Unauthenticated access is rate-limited to 1000 requests per minute (HTTP 429 on overage)
-- FIRST members can request higher limits through the FIRST support portal`
-      about_md: `The FIRST News API is part of the public data services run by [FIRST.org](https://www.first.org/) (the Forum of Incident Response and Security Teams), a global association of computer security incident response teams (CSIRTs). The \`data/v1\` service exposes a small set of read-only endpoints for member directory, news, channels, country data, and EPSS vulnerability scores.
-
-This SDK wraps the news endpoint, which returns news items the organisation has published. Queries follow the common FIRST URL scheme: \`[endpoint][.format]?[parameters]\`, where the format may be JSON (default), YAML, XML, CSV, or Excel, and parameters can filter the result set.
-
-Operational notes:
-
-- Base URL: \`https://api.first.org/data/v1\`
-- No authentication — only public data is exposed
-- CORS is enabled for browser clients
-- Rate limit: 1000 requests/minute for unauthenticated callers`
-      entity_desc: {
-        new: "A news item published by FIRST.org; served from `GET /news` with optional filter parameters and an optional `.format` suffix (json, yaml, xml, csv, xlsx)."
-      }
-      auth: false
     }
   }
 }
+
