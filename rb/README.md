@@ -10,13 +10,13 @@ The Ruby SDK for the FirstNews API — an entity-oriented client using idiomatic
 
 ## Install
 ```bash
-gem install first-news-sdk
+gem install voxgig-sdk-first-news
 ```
 
 Or add to your `Gemfile`:
 
 ```ruby
-gem "first-news-sdk"
+gem "voxgig-sdk-first-news"
 ```
 
 Then run:

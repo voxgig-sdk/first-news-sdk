@@ -10,7 +10,7 @@ The Lua SDK for the FirstNews API — an entity-oriented client using Lua conven
 
 ## Install
 ```bash
-luarocks install first-news-sdk
+luarocks install voxgig-sdk-first-news
 ```
 
 If the module is not yet published, add the source directory to

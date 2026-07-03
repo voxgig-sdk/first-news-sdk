@@ -10,7 +10,7 @@ The Python SDK for the FirstNews API — an entity-oriented client following Pyt
 
 ## Install
 ```bash
-pip install first-news-sdk
+pip install voxgig-sdk-first-news
 ```
 
 Or install from source:

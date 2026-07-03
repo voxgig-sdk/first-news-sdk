@@ -10,7 +10,7 @@ The TypeScript SDK for the FirstNews API — a type-safe, entity-oriented client
 
 ## Install
 ```bash
-npm install first-news
+npm install @voxgig-sdk/first-news
 ```
 ## Tutorial: your first API call
 

@@ -8,12 +8,14 @@ source = {
   dir = "first-news-sdk/lua"
 }
 description = {
-  summary = "FirstNews SDK for Lua",
-  license = "MIT"
+  summary = "Unofficial generated Lua SDK for the FIRST News public API. Not affiliated with or endorsed by the upstream API provider.",
+  homepage = "https://github.com/voxgig-sdk/first-news-sdk",
+  issues_url = "https://github.com/voxgig-sdk/first-news-sdk/issues",
+  license = "MIT",
+  labels = { "voxgig", "sdk", "generated-sdk", "openapi", "api-client", "first-news" }
 }
 dependencies = {
   "lua >= 5.3",
-  "dkjson >= 2.5",
   "dkjson >= 2.5",
 }
 build = {
