@@ -204,14 +204,7 @@ class FirstNewsSDK {
 
 
 
-  _new?: NewEntity
-
-  // Idiomatic facade: `client.new.list()` / `client.new.load({ id })`.
-  get new(): NewEntity {
-    return (this._new ??= new NewEntity(this, undefined))
-  }
-
-  /** @deprecated Use `client.new` instead. */
+  // Entity access: `client.New().list()` / `client.New().load({ id })`.
   New(data?: any) {
     const self = this
     return new NewEntity(self,data)

@@ -29,18 +29,16 @@ require_once 'firstnews_sdk.php';
 $client = new FirstNewsSDK();
 ```
 
-### 2. List news
+### 2. List new records
 
 ```php
 try {
-    $result = $client->new()->list();
-    if (is_array($result)) {
-        foreach ($result as $item) {
-            $d = $item->data_get();
-            echo $d["id"] . " " . $d["name"] . "\n";
-        }
+    // list() returns an array of New records — iterate directly.
+    $news = $client->New()->list();
+    foreach ($news as $item) {
+        echo $item["id"] . " " . $item["name"] . "\n";
     }
-} catch (\Exception $err) {
+} catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
 ```
@@ -49,9 +47,10 @@ try {
 
 ```php
 try {
-    $result = $client->new()->load(["id" => "example_id"]);
-    print_r($result);
-} catch (\Exception $err) {
+    // load() returns the bare New record (throws on error).
+    $new = $client->New()->load(["id" => "example_id"]);
+    print_r($new);
+} catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
 ```
@@ -97,13 +96,17 @@ print_r($fetchdef["headers"]);
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required:
+Create a mock client for unit testing — no server required. Seed fixture
+data via the `entity` option so offline calls resolve without a live server:
 
 ```php
-$client = FirstNewsSDK::test();
+$client = FirstNewsSDK::test([
+    "entity" => ["new" => ["test01" => ["id" => "test01"]]],
+]);
 
-$result = $client->new()->load(["id" => "test01"]);
-// $result contains mock response data
+// load() returns the bare mock record (throws on error).
+$new = $client->New()->load(["id" => "test01"]);
+print_r($new);
 ```
 
 ### Use a custom fetch function
@@ -249,7 +252,7 @@ API path: `/news`
 
 ### New
 
-Create an instance: `const new = client.new`
+Create an instance: `$new = $client->New();`
 
 #### Operations
 
@@ -276,14 +279,16 @@ Create an instance: `const new = client.new`
 
 #### Example: Load
 
-```ts
-const new = await client.new.load({ id: 'new_id' })
+```php
+// load() returns the bare New record (throws on error).
+$new = $client->New()->load(["id" => "new_id"]);
 ```
 
 #### Example: List
 
-```ts
-const news = await client.new.list()
+```php
+// list() returns an array of New records (throws on error).
+$news = $client->New()->list();
 ```
 
 
@@ -358,7 +363,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```php
-$new = $client->new();
+$new = $client->New();
 $new->load(["id" => "example_id"]);
 
 // $new->dataGet() now returns the loaded new data

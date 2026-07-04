@@ -220,25 +220,15 @@ class FirstNewsSDK:
         }
 
 
-    @property
-    def new(self):
-        """Idiomatic facade: client.new.list() / client.new.load({"id": ...})."""
-        from entity.new_entity import NewEntity
-        cached = getattr(self, "_new", None)
-        if cached is None:
-            cached = NewEntity(self, None)
-            self._new = cached
-        return cached
-
-    def New(self, data=None):
-        # Deprecated: use client.new instead.
+    def New(self, data=None) -> "NewEntity":
+        """Entity factory: client.New().list({}) / client.New().load({"id": ...})."""
         from entity.new_entity import NewEntity
         return NewEntity(self, data)
 
 
 
     @classmethod
-    def test(cls, testopts=None, sdkopts=None):
+    def test(cls, testopts=None, sdkopts=None) -> "FirstNewsSDK":
         if sdkopts is None:
             sdkopts = {}
         sdkopts = vs.clone(sdkopts)
@@ -258,3 +248,9 @@ class FirstNewsSDK:
         sdk.mode = "test"
 
         return sdk
+
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from entity.new_entity import NewEntity

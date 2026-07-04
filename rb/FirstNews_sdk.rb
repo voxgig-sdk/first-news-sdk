@@ -208,13 +208,7 @@ class FirstNewsSDK
   end
 
 
-  # Idiomatic facade: client.new.list / client.new.load({ "id" => ... })
-  def new
-    require_relative 'entity/new_entity'
-    @new ||= NewEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.new instead.
+  # Canonical facade: client.New.list / client.New.load({ "id" => ... })
   def New(data = nil)
     require_relative 'entity/new_entity'
     NewEntity.new(self, data)

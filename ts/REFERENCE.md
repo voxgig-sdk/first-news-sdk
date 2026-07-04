@@ -109,7 +109,7 @@ Alias for `FirstNewsSDK.test()`.
 ## NewEntity
 
 ```ts
-const new = client.new
+const new = client.New()
 ```
 
 ### Fields
@@ -135,7 +135,7 @@ const new = client.new
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.new.list()
+const results = await client.New().list()
 ```
 
 #### `load(match: object, ctrl?: object)`
@@ -143,7 +143,7 @@ const results = await client.new.list()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.new.load({ id: 'new_id' })
+const result = await client.New().load({ id: 'new_id' })
 ```
 
 ### Common Methods

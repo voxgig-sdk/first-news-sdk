@@ -26,9 +26,11 @@ import { FirstNewsSDK } from '@voxgig-sdk/first-news'
 
 const client = new FirstNewsSDK()
 
-// List all news
-const news = await client.new.list()
-console.log(news.data)
+// List all news (returns New[])
+const news = await client.New().list()
+for (const new of news) {
+  console.log(new)
+}
 ```
 
 See the [TypeScript README](ts/README.md) for the full guide.
@@ -83,12 +85,13 @@ from firstnews_sdk import FirstNewsSDK
 
 client = FirstNewsSDK()
 
-# List all news
-news = client.new.list()
-print(news)
+# List all news (returns a list, raises on error)
+news = client.New().list({})
+for new in news:
+    print(new)
 
-# Load a specific new
-new = client.new.load({"id": "example_id"})
+# Load a specific new (returns the record, raises on error)
+new = client.New().load({"id": "example_id"})
 print(new)
 ```
 
@@ -100,12 +103,12 @@ require_once 'firstnews_sdk.php';
 
 $client = new FirstNewsSDK();
 
-// List all news (throws on error)
-$news = $client->new()->list();
+// List all news (returns an array; throws on error)
+$news = $client->New()->list();
 print_r($news);
 
-// Load a specific new
-$new = $client->new()->load(["id" => "example_id"]);
+// Load a specific new (returns the bare record; throws on error)
+$new = $client->New()->load(["id" => "example_id"]);
 print_r($new);
 ```
 
@@ -128,12 +131,12 @@ require_relative "FirstNews_sdk"
 
 client = FirstNewsSDK.new
 
-# List all news
-news = client.new.list
+# List all news (returns an Array; raises on error)
+news = client.New.list
 puts news
 
-# Load a specific new
-new = client.new.load({ "id" => "example_id" })
+# Load a specific new (returns the bare record; raises on error)
+new = client.New.load({ "id" => "example_id" })
 puts new
 ```
 
@@ -145,11 +148,11 @@ local sdk = require("first-news_sdk")
 local client = sdk.new()
 
 -- List all news
-local news, err = client:new():list()
+local news, err = client:New():list()
 print(news)
 
 -- Load a specific new
-local new, err = client:new():load({ id = "example_id" })
+local new, err = client:New():load({ id = "example_id" })
 print(new)
 ```
 
@@ -162,22 +165,27 @@ in-memory mock, so unit tests run offline.
 
 ```ts
 const client = FirstNewsSDK.test()
-const result = await client.new.load({ id: 'test01' })
-// result.ok === true, result.data contains mock data
+const new = await client.New().load({ id: 1 })
+// new is a bare New populated with mock data
+console.log(new)
 ```
 
 ### Python
 
 ```python
 client = FirstNewsSDK.test()
-result = client.new.load({"id": "test01"})
+new = client.New().load({"id": "test01"})
+print(new)
 ```
 
 ### PHP
 
 ```php
-$client = FirstNewsSDK::test();
-$result = $client->new()->load(["id" => "test01"]);
+// Seed fixture data so offline calls resolve without a live server.
+$client = FirstNewsSDK::test([
+    "entity" => ["new" => ["test01" => ["id" => "test01"]]],
+]);
+$new = $client->New()->load(["id" => "test01"]);
 ```
 
 ### Golang
@@ -192,15 +200,18 @@ result, err := client.New(nil).Load(
 ### Ruby
 
 ```ruby
-client = FirstNewsSDK.test
-result = client.new.load({ "id" => "test01" })
+# Seed fixture data so offline calls resolve without a live server.
+client = FirstNewsSDK.test({
+  "entity" => { "new" => { "test01" => { "id" => "test01" } } },
+})
+new = client.New.load({ "id" => "test01" })
 ```
 
 ### Lua
 
 ```lua
 local client = sdk.test()
-local result, err = client:new():load({ id = "test01" })
+local result, err = client:New():load({ id = "test01" })
 ```
 
 ## How it works
@@ -248,6 +259,9 @@ const result = await client.direct({
   method: 'GET',
   params: { id: 'example' },
 })
+if (result instanceof Error) {
+  throw result
+}
 console.log(result.data)
 ```
 

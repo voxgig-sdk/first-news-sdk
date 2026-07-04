@@ -4,44 +4,45 @@
 # params (op.<name>.points[].args.params[]). Field/param types come from the
 # canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 # @voxgig/apidef VALID_CANON). Do not edit by hand.
+#
+# These are TypedDicts, not dataclasses: the SDK ops return/accept plain dicts
+# at runtime, and a TypedDict IS a dict shape, so the types match the runtime.
+# Optional (req:false) keys are modelled as TypedDict key-optionality
+# (total=False), split into a required base + total=False subclass when a type
+# has both required and optional keys.
 
 from __future__ import annotations
 
-from dataclasses import dataclass
-from typing import Optional, Any
+from typing import TypedDict, Any
 
 
-@dataclass
-class New:
-    access: Optional[str] = None
-    data: Optional[dict] = None
-    id: Optional[int] = None
-    last_modified: Optional[str] = None
-    link: Optional[str] = None
-    published: Optional[str] = None
-    status: Optional[str] = None
-    status_code: Optional[int] = None
-    summary: Optional[str] = None
-    title: Optional[str] = None
-    version: Optional[str] = None
+class New(TypedDict, total=False):
+    access: str
+    data: dict
+    id: int
+    last_modified: str
+    link: str
+    published: str
+    status: str
+    status_code: int
+    summary: str
+    title: str
+    version: str
 
 
-@dataclass
-class NewLoadMatch:
+class NewLoadMatch(TypedDict):
     id: int
 
 
-@dataclass
-class NewListMatch:
-    access: Optional[str] = None
-    data: Optional[dict] = None
-    id: Optional[int] = None
-    last_modified: Optional[str] = None
-    link: Optional[str] = None
-    published: Optional[str] = None
-    status: Optional[str] = None
-    status_code: Optional[int] = None
-    summary: Optional[str] = None
-    title: Optional[str] = None
-    version: Optional[str] = None
-
+class NewListMatch(TypedDict, total=False):
+    access: str
+    data: dict
+    id: int
+    last_modified: str
+    link: str
+    published: str
+    status: str
+    status_code: int
+    summary: str
+    title: str
+    version: str

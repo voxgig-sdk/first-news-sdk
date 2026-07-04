@@ -244,8 +244,9 @@ end
 
 
 
--- Idiomatic facade: client:new():list() / client:new():load({ id = ... })
-function FirstNewsSDK:new(data)
+-- Idiomatic facade: client:New():list() / client:New():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function FirstNewsSDK:New(data)
   local EntityMod = require("entity.new_entity")
   if data == nil then
     if self._new == nil then
@@ -253,12 +254,6 @@ function FirstNewsSDK:new(data)
     end
     return self._new
   end
-  return EntityMod.new(self, data)
-end
-
--- Deprecated: use client:new() instead.
-function FirstNewsSDK:New(data)
-  local EntityMod = require("entity.new_entity")
   return EntityMod.new(self, data)
 end
 

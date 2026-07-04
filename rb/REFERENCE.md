@@ -86,7 +86,7 @@ same parameters as `direct()`. Raises on error.
 ## NewEntity
 
 ```ruby
-new = client.new
+new = client.New
 ```
 
 ### Fields
@@ -112,7 +112,7 @@ new = client.new
 List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results = client.new.list(nil)
+results = client.New.list(nil)
 ```
 
 #### `load(reqmatch, ctrl = nil) -> result`
@@ -120,7 +120,7 @@ results = client.new.list(nil)
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.new.load({ "id" => "new_id" })
+result = client.New.load({ "id" => "new_id" })
 ```
 
 ### Common Methods

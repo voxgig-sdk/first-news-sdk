@@ -83,7 +83,7 @@ same parameters as `direct()`.
 ## NewEntity
 
 ```lua
-local new = client:new(nil)
+local new = client:New(nil)
 ```
 
 ### Fields
@@ -109,7 +109,7 @@ local new = client:new(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:new():list()
+local results, err = client:New():list()
 ```
 
 #### `load(reqmatch, ctrl) -> any, err`
@@ -117,7 +117,7 @@ local results, err = client:new():list()
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:new():load({ id = "new_id" })
+local result, err = client:New():load({ id = "new_id" })
 ```
 
 ### Common Methods

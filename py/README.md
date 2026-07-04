@@ -31,24 +31,28 @@ from firstnews_sdk import FirstNewsSDK
 client = FirstNewsSDK()
 ```
 
-### 2. List news
+### 2. List new records
+
+`list()` returns a `list` of records (each a `dict`) and raises on
+error — iterate it directly.
 
 ```python
 try:
-    result = client.new.list()
-    for item in result:
-        d = item.data_get()
-        print(d["id"], d["name"])
+    news = client.New().list({})
+    for new in news:
+        print(new)
 except Exception as err:
     print(f"list failed: {err}")
 ```
 
 ### 3. Load a new
 
+`load()` returns the bare record (a `dict`) and raises on error.
+
 ```python
 try:
-    result = client.new.load({"id": "example_id"})
-    print(result)
+    new = client.New().load({"id": "example_id"})
+    print(new)
 except Exception as err:
     print(f"load failed: {err}")
 ```
@@ -96,8 +100,9 @@ Create a mock client for unit testing — no server required:
 ```python
 client = FirstNewsSDK.test()
 
-result = client.new.load({"id": "test01"})
-# result contains mock response data
+# Entity ops return the bare record and raise on error.
+new = client.New().load({"id": "test01"})
+# new contains the mock response record
 ```
 
 ### Use a custom fetch function
@@ -240,7 +245,7 @@ API path: `/news`
 
 ### New
 
-Create an instance: `const new = client.new`
+Create an instance: `new = client.New()`
 
 #### Operations
 
@@ -267,14 +272,14 @@ Create an instance: `const new = client.new`
 
 #### Example: Load
 
-```ts
-const new = await client.new.load({ id: 'new_id' })
+```python
+new = client.New().load({"id": "new_id"})
 ```
 
 #### Example: List
 
-```ts
-const news = await client.new.list()
+```python
+news = client.New().list({})
 ```
 
 
@@ -348,7 +353,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```python
-new = client.new
+new = client.New()
 new.load({"id": "example_id"})
 
 # new.data_get() now returns the loaded new data

@@ -233,10 +233,10 @@ class FirstNewsSDK
 
     private $_new = null;
 
-    // Idiomatic facade: $client->new()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias New() (PHP method
-    // names are case-insensitive).
-    public function new($data = null)
+    // Canonical facade: $client->New()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->new()
+    // resolves here too.
+    public function New($data = null)
     {
         require_once __DIR__ . '/entity/new_entity.php';
         if ($data === null) {

@@ -80,7 +80,7 @@ Prepare a fetch definition without sending. Returns the `fetchdef` and raises on
 ## NewEntity
 
 ```python
-new = client.new
+new = client.New()
 ```
 
 ### Fields
@@ -106,7 +106,9 @@ new = client.new
 List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results = client.new.list({})
+results = client.New().list({})
+for new in results:
+    print(new)
 ```
 
 #### `load(reqmatch, ctrl=None) -> dict`
@@ -114,7 +116,7 @@ results = client.new.list({})
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.new.load({"id": "new_id"})
+result = client.New().load({"id": "new_id"})
 ```
 
 ### Common Methods
