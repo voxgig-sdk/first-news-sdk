@@ -244,6 +244,19 @@ end
 
 
 
+-- Idiomatic facade: client:new():list() / client:new():load({ id = ... })
+function FirstNewsSDK:new(data)
+  local EntityMod = require("entity.new_entity")
+  if data == nil then
+    if self._new == nil then
+      self._new = EntityMod.new(self, nil)
+    end
+    return self._new
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:new() instead.
 function FirstNewsSDK:New(data)
   local EntityMod = require("entity.new_entity")
   return EntityMod.new(self, data)

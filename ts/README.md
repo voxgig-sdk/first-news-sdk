@@ -9,9 +9,12 @@ The TypeScript SDK for the FirstNews API — a type-safe, entity-oriented client
 
 
 ## Install
-```bash
-npm install @voxgig-sdk/first-news
-```
+This package is not yet published to npm. Install it from the GitHub
+release tag (`ts/vX.Y.Z`):
+
+- Releases: [https://github.com/voxgig-sdk/first-news-sdk/releases](https://github.com/voxgig-sdk/first-news-sdk/releases)
+
+
 ## Tutorial: your first API call
 
 This tutorial walks through creating a client, listing entities, and
@@ -20,17 +23,15 @@ loading a specific record.
 ### 1. Create a client
 
 ```ts
-import { FirstNewsSDK } from 'first-news'
+import { FirstNewsSDK } from '@voxgig-sdk/first-news'
 
-const client = new FirstNewsSDK({
-  apikey: process.env.FIRST-NEWS_APIKEY,
-})
+const client = new FirstNewsSDK()
 ```
 
 ### 2. List news
 
 ```ts
-const result = await client.New().list()
+const result = await client.new.list()
 
 if (result.ok) {
   for (const item of result.data) {
@@ -42,7 +43,7 @@ if (result.ok) {
 ### 3. Load a new
 
 ```ts
-const result = await client.New().load({ id: 'example_id' })
+const result = await client.new.load({ id: 'example_id' })
 
 if (result.ok) {
   console.log(result.data)
@@ -91,7 +92,7 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = FirstNewsSDK.test()
 
-const result = await client.Planet().load({ id: 'test01' })
+const result = await client.new.load({ id: 'test01' })
 // result.ok === true
 // result.data contains mock response data
 ```
@@ -99,7 +100,7 @@ const result = await client.Planet().load({ id: 'test01' })
 You can also use the instance method:
 
 ```ts
-const client = new FirstNewsSDK({ apikey: '...' })
+const client = new FirstNewsSDK()
 const testClient = client.tester()
 ```
 
@@ -108,7 +109,7 @@ const testClient = client.tester()
 Entity instances remember their last match and data:
 
 ```ts
-const entity = client.Planet()
+const entity = client.new
 
 // First call sets internal match
 await entity.load({ id: 'example' })
@@ -135,7 +136,6 @@ const logger = {
 }
 
 const client = new FirstNewsSDK({
-  apikey: '...',
   extend: [logger],
 })
 ```
@@ -145,8 +145,7 @@ const client = new FirstNewsSDK({
 Create a `.env.local` file at the project root:
 
 ```
-FIRST-NEWS_TEST_LIVE=TRUE
-FIRST-NEWS_APIKEY=<your-key>
+FIRST_NEWS_TEST_LIVE=TRUE
 ```
 
 Then run:
@@ -164,7 +163,6 @@ cd ts && npm test
 
 ```ts
 new FirstNewsSDK(options?: {
-  apikey?: string
   base?: string
   prefix?: string
   suffix?: string
@@ -175,7 +173,6 @@ new FirstNewsSDK(options?: {
 
 | Option | Type | Description |
 | --- | --- | --- |
-| `apikey` | `string` | API key for authentication. |
 | `base` | `string` | Base URL of the API server. |
 | `prefix` | `string` | URL path prefix prepended to all requests. |
 | `suffix` | `string` | URL path suffix appended to all requests. |
@@ -288,7 +285,7 @@ API path: `/news`
 
 ### New
 
-Create an instance: `const new = client.New()`
+Create an instance: `const new = client.new`
 
 #### Operations
 
@@ -316,13 +313,13 @@ Create an instance: `const new = client.New()`
 #### Example: Load
 
 ```ts
-const new = await client.New().load({ id: 'new_id' })
+const new = await client.new.load({ id: 'new_id' })
 ```
 
 #### Example: List
 
 ```ts
-const news = await client.New().list()
+const news = await client.new.list()
 ```
 
 
@@ -383,7 +380,7 @@ first-news/
 Import the SDK from the package root:
 
 ```ts
-import { FirstNewsSDK } from 'first-news'
+import { FirstNewsSDK } from '@voxgig-sdk/first-news'
 ```
 
 ### Entity state
@@ -393,11 +390,11 @@ stores the returned data and match criteria internally. Subsequent
 calls on the same instance can rely on this state.
 
 ```ts
-const moon = client.Moon()
-await moon.load({ planet_id: 'earth', id: 'luna' })
+const new = client.new
+await new.load({ id: "example_id" })
 
-// moon.data() now returns the loaded moon data
-// moon.match() returns { planet_id: 'earth', id: 'luna' }
+// new.data() now returns the loaded new data
+// new.match() returns { id: "example_id" }
 ```
 
 Call `make()` to create a fresh instance with the same configuration

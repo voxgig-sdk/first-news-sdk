@@ -43,16 +43,14 @@ class NewEntityTest < Minitest::Test
     new_ref01_ent = client.New(nil)
     new_ref01_match = {}
 
-    new_ref01_list_result, err = new_ref01_ent.list(new_ref01_match, nil)
-    assert_nil err
+    new_ref01_list_result = new_ref01_ent.list(new_ref01_match, nil)
     assert new_ref01_list_result.is_a?(Array)
 
     # LOAD
     new_ref01_match_dt0 = {
       "id" => new_ref01_data["id"],
     }
-    new_ref01_data_dt0_loaded, err = new_ref01_ent.load(new_ref01_match_dt0, nil)
-    assert_nil err
+    new_ref01_data_dt0_loaded = new_ref01_ent.load(new_ref01_match_dt0, nil)
     new_ref01_data_dt0_load_result = Helpers.to_map(new_ref01_data_dt0_loaded)
     assert !new_ref01_data_dt0_load_result.nil?
     assert_equal new_ref01_data_dt0_load_result["id"], new_ref01_data["id"]
@@ -93,7 +91,6 @@ def new_basic_setup(extra)
     "FIRSTNEWS_TEST_NEW_ENTID" => idmap,
     "FIRSTNEWS_TEST_LIVE" => "FALSE",
     "FIRSTNEWS_TEST_EXPLAIN" => "FALSE",
-    "FIRSTNEWS_APIKEY" => "NONE",
   })
 
   idmap_resolved = Helpers.to_map(
@@ -105,7 +102,6 @@ def new_basic_setup(extra)
   if env["FIRSTNEWS_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
       {
-        "apikey" => env["FIRSTNEWS_APIKEY"],
       },
       extra || {},
     ])

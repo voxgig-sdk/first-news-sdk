@@ -2,6 +2,8 @@
 
 import { NewEntity } from './entity/NewEntity'
 
+export type * from './FirstNewsTypes'
+
 
 import { inspect } from 'node:util'
 
@@ -202,6 +204,14 @@ class FirstNewsSDK {
 
 
 
+  _new?: NewEntity
+
+  // Idiomatic facade: `client.new.list()` / `client.new.load({ id })`.
+  get new(): NewEntity {
+    return (this._new ??= new NewEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.new` instead. */
   New(data?: any) {
     const self = this
     return new NewEntity(self,data)

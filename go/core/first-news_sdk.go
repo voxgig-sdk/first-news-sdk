@@ -245,6 +245,9 @@ func (sdk *FirstNewsSDK) Direct(fetchargs map[string]any) (map[string]any, error
 }
 
 
+// New returns a New entity bound to this client.
+// Idiomatic usage: client.New(nil).List(nil, nil) or
+// client.New(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *FirstNewsSDK) New(data map[string]any) FirstNewsEntity {
 	return NewNewEntityFunc(sdk, data)
 }

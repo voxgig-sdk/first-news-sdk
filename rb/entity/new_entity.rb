@@ -45,6 +45,7 @@ class NewEntity
     end
   end
 
+  # @return [New, Hash] the current New data
   def data_get
     @_utility.feature_hook.call(@_entctx, "GetData")
     VoxgigStruct.clone(@_data)
@@ -57,12 +58,18 @@ class NewEntity
     end
   end
 
+  # @return [Hash] the current match filter (any subset of New fields)
   def match_get
     @_utility.feature_hook.call(@_entctx, "GetMatch")
     VoxgigStruct.clone(@_match)
   end
 
   
+  # Load a single New.
+  #
+  # @param reqmatch [NewLoadMatch, Hash, nil] match criteria (id/query fields)
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [New, Hash] the loaded New; raises FirstNewsError on failure
   def load(reqmatch, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({
@@ -86,6 +93,11 @@ class NewEntity
 
 
   
+  # List New items matching the given filter.
+  #
+  # @param reqmatch [NewListMatch, Hash, nil] match filter (any subset of New fields)
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [Array<New>, Array] the matching New items; raises FirstNewsError on failure
   def list(reqmatch, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({

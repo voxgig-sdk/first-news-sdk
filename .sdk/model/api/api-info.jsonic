@@ -4,6 +4,7 @@
 main: {
   kit: {
     info: {
+      auth: false
       contact: {
         name: "FIRST.Org"
         url: "https://www.first.org"

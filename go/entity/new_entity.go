@@ -85,6 +85,27 @@ func (e *NewEntity) Match(args ...any) any {
 	return out
 }
 
+// DataTyped is the statically-typed accessor for this entity's data. With no
+// argument it returns the current data as an New; with an argument it
+// sets the data and returns the stored value. It delegates to the untyped Data
+// (identical runtime) and converts at the typed boundary.
+func (e *NewEntity) DataTyped(data ...New) New {
+	if len(data) > 0 {
+		return typedFrom[New](e.Data(asMap(data[0])))
+	}
+	return typedFrom[New](e.Data())
+}
+
+// MatchTyped mirrors DataTyped for the entity's match filter. The match is a
+// partial of the entity, so it round-trips through New (all fields
+// optional at the wire level).
+func (e *NewEntity) MatchTyped(match ...New) New {
+	if len(match) > 0 {
+		return typedFrom[New](e.Match(asMap(match[0])))
+	}
+	return typedFrom[New](e.Match())
+}
+
 
 func (e *NewEntity) Load(reqmatch map[string]any, ctrl map[string]any) (any, error) {
 	utility := e.utility
@@ -111,6 +132,17 @@ func (e *NewEntity) Load(reqmatch map[string]any, ctrl map[string]any) (any, err
 	})
 }
 
+// LoadTyped is the statically-typed variant of Load: it takes an
+// NewLoadMatch and returns an New. It delegates to the untyped
+// Load (identical runtime) and converts at the typed boundary.
+func (e *NewEntity) LoadTyped(reqmatch NewLoadMatch, ctrl map[string]any) (New, error) {
+	res, err := e.Load(asMap(reqmatch), ctrl)
+	if err != nil {
+		return New{}, err
+	}
+	return typedFrom[New](res), nil
+}
+
 
 
 
@@ -131,6 +163,17 @@ func (e *NewEntity) List(reqmatch map[string]any, ctrl map[string]any) (any, err
 			}
 		}
 	})
+}
+
+// ListTyped is the statically-typed variant of List: it takes an
+// NewListMatch and returns []New. It delegates to the untyped
+// List (identical runtime) and converts at the typed boundary.
+func (e *NewEntity) ListTyped(reqmatch NewListMatch, ctrl map[string]any) ([]New, error) {
+	res, err := e.List(asMap(reqmatch), ctrl)
+	if err != nil {
+		return nil, err
+	}
+	return typedSliceFrom[New](res), nil
 }
 
 

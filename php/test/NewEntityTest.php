@@ -50,16 +50,14 @@ class NewEntityTest extends TestCase
         $new_ref01_ent = $client->New(null);
         $new_ref01_match = [];
 
-        [$new_ref01_list_result, $err] = $new_ref01_ent->list($new_ref01_match, null);
-        $this->assertNull($err);
+        $new_ref01_list_result = $new_ref01_ent->list($new_ref01_match, null);
         $this->assertIsArray($new_ref01_list_result);
 
         // LOAD
         $new_ref01_match_dt0 = [
             "id" => $new_ref01_data["id"],
         ];
-        [$new_ref01_data_dt0_loaded, $err] = $new_ref01_ent->load($new_ref01_match_dt0, null);
-        $this->assertNull($err);
+        $new_ref01_data_dt0_loaded = $new_ref01_ent->load($new_ref01_match_dt0, null);
         $new_ref01_data_dt0_load_result = Helpers::to_map($new_ref01_data_dt0_loaded);
         $this->assertNotNull($new_ref01_data_dt0_load_result);
         $this->assertEquals($new_ref01_data_dt0_load_result["id"], $new_ref01_data["id"]);
@@ -96,7 +94,6 @@ function new_basic_setup($extra)
         "FIRSTNEWS_TEST_NEW_ENTID" => $idmap,
         "FIRSTNEWS_TEST_LIVE" => "FALSE",
         "FIRSTNEWS_TEST_EXPLAIN" => "FALSE",
-        "FIRSTNEWS_APIKEY" => "NONE",
     ]);
 
     $idmap_resolved = Helpers::to_map(
@@ -108,7 +105,6 @@ function new_basic_setup($extra)
     if ($env["FIRSTNEWS_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
             [
-                "apikey" => $env["FIRSTNEWS_APIKEY"],
             ],
             $extra ?? [],
         ]);

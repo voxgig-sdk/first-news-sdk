@@ -19,7 +19,6 @@ Create a new SDK client instance.
 | Name | Type | Description |
 | --- | --- | --- |
 | `options` | `table` | SDK configuration options. |
-| `options.apikey` | `string` | API key for authentication. |
 | `options.base` | `string` | Base URL for API requests. |
 | `options.prefix` | `string` | URL prefix appended after base. |
 | `options.suffix` | `string` | URL suffix appended after path. |
@@ -84,7 +83,7 @@ same parameters as `direct()`.
 ## NewEntity
 
 ```lua
-local new = client:New(nil)
+local new = client:new(nil)
 ```
 
 ### Fields
@@ -110,7 +109,7 @@ local new = client:New(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:New():list()
+local results, err = client:new():list()
 ```
 
 #### `load(reqmatch, ctrl) -> any, err`
@@ -118,7 +117,7 @@ local results, err = client:New():list()
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:New():load({ id = "new_id" })
+local result, err = client:new():load({ id = "new_id" })
 ```
 
 ### Common Methods

@@ -9,12 +9,9 @@ The Lua SDK for the FirstNews API — an entity-oriented client using Lua conven
 
 
 ## Install
-```bash
-luarocks install voxgig-sdk-first-news
-```
-
-If the module is not yet published, add the source directory to
-your `LUA_PATH`:
+This package is not yet published to LuaRocks. Install it from the
+GitHub release tag (`lua/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/first-news-sdk/releases)),
+or add the source directory to your `LUA_PATH`:
 
 ```bash
 export LUA_PATH="path/to/lua/?.lua;path/to/lua/?/init.lua;;"
@@ -31,15 +28,13 @@ loading a specific record.
 ```lua
 local sdk = require("first-news_sdk")
 
-local client = sdk.new({
-  apikey = os.getenv("FIRST-NEWS_APIKEY"),
-})
+local client = sdk.new()
 ```
 
 ### 2. List news
 
 ```lua
-local result, err = client:New():list()
+local result, err = client:new():list()
 if err then error(err) end
 
 if type(result) == "table" then
@@ -53,7 +48,7 @@ end
 ### 3. Load a new
 
 ```lua
-local result, err = client:New():load({ id = "example_id" })
+local result, err = client:new():load({ id = "example_id" })
 if err then error(err) end
 print(result)
 ```
@@ -101,7 +96,7 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:FirstNews():load({ id = "test01" })
+local result, err = client:new():load({ id = "test01" })
 -- result contains mock response data
 ```
 
@@ -134,8 +129,7 @@ local client = sdk.new({
 Create a `.env.local` file at the project root:
 
 ```
-FIRST-NEWS_TEST_LIVE=TRUE
-FIRST-NEWS_APIKEY=<your-key>
+FIRST_NEWS_TEST_LIVE=TRUE
 ```
 
 Then run:
@@ -158,7 +152,6 @@ Creates a new SDK client.
 
 | Option | Type | Description |
 | --- | --- | --- |
-| `apikey` | `string` | API key for authentication. |
 | `base` | `string` | Base URL of the API server. |
 | `prefix` | `string` | URL path prefix prepended to all requests. |
 | `suffix` | `string` | URL path suffix appended to all requests. |
@@ -245,7 +238,7 @@ API path: `/news`
 
 ### New
 
-Create an instance: `const new = client.New()`
+Create an instance: `const new = client.new`
 
 #### Operations
 
@@ -273,13 +266,13 @@ Create an instance: `const new = client.New()`
 #### Example: Load
 
 ```ts
-const new = await client.New().load({ id: 'new_id' })
+const new = await client.new.load({ id: 'new_id' })
 ```
 
 #### Example: List
 
 ```ts
-const news = await client.New().list()
+const news = await client.new.list()
 ```
 
 
@@ -354,11 +347,11 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```lua
-local moon = client:Moon(nil)
-moon:load({ planet_id = "earth", id = "luna" }, nil)
+local new = client:new()
+new:load({ id = "example_id" })
 
--- moon:data_get() now returns the loaded moon data
--- moon:match_get() returns the last match criteria
+-- new:data_get() now returns the loaded new data
+-- new:match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

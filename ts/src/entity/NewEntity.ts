@@ -14,9 +14,14 @@ import type {
   Control,
 } from '../types'
 
+import type {
+  New,
+  NewLoadMatch,
+  NewListMatch,
+} from '../FirstNewsTypes'
 
 // TODO: needs Entity superclass
-class NewEntity extends FirstNewsEntityBase {
+class NewEntity extends FirstNewsEntityBase<New> {
 
   constructor(client: FirstNewsSDK, entopts: any) {
     super(client, entopts)
@@ -32,7 +37,7 @@ class NewEntity extends FirstNewsEntityBase {
 
 
 
-  async load(this: any, reqmatch?: any, ctrl?: Control) {
+  async load(this: any, reqmatch?: NewLoadMatch, ctrl?: Control): Promise<New> {
 
     const utility = this._utility
 
@@ -136,14 +141,16 @@ class NewEntity extends FirstNewsEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<New> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }
 
 
 
-  async list(this: any, reqmatch?: any, ctrl?: Control) {
+  async list(this: any, reqmatch?: NewListMatch, ctrl?: Control): Promise<New[]> {
 
     const utility = this._utility
 
@@ -243,7 +250,9 @@ class NewEntity extends FirstNewsEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<New[]> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }

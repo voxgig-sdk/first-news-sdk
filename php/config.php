@@ -20,9 +20,6 @@ class FirstNewsConfig
             ],
             "options" => [
                 "base" => "https://api.first.org/data/v1",
-                "auth" => [
-                    "prefix" => "Bearer",
-                ],
                 "headers" => [
           'content-type' => 'application/json',
         ],
@@ -233,6 +230,7 @@ class FirstNewsConfig
                         'orig' => 'id',
                         'reqd' => true,
                         'type' => '`$INTEGER`',
+                        'index$' => 0,
                       ],
                     ],
                   ],

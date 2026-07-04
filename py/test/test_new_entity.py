@@ -50,16 +50,14 @@ class TestNewEntity:
         new_ref01_ent = client.New(None)
         new_ref01_match = {}
 
-        new_ref01_list_result, err = new_ref01_ent.list(new_ref01_match, None)
-        assert err is None
+        new_ref01_list_result = new_ref01_ent.list(new_ref01_match, None)
         assert isinstance(new_ref01_list_result, list)
 
         # LOAD
         new_ref01_match_dt0 = {
             "id": new_ref01_data["id"],
         }
-        new_ref01_data_dt0_loaded, err = new_ref01_ent.load(new_ref01_match_dt0, None)
-        assert err is None
+        new_ref01_data_dt0_loaded = new_ref01_ent.load(new_ref01_match_dt0, None)
         new_ref01_data_dt0_load_result = helpers.to_map(new_ref01_data_dt0_loaded)
         assert new_ref01_data_dt0_load_result is not None
         assert new_ref01_data_dt0_load_result["id"] == new_ref01_data["id"]
@@ -102,7 +100,6 @@ def _new_basic_setup(extra):
         "FIRSTNEWS_TEST_NEW_ENTID": idmap,
         "FIRSTNEWS_TEST_LIVE": "FALSE",
         "FIRSTNEWS_TEST_EXPLAIN": "FALSE",
-        "FIRSTNEWS_APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
@@ -113,7 +110,6 @@ def _new_basic_setup(extra):
     if env.get("FIRSTNEWS_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
-                "apikey": env.get("FIRSTNEWS_APIKEY"),
             },
             extra or {},
         ])
