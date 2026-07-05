@@ -34,7 +34,7 @@ class NewLoadMatch
     public int $id;
 }
 
-/** Match filter for New#list (any subset of New fields). */
+/** Request payload for New#list. */
 class NewListMatch
 {
     public ?string $access = null;

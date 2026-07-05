@@ -66,7 +66,7 @@ NewLoadMatch = Struct.new(
   keyword_init: true
 )
 
-# Match filter for New#list (any subset of New fields).
+# Request payload for New#list.
 #
 # @!attribute [rw] access
 #   @return [String, nil]

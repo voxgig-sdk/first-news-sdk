@@ -28,8 +28,7 @@ type NewLoadMatch struct {
 	Id int `json:"id"`
 }
 
-// NewListMatch mirrors the new fields as an all-optional match
-// filter (Go analog of Partial<New>).
+// NewListMatch is the typed request payload for New.ListTyped.
 type NewListMatch struct {
 	Access *string `json:"access,omitempty"`
 	Data *map[string]any `json:"data,omitempty"`

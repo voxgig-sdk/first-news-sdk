@@ -8,7 +8,7 @@ Complete API reference for the FirstNews Ruby SDK.
 ### Constructor
 
 ```ruby
-require_relative 'first-news_sdk'
+require_relative 'FirstNews_sdk'
 
 client = FirstNewsSDK.new(options)
 ```
@@ -93,26 +93,26 @@ new = client.New
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `access` | ``$STRING`` | No |  |
-| `data` | ``$OBJECT`` | No |  |
-| `id` | ``$INTEGER`` | No |  |
-| `last_modified` | ``$STRING`` | No |  |
-| `link` | ``$STRING`` | No |  |
-| `published` | ``$STRING`` | No |  |
-| `status` | ``$STRING`` | No |  |
-| `status_code` | ``$INTEGER`` | No |  |
-| `summary` | ``$STRING`` | No |  |
-| `title` | ``$STRING`` | No |  |
-| `version` | ``$STRING`` | No |  |
+| `access` | `String` | No |  |
+| `data` | `Hash` | No |  |
+| `id` | `Integer` | No |  |
+| `last_modified` | `String` | No |  |
+| `link` | `String` | No |  |
+| `published` | `String` | No |  |
+| `status` | `String` | No |  |
+| `status_code` | `Integer` | No |  |
+| `summary` | `String` | No |  |
+| `title` | `String` | No |  |
+| `version` | `String` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl = nil) -> Array`
+#### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
 
 ```ruby
-results = client.New.list(nil)
+results = client.New.list
 ```
 
 #### `load(reqmatch, ctrl = nil) -> result`

@@ -8,7 +8,7 @@ Complete API reference for the FirstNews Python SDK.
 ### Constructor
 
 ```python
-from first-news_sdk import FirstNewsSDK
+from firstnews_sdk import FirstNewsSDK
 
 client = FirstNewsSDK(options)
 ```
@@ -87,26 +87,26 @@ new = client.New()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `access` | ``$STRING`` | No |  |
-| `data` | ``$OBJECT`` | No |  |
-| `id` | ``$INTEGER`` | No |  |
-| `last_modified` | ``$STRING`` | No |  |
-| `link` | ``$STRING`` | No |  |
-| `published` | ``$STRING`` | No |  |
-| `status` | ``$STRING`` | No |  |
-| `status_code` | ``$INTEGER`` | No |  |
-| `summary` | ``$STRING`` | No |  |
-| `title` | ``$STRING`` | No |  |
-| `version` | ``$STRING`` | No |  |
+| `access` | `str` | No |  |
+| `data` | `dict` | No |  |
+| `id` | `int` | No |  |
+| `last_modified` | `str` | No |  |
+| `link` | `str` | No |  |
+| `published` | `str` | No |  |
+| `status` | `str` | No |  |
+| `status_code` | `int` | No |  |
+| `summary` | `str` | No |  |
+| `title` | `str` | No |  |
+| `version` | `str` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.New().list({})
+results = client.New().list()
 for new in results:
     print(new)
 ```

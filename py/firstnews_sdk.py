@@ -221,7 +221,7 @@ class FirstNewsSDK:
 
 
     def New(self, data=None) -> "NewEntity":
-        """Entity factory: client.New().list({}) / client.New().load({"id": ...})."""
+        """Entity factory: client.New().list() / client.New().load({"id": ...})."""
         from entity.new_entity import NewEntity
         return NewEntity(self, data)
 

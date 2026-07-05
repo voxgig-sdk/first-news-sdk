@@ -109,24 +109,24 @@ Alias for `FirstNewsSDK.test()`.
 ## NewEntity
 
 ```ts
-const new = client.New()
+const new_ = client.New()
 ```
 
 ### Fields
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `access` | ``$STRING`` | No |  |
-| `data` | ``$OBJECT`` | No |  |
-| `id` | ``$INTEGER`` | No |  |
-| `last_modified` | ``$STRING`` | No |  |
-| `link` | ``$STRING`` | No |  |
-| `published` | ``$STRING`` | No |  |
-| `status` | ``$STRING`` | No |  |
-| `status_code` | ``$INTEGER`` | No |  |
-| `summary` | ``$STRING`` | No |  |
-| `title` | ``$STRING`` | No |  |
-| `version` | ``$STRING`` | No |  |
+| `access` | `string` | No |  |
+| `data` | `Record<string, any>` | No |  |
+| `id` | `number` | No |  |
+| `last_modified` | `string` | No |  |
+| `link` | `string` | No |  |
+| `published` | `string` | No |  |
+| `status` | `string` | No |  |
+| `status_code` | `number` | No |  |
+| `summary` | `string` | No |  |
+| `title` | `string` | No |  |
+| `version` | `string` | No |  |
 
 ### Operations
 
@@ -143,7 +143,7 @@ const results = await client.New().list()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.New().load({ id: 'new_id' })
+const result = await client.New().load({ id: 1 })
 ```
 
 ### Common Methods

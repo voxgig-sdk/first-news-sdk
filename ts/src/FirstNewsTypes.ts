@@ -23,5 +23,17 @@ export interface NewLoadMatch {
   id: number
 }
 
-export type NewListMatch = Partial<New>
+export interface NewListMatch {
+  access?: string
+  data?: Record<string, any>
+  id?: number
+  last_modified?: string
+  link?: string
+  published?: string
+  status?: string
+  status_code?: number
+  summary?: string
+  title?: string
+  version?: string
+}
 

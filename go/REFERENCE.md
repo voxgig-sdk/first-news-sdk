@@ -97,17 +97,17 @@ new := client.New(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `access` | ``$STRING`` | No |  |
-| `data` | ``$OBJECT`` | No |  |
-| `id` | ``$INTEGER`` | No |  |
-| `last_modified` | ``$STRING`` | No |  |
-| `link` | ``$STRING`` | No |  |
-| `published` | ``$STRING`` | No |  |
-| `status` | ``$STRING`` | No |  |
-| `status_code` | ``$INTEGER`` | No |  |
-| `summary` | ``$STRING`` | No |  |
-| `title` | ``$STRING`` | No |  |
-| `version` | ``$STRING`` | No |  |
+| `access` | `string` | No |  |
+| `data` | `map[string]any` | No |  |
+| `id` | `int` | No |  |
+| `last_modified` | `string` | No |  |
+| `link` | `string` | No |  |
+| `published` | `string` | No |  |
+| `status` | `string` | No |  |
+| `status_code` | `int` | No |  |
+| `summary` | `string` | No |  |
+| `title` | `string` | No |  |
+| `version` | `string` | No |  |
 
 ### Operations
 

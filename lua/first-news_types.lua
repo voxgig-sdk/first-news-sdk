@@ -23,6 +23,17 @@
 ---@field id number
 
 ---@class NewListMatch
+---@field access? string
+---@field data? table
+---@field id? number
+---@field last_modified? string
+---@field link? string
+---@field published? string
+---@field status? string
+---@field status_code? number
+---@field summary? string
+---@field title? string
+---@field version? string
 
 local M = {}
 
