@@ -120,7 +120,7 @@ results = client.New.list
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.New.load({ "id" => "new_id" })
+result = client.New.load({ "id" => 1 })
 ```
 
 ### Common Methods

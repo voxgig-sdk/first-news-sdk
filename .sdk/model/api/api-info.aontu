@@ -16,9 +16,9 @@ main: {
           url: "https://api.first.org/data/v1"
         }
       ]
+      summary: "Public query for FIRST News with additional parameters for filtering results."
       title: "FIRST News API"
       version: "1.0.0"
+      website: "https://first.org"
     }
   }
-}
-

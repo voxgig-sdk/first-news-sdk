@@ -49,7 +49,7 @@ end
 ```ruby
 begin
   # load returns the bare New record (raises on error).
-  new = client.New.load({ "id" => "example_id" })
+  new = client.New.load({ "id" => 1 })
   puts new
 rescue => err
   warn "load failed: #{err}"
@@ -304,7 +304,7 @@ Create an instance: `new = client.New`
 
 ```ruby
 # load returns the bare New record (raises on error).
-new = client.New.load({ "id" => "new_id" })
+new = client.New.load({ "id" => 1 })
 ```
 
 #### Example: List

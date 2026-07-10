@@ -320,7 +320,7 @@ Create an instance: `new := client.New(nil)`
 #### Example: Load
 
 ```go
-new, err := client.New(nil).Load(map[string]any{"id": "new_id"}, nil)
+new, err := client.New(nil).Load(map[string]any{"id": 1}, nil)
 if err != nil {
     panic(err)
 }

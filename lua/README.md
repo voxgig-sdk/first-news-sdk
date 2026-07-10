@@ -50,7 +50,7 @@ end
 ### 3. Load a new
 
 ```lua
-local new, err = client:New():load({ id = "example_id" })
+local new, err = client:New():load({ id = 1 })
 if err then error(err) end
 print(new)
 ```
@@ -292,7 +292,7 @@ Create an instance: `local new = client:New(nil)`
 #### Example: Load
 
 ```lua
-local new, err = client:New():load({ id = "new_id" })
+local new, err = client:New():load({ id = 1 })
 ```
 
 #### Example: List

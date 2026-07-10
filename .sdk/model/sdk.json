@@ -6,9 +6,6 @@
     },
     "kit": {
       "config": {
-        "auth": {
-          "prefix": "Bearer"
-        },
         "docs_order": [
           "ts",
           "py",
@@ -396,14 +393,17 @@
           "url": "https://www.first.org"
         },
         "description": "Public query for FIRST News with additional parameters for filtering results. No credentials required.",
+        "meta_source": "https://www.freepublicapis.com",
         "servers": [
           {
             "description": "FIRST API v1 Production Server",
             "url": "https://api.first.org/data/v1"
           }
         ],
+        "summary": "Public query for FIRST News with additional parameters for filtering results.",
         "title": "FIRST News API",
-        "version": "1.0.0"
+        "version": "1.0.0",
+        "website": "https://first.org"
       },
       "option": {},
       "target": {
@@ -456,6 +456,9 @@
           },
           "name": "go-cli",
           "phase": {
+            "agentguide": {
+              "active": false
+            },
             "entity": {
               "active": false
             },
@@ -506,6 +509,9 @@
           },
           "name": "go-mcp",
           "phase": {
+            "agentguide": {
+              "active": false
+            },
             "entity": {
               "active": false
             },

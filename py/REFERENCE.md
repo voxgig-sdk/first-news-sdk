@@ -116,7 +116,7 @@ for new in results:
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.New().load({"id": "new_id"})
+result = client.New().load({"id": 1})
 ```
 
 ### Common Methods
