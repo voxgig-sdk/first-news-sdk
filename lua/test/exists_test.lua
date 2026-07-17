@@ -1,4 +1,4 @@
--- ProjectName SDK exists test
+-- FirstNews SDK exists test
 
 local sdk = require("first-news_sdk")
 
