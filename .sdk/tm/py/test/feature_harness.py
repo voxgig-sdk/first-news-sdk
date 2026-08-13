@@ -14,12 +14,12 @@ from __future__ import annotations
 
 from urllib.parse import quote
 
-from config import make_config
-from features import _make_feature
-from core.control import FirstNewsControl
-from core.error import FirstNewsError
-from core.result import FirstNewsResult
-from core.spec import FirstNewsSpec
+from projectname_sdk.config import make_config
+from projectname_sdk.features import _make_feature
+from projectname_sdk.core.control import FirstNewsControl
+from projectname_sdk.core.error import FirstNewsError
+from projectname_sdk.core.result import FirstNewsResult
+from projectname_sdk.core.spec import FirstNewsSpec
 
 
 # True when this SDK was generated with the named feature.

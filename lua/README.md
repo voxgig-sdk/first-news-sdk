@@ -43,7 +43,7 @@ local news, err = client:New():list()
 if err then error(err) end
 
 for _, item in ipairs(news) do
-  print(item["id"], item["access"])
+  print(item["id"], item["content"])
 end
 ```
 
@@ -241,17 +241,13 @@ Only `direct()` returns a response envelope — a `table` with `ok`,
 
 | Field | Description |
 | --- | --- |
-| `access` |  |
-| `data` |  |
+| `channels` |  |
+| `content` |  |
 | `id` |  |
-| `last_modified` |  |
 | `link` |  |
 | `published` |  |
-| `status` |  |
-| `status_code` |  |
 | `summary` |  |
 | `title` |  |
-| `version` |  |
 
 Operations: List, Load.
 
@@ -277,17 +273,13 @@ Create an instance: `local new = client:New(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `access` | `string` |  |
-| `data` | `table` |  |
+| `channels` | `table` |  |
+| `content` | `string` |  |
 | `id` | `number` |  |
-| `last_modified` | `string` |  |
 | `link` | `string` |  |
 | `published` | `string` |  |
-| `status` | `string` |  |
-| `status_code` | `number` |  |
 | `summary` | `string` |  |
 | `title` | `string` |  |
-| `version` | `string` |  |
 
 #### Example: Load
 

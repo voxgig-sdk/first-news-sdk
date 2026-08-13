@@ -269,17 +269,13 @@ Only `Direct()` returns a response envelope — a `map[string]any` with
 
 | Field | Description |
 | --- | --- |
-| `"access"` |  |
-| `"data"` |  |
+| `"channels"` |  |
+| `"content"` |  |
 | `"id"` |  |
-| `"last_modified"` |  |
 | `"link"` |  |
 | `"published"` |  |
-| `"status"` |  |
-| `"status_code"` |  |
 | `"summary"` |  |
 | `"title"` |  |
-| `"version"` |  |
 
 Operations: List, Load.
 
@@ -305,17 +301,13 @@ Create an instance: `new := client.New(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `access` | `string` |  |
-| `data` | `map[string]any` |  |
+| `channels` | `[]any` |  |
+| `content` | `string` |  |
 | `id` | `int` |  |
-| `last_modified` | `string` |  |
 | `link` | `string` |  |
 | `published` | `string` |  |
-| `status` | `string` |  |
-| `status_code` | `int` |  |
 | `summary` | `string` |  |
 | `title` | `string` |  |
-| `version` | `string` |  |
 
 #### Example: Load
 

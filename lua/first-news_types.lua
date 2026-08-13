@@ -7,33 +7,25 @@
 -- edit by hand.
 
 ---@class New
----@field access? string
----@field data? table
+---@field channels? table
+---@field content? string
 ---@field id? number
----@field last_modified? string
 ---@field link? string
 ---@field published? string
----@field status? string
----@field status_code? number
 ---@field summary? string
 ---@field title? string
----@field version? string
 
 ---@class NewLoadMatch
 ---@field id number
 
 ---@class NewListMatch
----@field access? string
----@field data? table
+---@field channels? table
+---@field content? string
 ---@field id? number
----@field last_modified? string
 ---@field link? string
 ---@field published? string
----@field status? string
----@field status_code? number
 ---@field summary? string
 ---@field title? string
----@field version? string
 
 local M = {}
 

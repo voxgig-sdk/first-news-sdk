@@ -6,17 +6,13 @@
 // @voxgig/apidef VALID_CANON). Do not edit by hand.
 
 export interface New {
-  access?: string
-  data?: Record<string, any>
+  channels?: any[]
+  content?: string
   id?: number
-  last_modified?: string
   link?: string
   published?: string
-  status?: string
-  status_code?: number
   summary?: string
   title?: string
-  version?: string
 }
 
 export interface NewLoadMatch {
@@ -24,16 +20,12 @@ export interface NewLoadMatch {
 }
 
 export interface NewListMatch {
-  access?: string
-  data?: Record<string, any>
+  channels?: any[]
+  content?: string
   id?: number
-  last_modified?: string
   link?: string
   published?: string
-  status?: string
-  status_code?: number
   summary?: string
   title?: string
-  version?: string
 }
 

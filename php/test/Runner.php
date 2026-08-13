@@ -43,8 +43,8 @@ class FirstNewsTestRunner
 
     public static function env_override(array $m): array
     {
-        $live = self::getenv('FIRSTNEWS_TEST_LIVE');
-        $override = self::getenv('FIRSTNEWS_TEST_OVERRIDE');
+        $live = self::getenv('FIRST_NEWS_TEST_LIVE');
+        $override = self::getenv('FIRST_NEWS_TEST_OVERRIDE');
 
         if ($live === 'TRUE' || $override === 'TRUE') {
             foreach (array_keys($m) as $key) {
@@ -63,9 +63,9 @@ class FirstNewsTestRunner
             }
         }
 
-        $explain = self::getenv('FIRSTNEWS_TEST_EXPLAIN');
+        $explain = self::getenv('FIRST_NEWS_TEST_EXPLAIN');
         if ($explain !== null && $explain !== '') {
-            $m['FIRSTNEWS_TEST_EXPLAIN'] = $explain;
+            $m['FIRST_NEWS_TEST_EXPLAIN'] = $explain;
         }
 
         return $m;

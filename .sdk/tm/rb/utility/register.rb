@@ -24,6 +24,7 @@ require_relative 'prepare_method'
 require_relative 'prepare_params'
 require_relative 'prepare_path'
 require_relative 'prepare_query'
+require_relative 'graphql'
 require_relative 'result_basic'
 require_relative 'result_body'
 require_relative 'result_headers'
@@ -55,6 +56,8 @@ FirstNewsUtility.registrar = ->(u) {
   u.prepare_params = FirstNewsUtilities::PrepareParams
   u.prepare_path = FirstNewsUtilities::PreparePath
   u.prepare_query = FirstNewsUtilities::PrepareQuery
+  u.graphql_body = FirstNewsUtilities::GraphqlBody
+  u.graphql_errors = FirstNewsUtilities::GraphqlErrors
   u.result_basic = FirstNewsUtilities::ResultBasic
   u.result_body = FirstNewsUtilities::ResultBody
   u.result_headers = FirstNewsUtilities::ResultHeaders

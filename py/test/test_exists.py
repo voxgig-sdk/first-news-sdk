@@ -1,4 +1,4 @@
-# ProjectName SDK exists test
+# FirstNews SDK exists test
 
 import pytest
 from firstnews_sdk import FirstNewsSDK

@@ -98,17 +98,13 @@ fmt.Println(new.GetName()) // "new"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `access` | `string` | No |  |
-| `data` | `map[string]any` | No |  |
+| `channels` | `[]any` | No |  |
+| `content` | `string` | No |  |
 | `id` | `int` | No |  |
-| `last_modified` | `string` | No |  |
 | `link` | `string` | No |  |
 | `published` | `string` | No |  |
-| `status` | `string` | No |  |
-| `status_code` | `int` | No |  |
 | `summary` | `string` | No |  |
 | `title` | `string` | No |  |
-| `version` | `string` | No |  |
 
 ### Operations
 

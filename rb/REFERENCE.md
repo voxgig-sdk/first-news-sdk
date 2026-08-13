@@ -93,17 +93,13 @@ new = client.New
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `access` | `String` | No |  |
-| `data` | `Hash` | No |  |
+| `channels` | `Array` | No |  |
+| `content` | `String` | No |  |
 | `id` | `Integer` | No |  |
-| `last_modified` | `String` | No |  |
 | `link` | `String` | No |  |
 | `published` | `String` | No |  |
-| `status` | `String` | No |  |
-| `status_code` | `Integer` | No |  |
 | `summary` | `String` | No |  |
 | `title` | `String` | No |  |
-| `version` | `String` | No |  |
 
 ### Operations
 

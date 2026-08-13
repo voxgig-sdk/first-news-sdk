@@ -8,9 +8,11 @@ guide: {
   entity: new: {
     path: "/news": {
       op: list: method: *GET
+      op: list: transform: res: *("`body.data`")|top
     }
     path: "/news/{id}": {
       op: load: method: *GET
+      op: load: transform: res: *("`body.data`")|top
     }
   }
 

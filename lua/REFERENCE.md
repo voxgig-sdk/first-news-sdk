@@ -90,17 +90,13 @@ local new = client:New(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `access` | `string` | No |  |
-| `data` | `table` | No |  |
+| `channels` | `table` | No |  |
+| `content` | `string` | No |  |
 | `id` | `number` | No |  |
-| `last_modified` | `string` | No |  |
 | `link` | `string` | No |  |
 | `published` | `string` | No |  |
-| `status` | `string` | No |  |
-| `status_code` | `number` | No |  |
 | `summary` | `string` | No |  |
 | `title` | `string` | No |  |
-| `version` | `string` | No |  |
 
 ### Operations
 

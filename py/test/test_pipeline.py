@@ -16,11 +16,11 @@
 import pytest
 
 from firstnews_sdk import FirstNewsSDK
-from core.error import FirstNewsError
-from core.result import FirstNewsResult
-from core.response import FirstNewsResponse
-from core.spec import FirstNewsSpec
-from feature.base_feature import FirstNewsBaseFeature
+from firstnews_sdk.core.error import FirstNewsError
+from firstnews_sdk.core.result import FirstNewsResult
+from firstnews_sdk.core.response import FirstNewsResponse
+from firstnews_sdk.core.spec import FirstNewsSpec
+from firstnews_sdk.feature.base_feature import FirstNewsBaseFeature
 
 
 def _client():

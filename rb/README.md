@@ -37,7 +37,7 @@ begin
   # list returns an Array of New records — iterate directly.
   news = client.New.list
   news.each do |item|
-    puts "#{item["id"]} #{item["access"]}"
+    puts "#{item["id"]} #{item["channels"]}"
   end
 rescue => err
   warn "list failed: #{err}"
@@ -48,7 +48,7 @@ end
 
 ```ruby
 begin
-  # load returns the bare New record (raises on error).
+  # load returns the ENTITY — call data_get for the New record (raises on error).
   new = client.New.load({ "id" => 1 })
   puts new
 rescue => err
@@ -134,7 +134,8 @@ client = FirstNewsSDK.test({
   "entity" => { "new" => { "test01" => { "id" => "test01" } } },
 })
 
-# Entity ops return the bare mock record (raises on error).
+# Entity ops return the ENTITY (raises on error);
+# call data_get for the mock record.
 new = client.New.list()
 puts new
 ```
@@ -252,17 +253,13 @@ returns a result `Hash` with these keys:
 
 | Field | Description |
 | --- | --- |
-| `access` |  |
-| `data` |  |
+| `channels` |  |
+| `content` |  |
 | `id` |  |
-| `last_modified` |  |
 | `link` |  |
 | `published` |  |
-| `status` |  |
-| `status_code` |  |
 | `summary` |  |
 | `title` |  |
-| `version` |  |
 
 Operations: List, Load.
 
@@ -288,22 +285,18 @@ Create an instance: `new = client.New`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `access` | `String` |  |
-| `data` | `Hash` |  |
+| `channels` | `Array` |  |
+| `content` | `String` |  |
 | `id` | `Integer` |  |
-| `last_modified` | `String` |  |
 | `link` | `String` |  |
 | `published` | `String` |  |
-| `status` | `String` |  |
-| `status_code` | `Integer` |  |
 | `summary` | `String` |  |
 | `title` | `String` |  |
-| `version` | `String` |  |
 
 #### Example: Load
 
 ```ruby
-# load returns the bare New record (raises on error).
+# load returns the ENTITY — call data_get for the New record (raises on error).
 new = client.New.load({ "id" => 1 })
 ```
 

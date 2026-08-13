@@ -23,8 +23,8 @@ module FirstNewsTestRunner
   end
 
   def self.env_override(m)
-    live = getenv("FIRSTNEWS_TEST_LIVE")
-    override = getenv("FIRSTNEWS_TEST_OVERRIDE")
+    live = getenv("FIRST_NEWS_TEST_LIVE")
+    override = getenv("FIRST_NEWS_TEST_OVERRIDE")
 
     if live == "TRUE" || override == "TRUE"
       m.each_key do |key|
@@ -44,8 +44,8 @@ module FirstNewsTestRunner
       end
     end
 
-    explain = getenv("FIRSTNEWS_TEST_EXPLAIN")
-    m["FIRSTNEWS_TEST_EXPLAIN"] = explain if explain && !explain.empty?
+    explain = getenv("FIRST_NEWS_TEST_EXPLAIN")
+    m["FIRST_NEWS_TEST_EXPLAIN"] = explain if explain && !explain.empty?
 
     m
   end

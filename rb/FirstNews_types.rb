@@ -10,17 +10,14 @@
 
 # New entity data model.
 #
-# @!attribute [rw] access
-#   @return [String, nil]
+# @!attribute [rw] channels
+#   @return [Array, nil]
 #
-# @!attribute [rw] data
-#   @return [Hash, nil]
+# @!attribute [rw] content
+#   @return [String, nil]
 #
 # @!attribute [rw] id
 #   @return [Integer, nil]
-#
-# @!attribute [rw] last_modified
-#   @return [String, nil]
 #
 # @!attribute [rw] link
 #   @return [String, nil]
@@ -28,32 +25,19 @@
 # @!attribute [rw] published
 #   @return [String, nil]
 #
-# @!attribute [rw] status
-#   @return [String, nil]
-#
-# @!attribute [rw] status_code
-#   @return [Integer, nil]
-#
 # @!attribute [rw] summary
 #   @return [String, nil]
 #
 # @!attribute [rw] title
 #   @return [String, nil]
-#
-# @!attribute [rw] version
-#   @return [String, nil]
 New = Struct.new(
-  :access,
-  :data,
+  :channels,
+  :content,
   :id,
-  :last_modified,
   :link,
   :published,
-  :status,
-  :status_code,
   :summary,
   :title,
-  :version,
   keyword_init: true
 )
 
@@ -68,17 +52,14 @@ NewLoadMatch = Struct.new(
 
 # Request payload for New#list.
 #
-# @!attribute [rw] access
-#   @return [String, nil]
+# @!attribute [rw] channels
+#   @return [Array, nil]
 #
-# @!attribute [rw] data
-#   @return [Hash, nil]
+# @!attribute [rw] content
+#   @return [String, nil]
 #
 # @!attribute [rw] id
 #   @return [Integer, nil]
-#
-# @!attribute [rw] last_modified
-#   @return [String, nil]
 #
 # @!attribute [rw] link
 #   @return [String, nil]
@@ -86,32 +67,19 @@ NewLoadMatch = Struct.new(
 # @!attribute [rw] published
 #   @return [String, nil]
 #
-# @!attribute [rw] status
-#   @return [String, nil]
-#
-# @!attribute [rw] status_code
-#   @return [Integer, nil]
-#
 # @!attribute [rw] summary
 #   @return [String, nil]
 #
 # @!attribute [rw] title
 #   @return [String, nil]
-#
-# @!attribute [rw] version
-#   @return [String, nil]
 NewListMatch = Struct.new(
-  :access,
-  :data,
+  :channels,
+  :content,
   :id,
-  :last_modified,
   :link,
   :published,
-  :status,
-  :status_code,
   :summary,
   :title,
-  :version,
   keyword_init: true
 )
 

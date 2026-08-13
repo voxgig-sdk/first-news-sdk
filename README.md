@@ -38,9 +38,18 @@ network, and no credentials:
 ### TypeScript
 
 ```ts
-const client = FirstNewsSDK.test()
+// The offline mock starts EMPTY — seed it with the records the test needs.
+// Shape: { entity: { <entity-name>: { <id>: <record> } } }
+const client = FirstNewsSDK.test({
+  entity: {
+    new: {
+      test01: { id: 'test01' },
+    },
+  },
+})
 const new_s = await client.New().list()
-// new_s is an array of bare New records populated with mock data
+// new_s is an array of New entities, populated with mock data
+// — call new_s[0].data() for the record itself
 console.log(new_s)
 ```
 
@@ -110,7 +119,7 @@ import { FirstNewsSDK } from '@voxgig-sdk/first-news'
 
 const client = new FirstNewsSDK()
 
-// List all news (returns New[])
+// List all news (returns NewEntity[] — .data() for the record)
 const new_s = await client.New().list()
 for (const new_ of new_s) {
   console.log(new_)
@@ -191,7 +200,7 @@ $client = new FirstNewsSDK();
 $news = $client->New()->list();
 print_r($news);
 
-// Load a specific new (returns the bare record; throws on error)
+// Load a specific new (returns the ENTITY; call data_get() for the record; throws on error)
 $new = $client->New()->load(["id" => 1]);
 print_r($new);
 ```
@@ -222,7 +231,7 @@ client = FirstNewsSDK.new
 news = client.New.list
 puts news
 
-# Load a specific new (returns the bare record; raises on error)
+# Load a specific new (returns the ENTITY; call data_get for the record)
 new = client.New.load({ "id" => 1 })
 puts new
 ```
@@ -359,6 +368,9 @@ Pass custom features via the `extend` option at construction time.
 
 This SDK is generated from the upstream OpenAPI specification. It is an
 unofficial client and is not affiliated with the API provider.
+
+The OpenAPI spec(s) this SDK was generated from are kept in the
+[`.sdk/def/`](.sdk/def/) folder.
 
 - Upstream API: [https://www.first.org](https://www.first.org)
 

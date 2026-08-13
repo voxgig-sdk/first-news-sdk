@@ -21,7 +21,7 @@ class Config {
 
 
   main = {
-    name: 'ProjectName',
+    name: 'FirstNews',
   }
 
 
@@ -56,16 +56,16 @@ class Config {
       "fields": [
         {
           "active": true,
-          "name": "access",
+          "name": "channels",
           "req": false,
-          "type": "`$STRING`",
+          "type": "`$ARRAY`",
           "index$": 0
         },
         {
           "active": true,
-          "name": "data",
+          "name": "content",
           "req": false,
-          "type": "`$OBJECT`",
+          "type": "`$STRING`",
           "index$": 1
         },
         {
@@ -77,59 +77,31 @@ class Config {
         },
         {
           "active": true,
-          "name": "last_modified",
+          "name": "link",
           "req": false,
           "type": "`$STRING`",
           "index$": 3
         },
         {
           "active": true,
-          "name": "link",
+          "name": "published",
           "req": false,
           "type": "`$STRING`",
           "index$": 4
         },
         {
           "active": true,
-          "name": "published",
+          "name": "summary",
           "req": false,
           "type": "`$STRING`",
           "index$": 5
         },
         {
           "active": true,
-          "name": "status",
-          "req": false,
-          "type": "`$STRING`",
-          "index$": 6
-        },
-        {
-          "active": true,
-          "name": "status_code",
-          "req": false,
-          "type": "`$INTEGER`",
-          "index$": 7
-        },
-        {
-          "active": true,
-          "name": "summary",
-          "req": false,
-          "type": "`$STRING`",
-          "index$": 8
-        },
-        {
-          "active": true,
           "name": "title",
           "req": false,
           "type": "`$STRING`",
-          "index$": 9
-        },
-        {
-          "active": true,
-          "name": "version",
-          "req": false,
-          "type": "`$STRING`",
-          "index$": 10
+          "index$": 6
         }
       ],
       "name": "new",
@@ -212,6 +184,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/news",
               "parts": [
@@ -231,7 +204,7 @@ class Config {
               },
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.data`"
               },
               "index$": 0
             }
@@ -258,6 +231,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/news/{id}",
               "parts": [
@@ -271,7 +245,7 @@ class Config {
               },
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.data`"
               },
               "index$": 0
             }

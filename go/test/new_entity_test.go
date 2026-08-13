@@ -92,7 +92,7 @@ func TestNewEntity(t *testing.T) {
 		// The basic flow consumes synthetic IDs from the fixture. In live mode
 		// without an *_ENTID env override, those IDs hit the live API and 4xx.
 		if setup.syntheticOnly {
-			t.Skip("live entity test uses synthetic IDs from fixture — set FIRSTNEWS_TEST_NEW_ENTID JSON to run live")
+			t.Skip("live entity test uses synthetic IDs from fixture — set FIRST_NEWS_TEST_NEW_ENTID JSON to run live")
 			return
 		}
 		client := setup.client
@@ -128,7 +128,7 @@ func TestNewEntity(t *testing.T) {
 		if err != nil {
 			t.Fatalf("load failed: %v", err)
 		}
-		newRef01DataDt0LoadResult := core.ToMapAny(newRef01DataDt0Loaded)
+		newRef01DataDt0LoadResult := core.ToMapAny(entityData(newRef01DataDt0Loaded))
 		if newRef01DataDt0LoadResult == nil {
 			t.Fatal("expected load result to be a map")
 		}
@@ -176,21 +176,21 @@ func newBasicSetup(extra map[string]any) *entityTestSetup {
 	// Detect ENTID env override before envOverride consumes it. When live
 	// mode is on without a real override, the basic test runs against synthetic
 	// IDs from the fixture and 4xx's. Surface this so the test can skip.
-	entidEnvRaw := os.Getenv("FIRSTNEWS_TEST_NEW_ENTID")
+	entidEnvRaw := os.Getenv("FIRST_NEWS_TEST_NEW_ENTID")
 	idmapOverridden := entidEnvRaw != "" && strings.HasPrefix(strings.TrimSpace(entidEnvRaw), "{")
 
 	env := envOverride(map[string]any{
-		"FIRSTNEWS_TEST_NEW_ENTID": idmap,
-		"FIRSTNEWS_TEST_LIVE":      "FALSE",
-		"FIRSTNEWS_TEST_EXPLAIN":   "FALSE",
+		"FIRST_NEWS_TEST_NEW_ENTID": idmap,
+		"FIRST_NEWS_TEST_LIVE":      "FALSE",
+		"FIRST_NEWS_TEST_EXPLAIN":   "FALSE",
 	})
 
-	idmapResolved := core.ToMapAny(env["FIRSTNEWS_TEST_NEW_ENTID"])
+	idmapResolved := core.ToMapAny(env["FIRST_NEWS_TEST_NEW_ENTID"])
 	if idmapResolved == nil {
 		idmapResolved = core.ToMapAny(idmap)
 	}
 
-	if env["FIRSTNEWS_TEST_LIVE"] == "TRUE" {
+	if env["FIRST_NEWS_TEST_LIVE"] == "TRUE" {
 		mergedOpts := vs.Merge([]any{
 			map[string]any{
 			},
@@ -199,13 +199,13 @@ func newBasicSetup(extra map[string]any) *entityTestSetup {
 		client = sdk.NewFirstNewsSDK(core.ToMapAny(mergedOpts))
 	}
 
-	live := env["FIRSTNEWS_TEST_LIVE"] == "TRUE"
+	live := env["FIRST_NEWS_TEST_LIVE"] == "TRUE"
 	return &entityTestSetup{
 		client:        client,
 		data:          entityData,
 		idmap:         idmapResolved,
 		env:           env,
-		explain:       env["FIRSTNEWS_TEST_EXPLAIN"] == "TRUE",
+		explain:       env["FIRST_NEWS_TEST_EXPLAIN"] == "TRUE",
 		live:          live,
 		syntheticOnly: live && !idmapOverridden,
 		now:           time.Now().UnixMilli(),

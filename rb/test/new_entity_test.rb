@@ -62,7 +62,7 @@ class NewEntityTest < Minitest::Test
     # The basic flow consumes synthetic IDs from the fixture. In live mode
     # without an *_ENTID env override, those IDs hit the live API and 4xx.
     if setup[:synthetic_only]
-      skip "live entity test uses synthetic IDs from fixture — set FIRSTNEWS_TEST_NEW_ENTID JSON to run live"
+      skip "live entity test uses synthetic IDs from fixture — set FIRST_NEWS_TEST_NEW_ENTID JSON to run live"
       return
     end
     client = setup[:client]
@@ -87,7 +87,7 @@ class NewEntityTest < Minitest::Test
       "id" => new_ref01_data["id"],
     }
     new_ref01_data_dt0_loaded = new_ref01_ent.load(new_ref01_match_dt0, nil)
-    new_ref01_data_dt0_load_result = Helpers.to_map(new_ref01_data_dt0_loaded)
+    new_ref01_data_dt0_load_result = Helpers.to_map(new_ref01_data_dt0_loaded.respond_to?(:data_get) ? new_ref01_data_dt0_loaded.data_get : new_ref01_data_dt0_loaded)
     assert !new_ref01_data_dt0_load_result.nil?
     assert_equal new_ref01_data_dt0_load_result["id"], new_ref01_data["id"]
 
@@ -120,22 +120,22 @@ def new_basic_setup(extra)
   # Detect ENTID env override before envOverride consumes it. When live
   # mode is on without a real override, the basic test runs against synthetic
   # IDs from the fixture and 4xx's. Surface this so the test can skip.
-  entid_env_raw = ENV["FIRSTNEWS_TEST_NEW_ENTID"]
+  entid_env_raw = ENV["FIRST_NEWS_TEST_NEW_ENTID"]
   idmap_overridden = !entid_env_raw.nil? && entid_env_raw.strip.start_with?("{")
 
   env = Runner.env_override({
-    "FIRSTNEWS_TEST_NEW_ENTID" => idmap,
-    "FIRSTNEWS_TEST_LIVE" => "FALSE",
-    "FIRSTNEWS_TEST_EXPLAIN" => "FALSE",
+    "FIRST_NEWS_TEST_NEW_ENTID" => idmap,
+    "FIRST_NEWS_TEST_LIVE" => "FALSE",
+    "FIRST_NEWS_TEST_EXPLAIN" => "FALSE",
   })
 
   idmap_resolved = Helpers.to_map(
-    env["FIRSTNEWS_TEST_NEW_ENTID"])
+    env["FIRST_NEWS_TEST_NEW_ENTID"])
   if idmap_resolved.nil?
     idmap_resolved = Helpers.to_map(idmap)
   end
 
-  if env["FIRSTNEWS_TEST_LIVE"] == "TRUE"
+  if env["FIRST_NEWS_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
       {
       },
@@ -144,13 +144,13 @@ def new_basic_setup(extra)
     client = FirstNewsSDK.new(Helpers.to_map(merged_opts))
   end
 
-  live = env["FIRSTNEWS_TEST_LIVE"] == "TRUE"
+  live = env["FIRST_NEWS_TEST_LIVE"] == "TRUE"
   {
     client: client,
     data: entity_data,
     idmap: idmap_resolved,
     env: env,
-    explain: env["FIRSTNEWS_TEST_EXPLAIN"] == "TRUE",
+    explain: env["FIRST_NEWS_TEST_EXPLAIN"] == "TRUE",
     live: live,
     synthetic_only: live && !idmap_overridden,
     now: (Time.now.to_f * 1000).to_i,

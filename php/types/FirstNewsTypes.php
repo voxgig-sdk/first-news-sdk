@@ -15,17 +15,13 @@ declare(strict_types=1);
 /** New entity data model. */
 class New
 {
-    public ?string $access = null;
-    public ?array $data = null;
+    public ?array $channels = null;
+    public ?string $content = null;
     public ?int $id = null;
-    public ?string $last_modified = null;
     public ?string $link = null;
     public ?string $published = null;
-    public ?string $status = null;
-    public ?int $status_code = null;
     public ?string $summary = null;
     public ?string $title = null;
-    public ?string $version = null;
 }
 
 /** Request payload for New#load. */
@@ -37,16 +33,12 @@ class NewLoadMatch
 /** Request payload for New#list. */
 class NewListMatch
 {
-    public ?string $access = null;
-    public ?array $data = null;
+    public ?array $channels = null;
+    public ?string $content = null;
     public ?int $id = null;
-    public ?string $last_modified = null;
     public ?string $link = null;
     public ?string $published = null;
-    public ?string $status = null;
-    public ?int $status_code = null;
     public ?string $summary = null;
     public ?string $title = null;
-    public ?string $version = null;
 }
 

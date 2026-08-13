@@ -72,7 +72,7 @@ class NewEntityTest extends TestCase
         // The basic flow consumes synthetic IDs from the fixture. In live mode
         // without an *_ENTID env override, those IDs hit the live API and 4xx.
         if (!empty($setup["synthetic_only"])) {
-            $this->markTestSkipped("live entity test uses synthetic IDs from fixture — set FIRSTNEWS_TEST_NEW_ENTID JSON to run live");
+            $this->markTestSkipped("live entity test uses synthetic IDs from fixture — set FIRST_NEWS_TEST_NEW_ENTID JSON to run live");
             return;
         }
         $client = $setup["client"];
@@ -97,7 +97,7 @@ class NewEntityTest extends TestCase
             "id" => $new_ref01_data["id"],
         ];
         $new_ref01_data_dt0_loaded = $new_ref01_ent->load($new_ref01_match_dt0, null);
-        $new_ref01_data_dt0_load_result = Helpers::to_map($new_ref01_data_dt0_loaded);
+        $new_ref01_data_dt0_load_result = Helpers::to_map(is_object($new_ref01_data_dt0_loaded) && method_exists($new_ref01_data_dt0_loaded, 'data_get') ? $new_ref01_data_dt0_loaded->data_get() : $new_ref01_data_dt0_loaded);
         $this->assertNotNull($new_ref01_data_dt0_load_result);
         $this->assertEquals($new_ref01_data_dt0_load_result["id"], $new_ref01_data["id"]);
 
@@ -126,22 +126,22 @@ function new_basic_setup($extra)
     // Detect ENTID env override before envOverride consumes it. When live
     // mode is on without a real override, the basic test runs against synthetic
     // IDs from the fixture and 4xx's. Surface this so the test can skip.
-    $entid_env_raw = getenv("FIRSTNEWS_TEST_NEW_ENTID");
+    $entid_env_raw = getenv("FIRST_NEWS_TEST_NEW_ENTID");
     $idmap_overridden = $entid_env_raw !== false && str_starts_with(trim($entid_env_raw), "{");
 
     $env = Runner::env_override([
-        "FIRSTNEWS_TEST_NEW_ENTID" => $idmap,
-        "FIRSTNEWS_TEST_LIVE" => "FALSE",
-        "FIRSTNEWS_TEST_EXPLAIN" => "FALSE",
+        "FIRST_NEWS_TEST_NEW_ENTID" => $idmap,
+        "FIRST_NEWS_TEST_LIVE" => "FALSE",
+        "FIRST_NEWS_TEST_EXPLAIN" => "FALSE",
     ]);
 
     $idmap_resolved = Helpers::to_map(
-        $env["FIRSTNEWS_TEST_NEW_ENTID"]);
+        $env["FIRST_NEWS_TEST_NEW_ENTID"]);
     if ($idmap_resolved === null) {
         $idmap_resolved = Helpers::to_map($idmap);
     }
 
-    if ($env["FIRSTNEWS_TEST_LIVE"] === "TRUE") {
+    if ($env["FIRST_NEWS_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
             [
             ],
@@ -150,13 +150,13 @@ function new_basic_setup($extra)
         $client = new FirstNewsSDK(Helpers::to_map($merged_opts));
     }
 
-    $live = $env["FIRSTNEWS_TEST_LIVE"] === "TRUE";
+    $live = $env["FIRST_NEWS_TEST_LIVE"] === "TRUE";
     return [
         "client" => $client,
         "data" => $entity_data,
         "idmap" => $idmap_resolved,
         "env" => $env,
-        "explain" => $env["FIRSTNEWS_TEST_EXPLAIN"] === "TRUE",
+        "explain" => $env["FIRST_NEWS_TEST_EXPLAIN"] === "TRUE",
         "live" => $live,
         "synthetic_only" => $live && !$idmap_overridden,
         "now" => (int)(microtime(true) * 1000),

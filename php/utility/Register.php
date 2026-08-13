@@ -23,6 +23,7 @@ require_once __DIR__ . '/MakeUrl.php';
 require_once __DIR__ . '/Param.php';
 require_once __DIR__ . '/PrepareAuth.php';
 require_once __DIR__ . '/PrepareBody.php';
+require_once __DIR__ . '/Graphql.php';
 require_once __DIR__ . '/PrepareHeaders.php';
 require_once __DIR__ . '/PrepareMethod.php';
 require_once __DIR__ . '/PrepareParams.php';
@@ -59,6 +60,8 @@ FirstNewsUtility::setRegistrar(function (FirstNewsUtility $u): void {
     $u->prepare_params = [FirstNewsPrepareParams::class, 'call'];
     $u->prepare_path = [FirstNewsPreparePath::class, 'call'];
     $u->prepare_query = [FirstNewsPrepareQuery::class, 'call'];
+    $u->graphql_body = [FirstNewsGraphql::class, 'body'];
+    $u->graphql_errors = [FirstNewsGraphql::class, 'errors'];
     $u->result_basic = [FirstNewsResultBasic::class, 'call'];
     $u->result_body = [FirstNewsResultBody::class, 'call'];
     $u->result_headers = [FirstNewsResultHeaders::class, 'call'];

@@ -26,8 +26,8 @@ import {
 describe('NewEntity', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
-  // `test.live.delayMs`; only sleeps when FIRSTNEWS_TEST_LIVE=TRUE.
-  afterEach(liveDelay('FIRSTNEWS_TEST_LIVE'))
+  // `test.live.delayMs`; only sleeps when FIRST_NEWS_TEST_LIVE=TRUE.
+  afterEach(liveDelay('FIRST_NEWS_TEST_LIVE'))
 
   test('instance', async () => {
     const testsdk = FirstNewsSDK.test()
@@ -63,13 +63,13 @@ describe('NewEntity', async () => {
     const new_ref01_ent = client.New()
     const new_ref01_match: any = {}
 
-    const new_ref01_list = await new_ref01_ent.list(new_ref01_match)
+    const new_ref01_list = (await new_ref01_ent.list(new_ref01_match)).map((e: any) => e.data())
 
 
     // LOAD
     const new_ref01_match_dt0: any = {}
     new_ref01_match_dt0.id = new_ref01_data.id
-    const new_ref01_data_dt0 = await new_ref01_ent.load(new_ref01_match_dt0)
+    const new_ref01_data_dt0 = (await new_ref01_ent.load(new_ref01_match_dt0)).data()
     assert(new_ref01_data_dt0.id === new_ref01_data.id)
 
 

@@ -87,17 +87,13 @@ new = client.New()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `access` | `str` | No |  |
-| `data` | `dict` | No |  |
+| `channels` | `list` | No |  |
+| `content` | `str` | No |  |
 | `id` | `int` | No |  |
-| `last_modified` | `str` | No |  |
 | `link` | `str` | No |  |
 | `published` | `str` | No |  |
-| `status` | `str` | No |  |
-| `status_code` | `int` | No |  |
 | `summary` | `str` | No |  |
 | `title` | `str` | No |  |
-| `version` | `str` | No |  |
 
 ### Operations
 

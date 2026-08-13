@@ -3,9 +3,9 @@
 import json
 import pytest
 
-from utility.voxgig_struct import voxgig_struct as vs
+from firstnews_sdk.utility.voxgig_struct import voxgig_struct as vs
 from firstnews_sdk import FirstNewsSDK
-from core import helpers
+from firstnews_sdk.core import helpers
 from test import runner
 
 
@@ -102,11 +102,11 @@ def _new_direct_setup(mockres):
     calls = []
 
     env = runner.env_override({
-        "FIRSTNEWS_TEST_NEW_ENTID": {},
-        "FIRSTNEWS_TEST_LIVE": "FALSE",
+        "FIRST_NEWS_TEST_NEW_ENTID": {},
+        "FIRST_NEWS_TEST_LIVE": "FALSE",
     })
 
-    live = env.get("FIRSTNEWS_TEST_LIVE") == "TRUE"
+    live = env.get("FIRST_NEWS_TEST_LIVE") == "TRUE"
 
     if live:
         merged_opts = {
