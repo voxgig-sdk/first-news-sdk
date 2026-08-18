@@ -14,7 +14,7 @@ from __future__ import annotations
 
 from urllib.parse import quote
 
-from firstnews_sdk.config import make_config
+from firstnews_sdk.config import shared_config
 from firstnews_sdk.features import _make_feature
 from firstnews_sdk.core.control import FirstNewsControl
 from firstnews_sdk.core.error import FirstNewsError
@@ -24,7 +24,7 @@ from firstnews_sdk.core.spec import FirstNewsSpec
 
 # True when this SDK was generated with the named feature.
 def has_feature(name):
-    feature = make_config().get("feature")
+    feature = shared_config().get("feature")
     return isinstance(feature, dict) and feature.get(name) is not None
 
 

@@ -40,7 +40,7 @@ class FirstNewsSDK
         $utility = new FirstNewsUtility();
         $this->_utility = $utility;
 
-        $config = FirstNewsConfig::make_config();
+        $config = FirstNewsConfig::shared_config();
 
         $this->_rootctx = ($utility->make_context)([
             "client" => $this,

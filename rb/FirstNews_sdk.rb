@@ -28,7 +28,7 @@ class FirstNewsSDK
     utility = FirstNewsUtility.new
     @_utility = utility
 
-    config = FirstNewsConfig.make_config
+    config = FirstNewsConfig.shared_config
 
     @_rootctx = utility.make_context.call({
       "client" => self,
