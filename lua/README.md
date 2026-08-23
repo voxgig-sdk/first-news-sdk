@@ -241,13 +241,13 @@ Only `direct()` returns a response envelope — a `table` with `ok`,
 
 | Field | Description |
 | --- | --- |
-| `channels` |  |
-| `content` |  |
-| `id` |  |
-| `link` |  |
-| `published` |  |
-| `summary` |  |
-| `title` |  |
+| `channels` | List of news channels this item is published on |
+| `content` | Full HTML content of the news item |
+| `id` | Unique identifier for the news item |
+| `link` | URL to the full news article |
+| `published` | Publication date and time |
+| `summary` | Brief summary of the news item |
+| `title` | Title of the news item |
 
 Operations: List, Load.
 
@@ -273,13 +273,13 @@ Create an instance: `local new = client:New(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `channels` | `table` |  |
-| `content` | `string` |  |
-| `id` | `number` |  |
-| `link` | `string` |  |
-| `published` | `string` |  |
-| `summary` | `string` |  |
-| `title` | `string` |  |
+| `channels` | `table` | List of news channels this item is published on |
+| `content` | `string` | Full HTML content of the news item |
+| `id` | `number` | Unique identifier for the news item |
+| `link` | `string` | URL to the full news article |
+| `published` | `string` | Publication date and time |
+| `summary` | `string` | Brief summary of the news item |
+| `title` | `string` | Title of the news item |
 
 #### Example: Load
 

@@ -8,36 +8,43 @@ main: kit: entity: new: {
     {
       name: "channels"
       req: false
+      short: "List of news channels this item is published on"
       type: "`$ARRAY`"
     }
     {
       name: "content"
       req: false
+      short: "Full HTML content of the news item"
       type: "`$STRING`"
     }
     {
       name: "id"
       req: false
+      short: "Unique identifier for the news item"
       type: "`$INTEGER`"
     }
     {
       name: "link"
       req: false
+      short: "URL to the full news article"
       type: "`$STRING`"
     }
     {
       name: "published"
       req: false
+      short: "Publication date and time"
       type: "`$STRING`"
     }
     {
       name: "summary"
       req: false
+      short: "Brief summary of the news item"
       type: "`$STRING`"
     }
     {
       name: "title"
       req: false
+      short: "Title of the news item"
       type: "`$STRING`"
     }
   ]

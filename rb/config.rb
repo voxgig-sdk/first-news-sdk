@@ -19,6 +19,9 @@ module FirstNewsConfig
     {
       "main" => {
         "name" => "FirstNews",
+        "slug" => "first-news",
+        "version" => "0.0.1",
+        "target" => "rb",
       },
       "feature" => {
         "test" => {
@@ -41,30 +44,37 @@ module FirstNewsConfig
           "fields" => [
             {
               "name" => "channels",
+              "short" => "List of news channels this item is published on",
               "type" => "`$ARRAY`",
             },
             {
               "name" => "content",
+              "short" => "Full HTML content of the news item",
               "type" => "`$STRING`",
             },
             {
               "name" => "id",
+              "short" => "Unique identifier for the news item",
               "type" => "`$INTEGER`",
             },
             {
               "name" => "link",
+              "short" => "URL to the full news article",
               "type" => "`$STRING`",
             },
             {
               "name" => "published",
+              "short" => "Publication date and time",
               "type" => "`$STRING`",
             },
             {
               "name" => "summary",
+              "short" => "Brief summary of the news item",
               "type" => "`$STRING`",
             },
             {
               "name" => "title",
+              "short" => "Title of the news item",
               "type" => "`$STRING`",
             },
           ],

@@ -11,6 +11,9 @@ func MakeConfig() map[string]any {
 	return map[string]any{
 		"main": map[string]any{
 			"name": "FirstNews",
+			"slug": "first-news",
+			"version": "0.0.1",
+			"target": "go",
 		},
 		"feature": map[string]any{
 			"test": map[string]any{
@@ -33,30 +36,37 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "channels",
+						"short": "List of news channels this item is published on",
 						"type": "`$ARRAY`",
 					},
 					map[string]any{
 						"name": "content",
+						"short": "Full HTML content of the news item",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "id",
+						"short": "Unique identifier for the news item",
 						"type": "`$INTEGER`",
 					},
 					map[string]any{
 						"name": "link",
+						"short": "URL to the full news article",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "published",
+						"short": "Publication date and time",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "summary",
+						"short": "Brief summary of the news item",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "title",
+						"short": "Title of the news item",
 						"type": "`$STRING`",
 					},
 				},

@@ -6,7 +6,7 @@ The Golang SDK for the FirstNews API — an entity-oriented client using standar
 
 It exposes the API as capitalised, semantic **Entities** — e.g. `client.New(nil)` — each with the same small set of operations (`List`, `Load`) instead of raw URL paths and query strings. You call meaning, not endpoints, which keeps the cognitive load low.
 
-> Other languages, the CLI, and MCP server live alongside this one — see
+> Also generated from this model: `go-cli`, `go-mcp`, `lua`, `php`, `py`, `rb`, `ts` — see
 > the [top-level README](../README.md).
 
 
@@ -269,13 +269,13 @@ Only `Direct()` returns a response envelope — a `map[string]any` with
 
 | Field | Description |
 | --- | --- |
-| `"channels"` |  |
-| `"content"` |  |
-| `"id"` |  |
-| `"link"` |  |
-| `"published"` |  |
-| `"summary"` |  |
-| `"title"` |  |
+| `"channels"` | List of news channels this item is published on |
+| `"content"` | Full HTML content of the news item |
+| `"id"` | Unique identifier for the news item |
+| `"link"` | URL to the full news article |
+| `"published"` | Publication date and time |
+| `"summary"` | Brief summary of the news item |
+| `"title"` | Title of the news item |
 
 Operations: List, Load.
 
@@ -301,13 +301,13 @@ Create an instance: `new := client.New(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `channels` | `[]any` |  |
-| `content` | `string` |  |
-| `id` | `int` |  |
-| `link` | `string` |  |
-| `published` | `string` |  |
-| `summary` | `string` |  |
-| `title` | `string` |  |
+| `channels` | `[]any` | List of news channels this item is published on |
+| `content` | `string` | Full HTML content of the news item |
+| `id` | `int` | Unique identifier for the news item |
+| `link` | `string` | URL to the full news article |
+| `published` | `string` | Publication date and time |
+| `summary` | `string` | Brief summary of the news item |
+| `title` | `string` | Title of the news item |
 
 #### Example: Load
 

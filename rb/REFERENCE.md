@@ -93,13 +93,13 @@ new = client.New
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `channels` | `Array` | No |  |
-| `content` | `String` | No |  |
-| `id` | `Integer` | No |  |
-| `link` | `String` | No |  |
-| `published` | `String` | No |  |
-| `summary` | `String` | No |  |
-| `title` | `String` | No |  |
+| `channels` | `Array` | No | List of news channels this item is published on |
+| `content` | `String` | No | Full HTML content of the news item |
+| `id` | `Integer` | No | Unique identifier for the news item |
+| `link` | `String` | No | URL to the full news article |
+| `published` | `String` | No | Publication date and time |
+| `summary` | `String` | No | Brief summary of the news item |
+| `title` | `String` | No | Title of the news item |
 
 ### Operations
 

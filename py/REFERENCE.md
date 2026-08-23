@@ -87,13 +87,13 @@ new = client.New()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `channels` | `list` | No |  |
-| `content` | `str` | No |  |
-| `id` | `int` | No |  |
-| `link` | `str` | No |  |
-| `published` | `str` | No |  |
-| `summary` | `str` | No |  |
-| `title` | `str` | No |  |
+| `channels` | `list` | No | List of news channels this item is published on |
+| `content` | `str` | No | Full HTML content of the news item |
+| `id` | `int` | No | Unique identifier for the news item |
+| `link` | `str` | No | URL to the full news article |
+| `published` | `str` | No | Publication date and time |
+| `summary` | `str` | No | Brief summary of the news item |
+| `title` | `str` | No | Title of the news item |
 
 ### Operations
 

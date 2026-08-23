@@ -92,13 +92,13 @@ $new = $client->New();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `channels` | `array` | No |  |
-| `content` | `string` | No |  |
-| `id` | `int` | No |  |
-| `link` | `string` | No |  |
-| `published` | `string` | No |  |
-| `summary` | `string` | No |  |
-| `title` | `string` | No |  |
+| `channels` | `array` | No | List of news channels this item is published on |
+| `content` | `string` | No | Full HTML content of the news item |
+| `id` | `int` | No | Unique identifier for the news item |
+| `link` | `string` | No | URL to the full news article |
+| `published` | `string` | No | Publication date and time |
+| `summary` | `string` | No | Brief summary of the news item |
+| `title` | `string` | No | Title of the news item |
 
 ### Operations
 

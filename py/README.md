@@ -256,13 +256,13 @@ On error, `ok` is `False` and `err` contains the error value.
 
 | Field | Description |
 | --- | --- |
-| `channels` |  |
-| `content` |  |
-| `id` |  |
-| `link` |  |
-| `published` |  |
-| `summary` |  |
-| `title` |  |
+| `channels` | List of news channels this item is published on |
+| `content` | Full HTML content of the news item |
+| `id` | Unique identifier for the news item |
+| `link` | URL to the full news article |
+| `published` | Publication date and time |
+| `summary` | Brief summary of the news item |
+| `title` | Title of the news item |
 
 Operations: List, Load.
 
@@ -288,13 +288,13 @@ Create an instance: `new = client.New()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `channels` | `list` |  |
-| `content` | `str` |  |
-| `id` | `int` |  |
-| `link` | `str` |  |
-| `published` | `str` |  |
-| `summary` | `str` |  |
-| `title` | `str` |  |
+| `channels` | `list` | List of news channels this item is published on |
+| `content` | `str` | Full HTML content of the news item |
+| `id` | `int` | Unique identifier for the news item |
+| `link` | `str` | URL to the full news article |
+| `published` | `str` | Publication date and time |
+| `summary` | `str` | Brief summary of the news item |
+| `title` | `str` | Title of the news item |
 
 #### Example: Load
 

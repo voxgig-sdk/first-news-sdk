@@ -253,13 +253,13 @@ returns a result `Hash` with these keys:
 
 | Field | Description |
 | --- | --- |
-| `channels` |  |
-| `content` |  |
-| `id` |  |
-| `link` |  |
-| `published` |  |
-| `summary` |  |
-| `title` |  |
+| `channels` | List of news channels this item is published on |
+| `content` | Full HTML content of the news item |
+| `id` | Unique identifier for the news item |
+| `link` | URL to the full news article |
+| `published` | Publication date and time |
+| `summary` | Brief summary of the news item |
+| `title` | Title of the news item |
 
 Operations: List, Load.
 
@@ -285,13 +285,13 @@ Create an instance: `new = client.New`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `channels` | `Array` |  |
-| `content` | `String` |  |
-| `id` | `Integer` |  |
-| `link` | `String` |  |
-| `published` | `String` |  |
-| `summary` | `String` |  |
-| `title` | `String` |  |
+| `channels` | `Array` | List of news channels this item is published on |
+| `content` | `String` | Full HTML content of the news item |
+| `id` | `Integer` | Unique identifier for the news item |
+| `link` | `String` | URL to the full news article |
+| `published` | `String` | Publication date and time |
+| `summary` | `String` | Brief summary of the news item |
+| `title` | `String` | Title of the news item |
 
 #### Example: Load
 

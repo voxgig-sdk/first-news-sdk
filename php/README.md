@@ -263,13 +263,13 @@ On error, `ok` is `false` and `$err` contains the error value.
 
 | Field | Description |
 | --- | --- |
-| `channels` |  |
-| `content` |  |
-| `id` |  |
-| `link` |  |
-| `published` |  |
-| `summary` |  |
-| `title` |  |
+| `channels` | List of news channels this item is published on |
+| `content` | Full HTML content of the news item |
+| `id` | Unique identifier for the news item |
+| `link` | URL to the full news article |
+| `published` | Publication date and time |
+| `summary` | Brief summary of the news item |
+| `title` | Title of the news item |
 
 Operations: List, Load.
 
@@ -295,13 +295,13 @@ Create an instance: `$new = $client->New();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `channels` | `array` |  |
-| `content` | `string` |  |
-| `id` | `int` |  |
-| `link` | `string` |  |
-| `published` | `string` |  |
-| `summary` | `string` |  |
-| `title` | `string` |  |
+| `channels` | `array` | List of news channels this item is published on |
+| `content` | `string` | Full HTML content of the news item |
+| `id` | `int` | Unique identifier for the news item |
+| `link` | `string` | URL to the full news article |
+| `published` | `string` | Publication date and time |
+| `summary` | `string` | Brief summary of the news item |
+| `title` | `string` | Title of the news item |
 
 #### Example: Load
 

@@ -116,13 +116,13 @@ const new_ = client.New()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `channels` | `any[]` | No |  |
-| `content` | `string` | No |  |
-| `id` | `number` | No |  |
-| `link` | `string` | No |  |
-| `published` | `string` | No |  |
-| `summary` | `string` | No |  |
-| `title` | `string` | No |  |
+| `channels` | `any[]` | No | List of news channels this item is published on |
+| `content` | `string` | No | Full HTML content of the news item |
+| `id` | `number` | No | Unique identifier for the news item |
+| `link` | `string` | No | URL to the full news article |
+| `published` | `string` | No | Publication date and time |
+| `summary` | `string` | No | Brief summary of the news item |
+| `title` | `string` | No | Title of the news item |
 
 ### Operations
 
