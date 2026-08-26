@@ -28,6 +28,7 @@ module FirstNewsConfig
           "options" => {
             "active" => false,
           },
+          "transport" => "base",
         },
       },
       "options" => {
