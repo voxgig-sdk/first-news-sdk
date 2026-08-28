@@ -33,12 +33,13 @@ class NewLoadMatch
 /** Request payload for New#list. */
 class NewListMatch
 {
-    public ?array $channels = null;
-    public ?string $content = null;
-    public ?int $id = null;
+    public ?string $after = null;
+    public ?string $before = null;
+    public ?string $channel = null;
+    public ?int $limit = null;
     public ?string $link = null;
-    public ?string $published = null;
-    public ?string $summary = null;
-    public ?string $title = null;
+    public ?int $offset = null;
+    public ?bool $pretty = null;
+    public ?string $q = null;
 }
 

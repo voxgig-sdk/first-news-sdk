@@ -52,34 +52,38 @@ NewLoadMatch = Struct.new(
 
 # Request payload for New#list.
 #
-# @!attribute [rw] channels
-#   @return [Array, nil]
-#
-# @!attribute [rw] content
+# @!attribute [rw] after
 #   @return [String, nil]
 #
-# @!attribute [rw] id
+# @!attribute [rw] before
+#   @return [String, nil]
+#
+# @!attribute [rw] channel
+#   @return [String, nil]
+#
+# @!attribute [rw] limit
 #   @return [Integer, nil]
 #
 # @!attribute [rw] link
 #   @return [String, nil]
 #
-# @!attribute [rw] published
-#   @return [String, nil]
+# @!attribute [rw] offset
+#   @return [Integer, nil]
 #
-# @!attribute [rw] summary
-#   @return [String, nil]
+# @!attribute [rw] pretty
+#   @return [Boolean, nil]
 #
-# @!attribute [rw] title
+# @!attribute [rw] q
 #   @return [String, nil]
 NewListMatch = Struct.new(
-  :channels,
-  :content,
-  :id,
+  :after,
+  :before,
+  :channel,
+  :limit,
   :link,
-  :published,
-  :summary,
-  :title,
+  :offset,
+  :pretty,
+  :q,
   keyword_init: true
 )
 

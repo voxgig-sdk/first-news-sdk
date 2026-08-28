@@ -30,13 +30,14 @@ type NewLoadMatch struct {
 
 // NewListMatch is the typed request payload for New.ListTyped.
 type NewListMatch struct {
-	Channels *[]any `json:"channels,omitempty"`
-	Content *string `json:"content,omitempty"`
-	Id *int `json:"id,omitempty"`
+	After *string `json:"after,omitempty"`
+	Before *string `json:"before,omitempty"`
+	Channel *string `json:"channel,omitempty"`
+	Limit *int `json:"limit,omitempty"`
 	Link *string `json:"link,omitempty"`
-	Published *string `json:"published,omitempty"`
-	Summary *string `json:"summary,omitempty"`
-	Title *string `json:"title,omitempty"`
+	Offset *int `json:"offset,omitempty"`
+	Pretty *bool `json:"pretty,omitempty"`
+	Q *string `json:"q,omitempty"`
 }
 
 // asMap turns a typed request/data struct into the map[string]any the

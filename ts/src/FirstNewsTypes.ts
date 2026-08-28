@@ -20,12 +20,13 @@ export interface NewLoadMatch {
 }
 
 export interface NewListMatch {
-  channels?: any[]
-  content?: string
-  id?: number
+  after?: string
+  before?: string
+  channel?: string
+  limit?: number
   link?: string
-  published?: string
-  summary?: string
-  title?: string
+  offset?: number
+  pretty?: boolean
+  q?: string
 }
 

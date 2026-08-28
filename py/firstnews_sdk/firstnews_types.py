@@ -31,10 +31,11 @@ class NewLoadMatch(TypedDict):
 
 
 class NewListMatch(TypedDict, total=False):
-    channels: list
-    content: str
-    id: int
+    after: str
+    before: str
+    channel: str
+    limit: int
     link: str
-    published: str
-    summary: str
-    title: str
+    offset: int
+    pretty: bool
+    q: str

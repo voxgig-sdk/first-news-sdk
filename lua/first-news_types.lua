@@ -19,13 +19,14 @@
 ---@field id number
 
 ---@class NewListMatch
----@field channels? table
----@field content? string
----@field id? number
+---@field after? string
+---@field before? string
+---@field channel? string
+---@field limit? number
 ---@field link? string
----@field published? string
----@field summary? string
----@field title? string
+---@field offset? number
+---@field pretty? boolean
+---@field q? string
 
 local M = {}
 
