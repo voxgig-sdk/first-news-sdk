@@ -59,6 +59,7 @@ module FirstNewsConfig
               "type" => "`$INTEGER`",
             },
             {
+              "format" => "uri",
               "name" => "link",
               "short" => "URL to the full news article",
               "type" => "`$STRING`",
@@ -79,6 +80,10 @@ module FirstNewsConfig
               "type" => "`$STRING`",
             },
           ],
+          "id" => {
+            "field" => "id",
+            "name" => "id",
+          },
           "name" => "new",
           "op" => {
             "list" => {
@@ -145,8 +150,10 @@ module FirstNewsConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/news",
-                  "parts" => [
-                    "news",
+                  "segments" => [
+                    {
+                      "lit" => "news",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -164,6 +171,9 @@ module FirstNewsConfig
                     "req" => "`reqdata`",
                     "res" => "`body.data`",
                   },
+                  "parts" => [
+                    "news",
+                  ],
                 },
               ],
             },
@@ -187,9 +197,13 @@ module FirstNewsConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/news/{id}",
-                  "parts" => [
-                    "news",
-                    "{id}",
+                  "segments" => [
+                    {
+                      "lit" => "news",
+                    },
+                    {
+                      "var" => "id",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -200,6 +214,10 @@ module FirstNewsConfig
                     "req" => "`reqdata`",
                     "res" => "`body.data`",
                   },
+                  "parts" => [
+                    "news",
+                    "{id}",
+                  ],
                 },
               ],
             },

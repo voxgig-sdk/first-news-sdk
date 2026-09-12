@@ -51,6 +51,7 @@ func MakeConfig() map[string]any {
 						"type": "`$INTEGER`",
 					},
 					map[string]any{
+						"format": "uri",
 						"name": "link",
 						"short": "URL to the full news article",
 						"type": "`$STRING`",
@@ -70,6 +71,10 @@ func MakeConfig() map[string]any {
 						"short": "Title of the news item",
 						"type": "`$STRING`",
 					},
+				},
+				"id": map[string]any{
+					"field": "id",
+					"name": "id",
 				},
 				"name": "new",
 				"op": map[string]any{
@@ -137,8 +142,10 @@ func MakeConfig() map[string]any {
 								"kind": "http",
 								"method": "GET",
 								"orig": "/news",
-								"parts": []any{
-									"news",
+								"segments": []any{
+									map[string]any{
+										"lit": "news",
+									},
 								},
 								"select": map[string]any{
 									"exist": []any{
@@ -155,6 +162,9 @@ func MakeConfig() map[string]any {
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body.data`",
+								},
+								"parts": []any{
+									"news",
 								},
 							},
 						},
@@ -179,9 +189,13 @@ func MakeConfig() map[string]any {
 								"kind": "http",
 								"method": "GET",
 								"orig": "/news/{id}",
-								"parts": []any{
-									"news",
-									"{id}",
+								"segments": []any{
+									map[string]any{
+										"lit": "news",
+									},
+									map[string]any{
+										"var": "id",
+									},
 								},
 								"select": map[string]any{
 									"exist": []any{
@@ -191,6 +205,10 @@ func MakeConfig() map[string]any {
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body.data`",
+								},
+								"parts": []any{
+									"news",
+									"{id}",
 								},
 							},
 						},
@@ -202,6 +220,17 @@ func MakeConfig() map[string]any {
 			},
 		},
 	}
+}
+
+// The plugin definitions the model selected per feature, as []any so a
+// feature package can consume them without core naming its types. Empty
+// when no active feature declares active plugin groups for this target.
+var featurePlugins = map[string][]any{
+}
+
+// FeaturePlugins is the definitions list for one feature's chain.
+func FeaturePlugins(name string) []any {
+	return featurePlugins[name]
 }
 
 var (

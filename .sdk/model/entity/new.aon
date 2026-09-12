@@ -24,6 +24,7 @@ main: kit: entity: new: {
       type: "`$INTEGER`"
     }
     {
+      format: "uri"
       name: "link"
       req: false
       short: "URL to the full news article"
@@ -126,8 +127,10 @@ main: kit: entity: new: {
           }
           method: "GET"
           orig: "/news"
-          parts: [
-            "news"
+          segments: [
+            {
+              lit: "news"
+            }
           ]
           select: {
             exist: [
@@ -166,9 +169,13 @@ main: kit: entity: new: {
           }
           method: "GET"
           orig: "/news/{id}"
-          parts: [
-            "news"
-            "{id}"
+          segments: [
+            {
+              lit: "news"
+            }
+            {
+              var: "id"
+            }
           ]
           select: {
             exist: [

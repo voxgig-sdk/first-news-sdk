@@ -1,6 +1,14 @@
 # FirstNews SDK configuration
 
 
+# The sekreto plugin DEFINITIONS the model selected per feature, imported
+# above by name from the modules the catalogue's active `plugin.def`
+# entries declare. Handed to each feature (secrets builds its Sekreto
+# with them): a provider kind not listed here is unknown to that SDK.
+FEATURE_PLUGINS = {
+}
+
+
 _shared_config = None
 
 
@@ -68,6 +76,7 @@ def make_config():
             "type": "`$INTEGER`",
           },
           {
+            "format": "uri",
             "name": "link",
             "short": "URL to the full news article",
             "type": "`$STRING`",
@@ -88,6 +97,10 @@ def make_config():
             "type": "`$STRING`",
           },
         ],
+        "id": {
+          "field": "id",
+          "name": "id",
+        },
         "name": "new",
         "op": {
           "list": {
@@ -154,8 +167,10 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/news",
-                "parts": [
-                  "news",
+                "segments": [
+                  {
+                    "lit": "news",
+                  },
                 ],
                 "select": {
                   "exist": [
@@ -173,6 +188,9 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body.data`",
                 },
+                "parts": [
+                  "news",
+                ],
               },
             ],
           },
@@ -196,9 +214,13 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/news/{id}",
-                "parts": [
-                  "news",
-                  "{id}",
+                "segments": [
+                  {
+                    "lit": "news",
+                  },
+                  {
+                    "var": "id",
+                  },
                 ],
                 "select": {
                   "exist": [
@@ -209,6 +231,10 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body.data`",
                 },
+                "parts": [
+                  "news",
+                  "{id}",
+                ],
               },
             ],
           },

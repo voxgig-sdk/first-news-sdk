@@ -47,6 +47,7 @@ local function make_config()
             ["type"] = "`$INTEGER`",
           },
           {
+            ["format"] = "uri",
             ["name"] = "link",
             ["short"] = "URL to the full news article",
             ["type"] = "`$STRING`",
@@ -66,6 +67,10 @@ local function make_config()
             ["short"] = "Title of the news item",
             ["type"] = "`$STRING`",
           },
+        },
+        ["id"] = {
+          ["field"] = "id",
+          ["name"] = "id",
         },
         ["name"] = "new",
         ["op"] = {
@@ -133,8 +138,10 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/news",
-                ["parts"] = {
-                  "news",
+                ["segments"] = {
+                  {
+                    ["lit"] = "news",
+                  },
                 },
                 ["select"] = {
                   ["exist"] = {
@@ -151,6 +158,9 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body.data`",
+                },
+                ["parts"] = {
+                  "news",
                 },
               },
             },
@@ -175,9 +185,13 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/news/{id}",
-                ["parts"] = {
-                  "news",
-                  "{id}",
+                ["segments"] = {
+                  {
+                    ["lit"] = "news",
+                  },
+                  {
+                    ["var"] = "id",
+                  },
                 },
                 ["select"] = {
                   ["exist"] = {
@@ -187,6 +201,10 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body.data`",
+                },
+                ["parts"] = {
+                  "news",
+                  "{id}",
                 },
               },
             },
