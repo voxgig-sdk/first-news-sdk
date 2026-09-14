@@ -28,7 +28,7 @@ loading a specific record.
 ### 1. Create a client
 
 ```ts
-import { FirstNewsSDK } from '@voxgig-sdk/first-news'
+import { FirstNewsSDK } from '@voxgig-sdk/first-news-sdk'
 
 const client = new FirstNewsSDK()
 ```
@@ -437,7 +437,7 @@ first-news/
 Import the SDK from the package root:
 
 ```ts
-import { FirstNewsSDK } from '@voxgig-sdk/first-news'
+import { FirstNewsSDK } from '@voxgig-sdk/first-news-sdk'
 ```
 
 ### Entity state

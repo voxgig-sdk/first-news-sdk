@@ -105,7 +105,7 @@ local results, err = client:New():list()
 
 | Language | Package | Install |
 | --- | --- | --- |
-| TypeScript | `@voxgig-sdk/first-news` | publish pending — [install from git tag](https://github.com/voxgig-sdk/first-news-sdk/releases) |
+| TypeScript | `@voxgig-sdk/first-news-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/first-news-sdk/releases) |
 | Python | `voxgig-sdk-first-news` | publish pending — [install from git tag](https://github.com/voxgig-sdk/first-news-sdk/releases) |
 | PHP | `voxgig-sdk/first-news` | publish pending — [install from git tag](https://github.com/voxgig-sdk/first-news-sdk/releases) |
 | Golang | `github.com/voxgig-sdk/first-news-sdk/go` | `go get github.com/voxgig-sdk/first-news-sdk/go@latest` |
@@ -119,7 +119,7 @@ local results, err = client:New():list()
 ### TypeScript
 
 ```ts
-import { FirstNewsSDK } from '@voxgig-sdk/first-news'
+import { FirstNewsSDK } from '@voxgig-sdk/first-news-sdk'
 
 const client = new FirstNewsSDK()
 
