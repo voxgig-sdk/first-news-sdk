@@ -1,12 +1,18 @@
 # FirstNews SDK feature factory
 
 from firstnews_sdk.feature.base_feature import FirstNewsBaseFeature
+from firstnews_sdk.feature.ratelimit_feature import FirstNewsRatelimitFeature
+from firstnews_sdk.feature.retry_feature import FirstNewsRetryFeature
 from firstnews_sdk.feature.test_feature import FirstNewsTestFeature
+from firstnews_sdk.feature.timeout_feature import FirstNewsTimeoutFeature
 
 
 _FEATURES = {
     "base": lambda: FirstNewsBaseFeature(),
+    "ratelimit": lambda: FirstNewsRatelimitFeature(),
+    "retry": lambda: FirstNewsRetryFeature(),
     "test": lambda: FirstNewsTestFeature(),
+    "timeout": lambda: FirstNewsTimeoutFeature(),
 }
 
 
