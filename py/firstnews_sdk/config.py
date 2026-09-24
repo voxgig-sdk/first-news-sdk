@@ -116,39 +116,46 @@ def make_config():
         "fields": [
           {
             "name": "channels",
-            "short": "List of news channels this item is published on",
+            "title": "Channels",
             "type": "`$ARRAY`",
+            "short": "List of news channels this item is published on",
           },
           {
             "name": "content",
-            "short": "Full HTML content of the news item",
+            "title": "Content",
             "type": "`$STRING`",
+            "short": "Full HTML content of the news item",
           },
           {
             "name": "id",
-            "short": "Unique identifier for the news item",
+            "title": "Id",
             "type": "`$INTEGER`",
+            "short": "Unique identifier for the news item",
           },
           {
-            "format": "uri",
             "name": "link",
-            "short": "URL to the full news article",
+            "title": "Link",
             "type": "`$STRING`",
+            "short": "URL to the full news article",
+            "format": "uri",
           },
           {
             "name": "published",
-            "short": "Publication date and time",
+            "title": "Published",
             "type": "`$STRING`",
+            "short": "Publication date and time",
           },
           {
             "name": "summary",
-            "short": "Brief summary of the news item",
+            "title": "Summary",
             "type": "`$STRING`",
+            "short": "Brief summary of the news item",
           },
           {
             "name": "title",
-            "short": "Title of the news item",
+            "title": "Title",
             "type": "`$STRING`",
+            "short": "Title of the news item",
           },
         ],
         "id": {
@@ -162,62 +169,6 @@ def make_config():
             "name": "list",
             "points": [
               {
-                "args": {
-                  "query": [
-                    {
-                      "kind": "query",
-                      "name": "after",
-                      "orig": "after",
-                      "type": "`$STRING`",
-                    },
-                    {
-                      "kind": "query",
-                      "name": "before",
-                      "orig": "before",
-                      "type": "`$STRING`",
-                    },
-                    {
-                      "example": "What's New",
-                      "kind": "query",
-                      "name": "channel",
-                      "orig": "channel",
-                      "type": "`$STRING`",
-                    },
-                    {
-                      "example": 100,
-                      "kind": "query",
-                      "name": "limit",
-                      "orig": "limit",
-                      "type": "`$INTEGER`",
-                    },
-                    {
-                      "kind": "query",
-                      "name": "link",
-                      "orig": "link",
-                      "type": "`$STRING`",
-                    },
-                    {
-                      "example": 0,
-                      "kind": "query",
-                      "name": "offset",
-                      "orig": "offset",
-                      "type": "`$INTEGER`",
-                    },
-                    {
-                      "example": False,
-                      "kind": "query",
-                      "name": "pretty",
-                      "orig": "pretty",
-                      "type": "`$BOOLEAN`",
-                    },
-                    {
-                      "kind": "query",
-                      "name": "q",
-                      "orig": "q",
-                      "type": "`$STRING`",
-                    },
-                  ],
-                },
                 "kind": "http",
                 "method": "GET",
                 "orig": "/news",
@@ -226,6 +177,70 @@ def make_config():
                     "lit": "news",
                   },
                 ],
+                "parts": [
+                  "news",
+                ],
+                "rename": {},
+                "transform": {
+                  "req": "`reqdata`",
+                  "res": "`body.data`",
+                },
+                "args": {
+                  "query": [
+                    {
+                      "name": "after",
+                      "orig": "after",
+                      "type": "`$STRING`",
+                      "kind": "query",
+                    },
+                    {
+                      "name": "before",
+                      "orig": "before",
+                      "type": "`$STRING`",
+                      "kind": "query",
+                    },
+                    {
+                      "name": "channel",
+                      "orig": "channel",
+                      "type": "`$STRING`",
+                      "kind": "query",
+                      "example": "What's New",
+                    },
+                    {
+                      "name": "limit",
+                      "orig": "limit",
+                      "type": "`$INTEGER`",
+                      "kind": "query",
+                      "example": 100,
+                    },
+                    {
+                      "name": "link",
+                      "orig": "link",
+                      "type": "`$STRING`",
+                      "kind": "query",
+                    },
+                    {
+                      "name": "offset",
+                      "orig": "offset",
+                      "type": "`$INTEGER`",
+                      "kind": "query",
+                      "example": 0,
+                    },
+                    {
+                      "name": "pretty",
+                      "orig": "pretty",
+                      "type": "`$BOOLEAN`",
+                      "kind": "query",
+                      "example": False,
+                    },
+                    {
+                      "name": "q",
+                      "orig": "q",
+                      "type": "`$STRING`",
+                      "kind": "query",
+                    },
+                  ],
+                },
                 "select": {
                   "exist": [
                     "after",
@@ -238,13 +253,6 @@ def make_config():
                     "q",
                   ],
                 },
-                "transform": {
-                  "req": "`reqdata`",
-                  "res": "`body.data`",
-                },
-                "parts": [
-                  "news",
-                ],
               },
             ],
           },
@@ -253,18 +261,6 @@ def make_config():
             "name": "load",
             "points": [
               {
-                "args": {
-                  "params": [
-                    {
-                      "example": 40558,
-                      "kind": "param",
-                      "name": "id",
-                      "orig": "id",
-                      "reqd": True,
-                      "type": "`$INTEGER`",
-                    },
-                  ],
-                },
                 "kind": "http",
                 "method": "GET",
                 "orig": "/news/{id}",
@@ -276,19 +272,32 @@ def make_config():
                     "var": "id",
                   },
                 ],
+                "parts": [
+                  "news",
+                  "{id}",
+                ],
+                "rename": {},
+                "transform": {
+                  "req": "`reqdata`",
+                  "res": "`body.data`",
+                },
+                "args": {
+                  "params": [
+                    {
+                      "name": "id",
+                      "orig": "id",
+                      "type": "`$INTEGER`",
+                      "kind": "param",
+                      "reqd": True,
+                      "example": 40558,
+                    },
+                  ],
+                },
                 "select": {
                   "exist": [
                     "id",
                   ],
                 },
-                "transform": {
-                  "req": "`reqdata`",
-                  "res": "`body.data`",
-                },
-                "parts": [
-                  "news",
-                  "{id}",
-                ],
               },
             ],
           },

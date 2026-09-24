@@ -91,39 +91,46 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "channels",
-						"short": "List of news channels this item is published on",
+						"title": "Channels",
 						"type": "`$ARRAY`",
+						"short": "List of news channels this item is published on",
 					},
 					map[string]any{
 						"name": "content",
-						"short": "Full HTML content of the news item",
+						"title": "Content",
 						"type": "`$STRING`",
+						"short": "Full HTML content of the news item",
 					},
 					map[string]any{
 						"name": "id",
-						"short": "Unique identifier for the news item",
+						"title": "Id",
 						"type": "`$INTEGER`",
+						"short": "Unique identifier for the news item",
 					},
 					map[string]any{
-						"format": "uri",
 						"name": "link",
-						"short": "URL to the full news article",
+						"title": "Link",
 						"type": "`$STRING`",
+						"short": "URL to the full news article",
+						"format": "uri",
 					},
 					map[string]any{
 						"name": "published",
-						"short": "Publication date and time",
+						"title": "Published",
 						"type": "`$STRING`",
+						"short": "Publication date and time",
 					},
 					map[string]any{
 						"name": "summary",
-						"short": "Brief summary of the news item",
+						"title": "Summary",
 						"type": "`$STRING`",
+						"short": "Brief summary of the news item",
 					},
 					map[string]any{
 						"name": "title",
-						"short": "Title of the news item",
+						"title": "Title",
 						"type": "`$STRING`",
+						"short": "Title of the news item",
 					},
 				},
 				"id": map[string]any{
@@ -137,68 +144,76 @@ func MakeConfig() map[string]any {
 						"name": "list",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"query": []any{
-										map[string]any{
-											"kind": "query",
-											"name": "after",
-											"orig": "after",
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"kind": "query",
-											"name": "before",
-											"orig": "before",
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"example": "What's New",
-											"kind": "query",
-											"name": "channel",
-											"orig": "channel",
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"example": 100,
-											"kind": "query",
-											"name": "limit",
-											"orig": "limit",
-											"type": "`$INTEGER`",
-										},
-										map[string]any{
-											"kind": "query",
-											"name": "link",
-											"orig": "link",
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"example": 0,
-											"kind": "query",
-											"name": "offset",
-											"orig": "offset",
-											"type": "`$INTEGER`",
-										},
-										map[string]any{
-											"example": false,
-											"kind": "query",
-											"name": "pretty",
-											"orig": "pretty",
-											"type": "`$BOOLEAN`",
-										},
-										map[string]any{
-											"kind": "query",
-											"name": "q",
-											"orig": "q",
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/news",
 								"segments": []any{
 									map[string]any{
 										"lit": "news",
+									},
+								},
+								"parts": []any{
+									"news",
+								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body.data`",
+								},
+								"args": map[string]any{
+									"query": []any{
+										map[string]any{
+											"name": "after",
+											"orig": "after",
+											"type": "`$STRING`",
+											"kind": "query",
+										},
+										map[string]any{
+											"name": "before",
+											"orig": "before",
+											"type": "`$STRING`",
+											"kind": "query",
+										},
+										map[string]any{
+											"name": "channel",
+											"orig": "channel",
+											"type": "`$STRING`",
+											"kind": "query",
+											"example": "What's New",
+										},
+										map[string]any{
+											"name": "limit",
+											"orig": "limit",
+											"type": "`$INTEGER`",
+											"kind": "query",
+											"example": 100,
+										},
+										map[string]any{
+											"name": "link",
+											"orig": "link",
+											"type": "`$STRING`",
+											"kind": "query",
+										},
+										map[string]any{
+											"name": "offset",
+											"orig": "offset",
+											"type": "`$INTEGER`",
+											"kind": "query",
+											"example": 0,
+										},
+										map[string]any{
+											"name": "pretty",
+											"orig": "pretty",
+											"type": "`$BOOLEAN`",
+											"kind": "query",
+											"example": false,
+										},
+										map[string]any{
+											"name": "q",
+											"orig": "q",
+											"type": "`$STRING`",
+											"kind": "query",
+										},
 									},
 								},
 								"select": map[string]any{
@@ -213,13 +228,6 @@ func MakeConfig() map[string]any {
 										"q",
 									},
 								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body.data`",
-								},
-								"parts": []any{
-									"news",
-								},
 							},
 						},
 					},
@@ -228,18 +236,6 @@ func MakeConfig() map[string]any {
 						"name": "load",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"example": 40558,
-											"kind": "param",
-											"name": "id",
-											"orig": "id",
-											"reqd": true,
-											"type": "`$INTEGER`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/news/{id}",
@@ -251,18 +247,31 @@ func MakeConfig() map[string]any {
 										"var": "id",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"id",
-									},
+								"parts": []any{
+									"news",
+									"{id}",
 								},
+								"rename": map[string]any{},
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body.data`",
 								},
-								"parts": []any{
-									"news",
-									"{id}",
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "id",
+											"orig": "id",
+											"type": "`$INTEGER`",
+											"kind": "param",
+											"reqd": true,
+											"example": 40558,
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"id",
+									},
 								},
 							},
 						},

@@ -1,7 +1,7 @@
 // Typed models for the FirstNews SDK.
 //
-// GENERATED from the API model: main.kit.entity.<e>.fields[] and per-op
-// params (op.<name>.points[].args.params[]). Field/param types come from the
+// GENERATED from the API model: main.kit.entity.<e>.fields{} and per-op
+// params (op.<name>.points[].g.params[]). Field/param types come from the
 // canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 // @voxgig/apidef VALID_CANON). Do not edit by hand.
 package entity
@@ -14,13 +14,6 @@ import (
 
 // New is the typed data model for the new entity.
 type New struct {
-	Channels *[]any `json:"channels,omitempty"`
-	Content *string `json:"content,omitempty"`
-	Id *int `json:"id,omitempty"`
-	Link *string `json:"link,omitempty"`
-	Published *string `json:"published,omitempty"`
-	Summary *string `json:"summary,omitempty"`
-	Title *string `json:"title,omitempty"`
 }
 
 // NewLoadMatch is the typed request payload for New.LoadTyped.

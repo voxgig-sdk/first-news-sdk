@@ -16,12 +16,6 @@ const FEATURE_CLASS: Record<string, typeof BaseFeature> = {
 }
 
 
-// Per-feature plugin DEFINITIONS (voxgig/plugin `Definition` values), from
-// the model's active plugin groups. A feature that takes a `plugins` option
-// (secrets over sekreto) reads its own entry; a feature with no plugins has
-// none. Named imports above make each definition statically reachable, so
-// an SDK carries exactly the plugin modules its model selects — the same
-// leanness the old side-effect registry imports bought, without a registry.
 const FEATURE_PLUGINS: Record<string, any[]> = {
   
 }
@@ -32,7 +26,6 @@ class Config {
   makeFeature(this: any, fn: string) {
     const fc = FEATURE_CLASS[fn]
     const fi = new fc()
-    // TODO: errors etc
     return fi
   }
 
@@ -139,39 +132,46 @@ class Config {
       "fields": [
         {
           "name": "channels",
-          "short": "List of news channels this item is published on",
-          "type": "`$ARRAY`"
+          "title": "Channels",
+          "type": "`$ARRAY`",
+          "short": "List of news channels this item is published on"
         },
         {
           "name": "content",
-          "short": "Full HTML content of the news item",
-          "type": "`$STRING`"
+          "title": "Content",
+          "type": "`$STRING`",
+          "short": "Full HTML content of the news item"
         },
         {
           "name": "id",
-          "short": "Unique identifier for the news item",
-          "type": "`$INTEGER`"
+          "title": "Id",
+          "type": "`$INTEGER`",
+          "short": "Unique identifier for the news item"
         },
         {
-          "format": "uri",
           "name": "link",
+          "title": "Link",
+          "type": "`$STRING`",
           "short": "URL to the full news article",
-          "type": "`$STRING`"
+          "format": "uri"
         },
         {
           "name": "published",
-          "short": "Publication date and time",
-          "type": "`$STRING`"
+          "title": "Published",
+          "type": "`$STRING`",
+          "short": "Publication date and time"
         },
         {
           "name": "summary",
-          "short": "Brief summary of the news item",
-          "type": "`$STRING`"
+          "title": "Summary",
+          "type": "`$STRING`",
+          "short": "Brief summary of the news item"
         },
         {
           "name": "title",
-          "short": "Title of the news item",
-          "type": "`$STRING`"
+          "title": "Title",
+          "type": "`$STRING`",
+          "short": "Title of the news item"
         }
       ],
       "id": {
@@ -185,62 +185,6 @@ class Config {
           "name": "list",
           "points": [
             {
-              "args": {
-                "query": [
-                  {
-                    "kind": "query",
-                    "name": "after",
-                    "orig": "after",
-                    "type": "`$STRING`"
-                  },
-                  {
-                    "kind": "query",
-                    "name": "before",
-                    "orig": "before",
-                    "type": "`$STRING`"
-                  },
-                  {
-                    "example": "What's New",
-                    "kind": "query",
-                    "name": "channel",
-                    "orig": "channel",
-                    "type": "`$STRING`"
-                  },
-                  {
-                    "example": 100,
-                    "kind": "query",
-                    "name": "limit",
-                    "orig": "limit",
-                    "type": "`$INTEGER`"
-                  },
-                  {
-                    "kind": "query",
-                    "name": "link",
-                    "orig": "link",
-                    "type": "`$STRING`"
-                  },
-                  {
-                    "example": 0,
-                    "kind": "query",
-                    "name": "offset",
-                    "orig": "offset",
-                    "type": "`$INTEGER`"
-                  },
-                  {
-                    "example": false,
-                    "kind": "query",
-                    "name": "pretty",
-                    "orig": "pretty",
-                    "type": "`$BOOLEAN`"
-                  },
-                  {
-                    "kind": "query",
-                    "name": "q",
-                    "orig": "q",
-                    "type": "`$STRING`"
-                  }
-                ]
-              },
               "kind": "http",
               "method": "GET",
               "orig": "/news",
@@ -249,6 +193,70 @@ class Config {
                   "lit": "news"
                 }
               ],
+              "parts": [
+                "news"
+              ],
+              "rename": {},
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body.data`"
+              },
+              "args": {
+                "query": [
+                  {
+                    "name": "after",
+                    "orig": "after",
+                    "type": "`$STRING`",
+                    "kind": "query"
+                  },
+                  {
+                    "name": "before",
+                    "orig": "before",
+                    "type": "`$STRING`",
+                    "kind": "query"
+                  },
+                  {
+                    "name": "channel",
+                    "orig": "channel",
+                    "type": "`$STRING`",
+                    "kind": "query",
+                    "example": "What's New"
+                  },
+                  {
+                    "name": "limit",
+                    "orig": "limit",
+                    "type": "`$INTEGER`",
+                    "kind": "query",
+                    "example": 100
+                  },
+                  {
+                    "name": "link",
+                    "orig": "link",
+                    "type": "`$STRING`",
+                    "kind": "query"
+                  },
+                  {
+                    "name": "offset",
+                    "orig": "offset",
+                    "type": "`$INTEGER`",
+                    "kind": "query",
+                    "example": 0
+                  },
+                  {
+                    "name": "pretty",
+                    "orig": "pretty",
+                    "type": "`$BOOLEAN`",
+                    "kind": "query",
+                    "example": false
+                  },
+                  {
+                    "name": "q",
+                    "orig": "q",
+                    "type": "`$STRING`",
+                    "kind": "query"
+                  }
+                ]
+              },
               "select": {
                 "exist": [
                   "after",
@@ -260,14 +268,7 @@ class Config {
                   "pretty",
                   "q"
                 ]
-              },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body.data`"
-              },
-              "parts": [
-                "news"
-              ]
+              }
             }
           ]
         },
@@ -276,18 +277,6 @@ class Config {
           "name": "load",
           "points": [
             {
-              "args": {
-                "params": [
-                  {
-                    "example": 40558,
-                    "kind": "param",
-                    "name": "id",
-                    "orig": "id",
-                    "reqd": true,
-                    "type": "`$INTEGER`"
-                  }
-                ]
-              },
               "kind": "http",
               "method": "GET",
               "orig": "/news/{id}",
@@ -299,19 +288,32 @@ class Config {
                   "var": "id"
                 }
               ],
-              "select": {
-                "exist": [
-                  "id"
-                ]
-              },
+              "parts": [
+                "news",
+                "{id}"
+              ],
+              "rename": {},
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body.data`"
               },
-              "parts": [
-                "news",
-                "{id}"
-              ]
+              "args": {
+                "params": [
+                  {
+                    "name": "id",
+                    "orig": "id",
+                    "type": "`$INTEGER`",
+                    "kind": "param",
+                    "reqd": true,
+                    "example": 40558
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "id"
+                ]
+              }
             }
           ]
         }
