@@ -15,9 +15,13 @@ predictable and low-friction for both humans and AI agents.
 
 ## Install
 This package is not yet published to npm. Install it from the GitHub
-release tag (`ts/vX.Y.Z`):
+release tag (`ts/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/first-news-sdk/releases)), or from a
+clone, which carries the compiled `dist/`:
 
-- Releases: [https://github.com/voxgig-sdk/first-news-sdk/releases](https://github.com/voxgig-sdk/first-news-sdk/releases)
+```bash
+git clone https://github.com/voxgig-sdk/first-news-sdk
+npm install ./first-news-sdk/ts
+```
 
 
 ## Tutorial: your first API call
@@ -307,13 +311,17 @@ The `prepare()` method returns:
 
 | Field | Description |
 | --- | --- |
-| `channels` | List of news channels this item is published on |
-| `content` | Full HTML content of the news item |
+| `access` | Access level of the endpoint |
+| `data` |  |
 | `id` | Unique identifier for the news item |
+| `lastmodified` | Last modified timestamp |
 | `link` | URL to the full news article |
 | `published` | Publication date and time |
+| `status` | Status of the API response |
+| `statuscode` | HTTP status code |
 | `summary` | Brief summary of the news item |
 | `title` | Title of the news item |
+| `version` | API version |
 
 Operations: list, load.
 
@@ -339,13 +347,17 @@ Create an instance: `const new_ = client.New()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `channels` | `any[]` | List of news channels this item is published on |
-| `content` | `string` | Full HTML content of the news item |
+| `access` | `string` | Access level of the endpoint |
+| `data` | `Record<string, any>` |  |
 | `id` | `number` | Unique identifier for the news item |
+| `lastmodified` | `string` | Last modified timestamp |
 | `link` | `string` | URL to the full news article |
 | `published` | `string` | Publication date and time |
+| `status` | `string` | Status of the API response |
+| `statuscode` | `number` | HTTP status code |
 | `summary` | `string` | Brief summary of the news item |
 | `title` | `string` | Title of the news item |
+| `version` | `string` | API version |
 
 #### Example: Load
 

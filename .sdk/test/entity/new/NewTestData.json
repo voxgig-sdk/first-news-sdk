@@ -2,43 +2,59 @@
   "existing": {
     "new": {
       "NEW00": {
-        "channels": [],
-        "content": "s47",
+        "access": "s6e",
+        "data": {},
         "id": "NEW00",
-        "link": "s49",
-        "published": "s4a",
-        "summary": "s4b",
-        "title": "s4c"
+        "lastmodified": "s71",
+        "link": "s72",
+        "published": "s73",
+        "status": "s74",
+        "statuscode": 117,
+        "summary": "s76",
+        "title": "s77",
+        "version": "s78"
       },
       "NEW01": {
-        "channels": [],
-        "content": "s8d",
+        "access": "sdc",
+        "data": {},
         "id": "NEW01",
-        "link": "s8f",
-        "published": "s90",
-        "summary": "s91",
-        "title": "s92"
+        "lastmodified": "sdf",
+        "link": "se0",
+        "published": "se1",
+        "status": "se2",
+        "statuscode": 227,
+        "summary": "se4",
+        "title": "se5",
+        "version": "se6"
       },
       "NEW02": {
-        "channels": [],
-        "content": "sd3",
+        "access": "s14a",
+        "data": {},
         "id": "NEW02",
-        "link": "sd5",
-        "published": "sd6",
-        "summary": "sd7",
-        "title": "sd8"
+        "lastmodified": "s14d",
+        "link": "s14e",
+        "published": "s14f",
+        "status": "s150",
+        "statuscode": 337,
+        "summary": "s152",
+        "title": "s153",
+        "version": "s154"
       }
     }
   },
   "new": {
     "new": {
       "new_ref01": {
-        "channels": [],
-        "content": "s119",
-        "link": "s11b",
-        "published": "s11c",
-        "summary": "s11d",
-        "title": "s11e"
+        "access": "s1b8",
+        "data": {},
+        "lastmodified": "s1bb",
+        "link": "s1bc",
+        "published": "s1bd",
+        "status": "s1be",
+        "statuscode": 447,
+        "summary": "s1c0",
+        "title": "s1c1",
+        "version": "s1c2"
       }
     }
   },

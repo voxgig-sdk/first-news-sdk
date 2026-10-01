@@ -93,13 +93,17 @@ new = client.New
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `channels` | `Array` | No | List of news channels this item is published on |
-| `content` | `String` | No | Full HTML content of the news item |
+| `access` | `String` | No | Access level of the endpoint |
+| `data` | `Hash` | No |  |
 | `id` | `Integer` | No | Unique identifier for the news item |
+| `lastmodified` | `String` | No | Last modified timestamp |
 | `link` | `String` | No | URL to the full news article |
 | `published` | `String` | No | Publication date and time |
+| `status` | `String` | No | Status of the API response |
+| `statuscode` | `Integer` | No | HTTP status code |
 | `summary` | `String` | No | Brief summary of the news item |
 | `title` | `String` | No | Title of the news item |
+| `version` | `String` | No | API version |
 
 ### Operations
 

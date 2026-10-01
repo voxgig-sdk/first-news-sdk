@@ -90,13 +90,17 @@ local new = client:New(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `channels` | `table` | No | List of news channels this item is published on |
-| `content` | `string` | No | Full HTML content of the news item |
+| `access` | `string` | No | Access level of the endpoint |
+| `data` | `table` | No |  |
 | `id` | `number` | No | Unique identifier for the news item |
+| `lastmodified` | `string` | No | Last modified timestamp |
 | `link` | `string` | No | URL to the full news article |
 | `published` | `string` | No | Publication date and time |
+| `status` | `string` | No | Status of the API response |
+| `statuscode` | `number` | No | HTTP status code |
 | `summary` | `string` | No | Brief summary of the news item |
 | `title` | `string` | No | Title of the news item |
+| `version` | `string` | No | API version |
 
 ### Operations
 

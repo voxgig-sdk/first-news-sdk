@@ -7,13 +7,17 @@
 -- edit by hand.
 
 ---@class New
----@field channels? table
----@field content? string
+---@field access? string
+---@field data? table
 ---@field id? number
+---@field lastmodified? string
 ---@field link? string
 ---@field published? string
+---@field status? string
+---@field statuscode? number
 ---@field summary? string
 ---@field title? string
+---@field version? string
 
 ---@class NewLoadMatch
 ---@field id number

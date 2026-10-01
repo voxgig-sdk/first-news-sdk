@@ -15,13 +15,17 @@ declare(strict_types=1);
 /** New entity data model. */
 class NewType
 {
-    public ?array $channels = null;
-    public ?string $content = null;
+    public ?string $access = null;
+    public ?array $data = null;
     public ?int $id = null;
+    public ?string $lastmodified = null;
     public ?string $link = null;
     public ?string $published = null;
+    public ?string $status = null;
+    public ?int $statuscode = null;
     public ?string $summary = null;
     public ?string $title = null;
+    public ?string $version = null;
 }
 
 /** Request payload for New#load. */

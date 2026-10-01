@@ -5,19 +5,18 @@ main: kit: entity: new: {
   alias: field: {}
 
   fields: {
-    channels: {
-      h: "Channels"
-      n: "channels"
+    access: {
+      h: "Access"
+      n: "access"
       r: false
-      sh: "List of news channels this item is published on"
-      t: "`$ARRAY`"
-    }
-    content: {
-      h: "Content"
-      n: "content"
-      r: false
-      sh: "Full HTML content of the news item"
+      sh: "Access level of the endpoint"
       t: "`$STRING`"
+    }
+    data: {
+      h: "Data"
+      n: "data"
+      r: false
+      t: "`$OBJECT`"
     }
     id: {
       h: "Id"
@@ -25,6 +24,13 @@ main: kit: entity: new: {
       r: false
       sh: "Unique identifier for the news item"
       t: "`$INTEGER`"
+    }
+    lastmodified: {
+      h: "Lastmodified"
+      n: "lastmodified"
+      r: false
+      sh: "Last modified timestamp"
+      t: "`$STRING`"
     }
     link: {
       fo: "uri"
@@ -41,6 +47,20 @@ main: kit: entity: new: {
       sh: "Publication date and time"
       t: "`$STRING`"
     }
+    status: {
+      h: "Status"
+      n: "status"
+      r: false
+      sh: "Status of the API response"
+      t: "`$STRING`"
+    }
+    statuscode: {
+      h: "Statuscode"
+      n: "statuscode"
+      r: false
+      sh: "HTTP status code"
+      t: "`$INTEGER`"
+    }
     summary: {
       h: "Summary"
       n: "summary"
@@ -53,6 +73,13 @@ main: kit: entity: new: {
       n: "title"
       r: false
       sh: "Title of the news item"
+      t: "`$STRING`"
+    }
+    version: {
+      h: "Version"
+      n: "version"
+      r: false
+      sh: "API version"
       t: "`$STRING`"
     }
   }
@@ -201,7 +228,7 @@ main: kit: entity: new: {
           ]
           t: {
             req: "`reqdata`"
-            res: "`body.data`"
+            res: "`body`"
           }
         }
       ]

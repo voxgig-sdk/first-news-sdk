@@ -241,13 +241,17 @@ Only `direct()` returns a response envelope — a `table` with `ok`,
 
 | Field | Description |
 | --- | --- |
-| `channels` | List of news channels this item is published on |
-| `content` | Full HTML content of the news item |
+| `access` | Access level of the endpoint |
+| `data` |  |
 | `id` | Unique identifier for the news item |
+| `lastmodified` | Last modified timestamp |
 | `link` | URL to the full news article |
 | `published` | Publication date and time |
+| `status` | Status of the API response |
+| `statuscode` | HTTP status code |
 | `summary` | Brief summary of the news item |
 | `title` | Title of the news item |
+| `version` | API version |
 
 Operations: List, Load.
 
@@ -273,13 +277,17 @@ Create an instance: `local new = client:New(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `channels` | `table` | List of news channels this item is published on |
-| `content` | `string` | Full HTML content of the news item |
+| `access` | `string` | Access level of the endpoint |
+| `data` | `table` |  |
 | `id` | `number` | Unique identifier for the news item |
+| `lastmodified` | `string` | Last modified timestamp |
 | `link` | `string` | URL to the full news article |
 | `published` | `string` | Publication date and time |
+| `status` | `string` | Status of the API response |
+| `statuscode` | `number` | HTTP status code |
 | `summary` | `string` | Brief summary of the news item |
 | `title` | `string` | Title of the news item |
+| `version` | `string` | API version |
 
 #### Example: Load
 

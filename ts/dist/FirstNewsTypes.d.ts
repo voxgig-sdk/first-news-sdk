@@ -1,11 +1,15 @@
 export interface New {
-    channels?: any[];
-    content?: string;
+    access?: string;
+    data?: Record<string, any>;
     id?: number;
+    lastmodified?: string;
     link?: string;
     published?: string;
+    status?: string;
+    statuscode?: number;
     summary?: string;
     title?: string;
+    version?: string;
 }
 export interface NewLoadMatch {
     id: number;

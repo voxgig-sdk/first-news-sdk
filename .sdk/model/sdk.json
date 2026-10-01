@@ -97,21 +97,20 @@
             "field": {}
           },
           "fields": {
-            "channels": {
+            "access": {
               "a": true,
-              "h": "Channels",
-              "n": "channels",
+              "h": "Access",
+              "n": "access",
               "r": false,
-              "sh": "List of news channels this item is published on",
-              "t": "`$ARRAY`"
-            },
-            "content": {
-              "a": true,
-              "h": "Content",
-              "n": "content",
-              "r": false,
-              "sh": "Full HTML content of the news item",
+              "sh": "Access level of the endpoint",
               "t": "`$STRING`"
+            },
+            "data": {
+              "a": true,
+              "h": "Data",
+              "n": "data",
+              "r": false,
+              "t": "`$OBJECT`"
             },
             "id": {
               "a": true,
@@ -120,6 +119,14 @@
               "r": false,
               "sh": "Unique identifier for the news item",
               "t": "`$INTEGER`"
+            },
+            "lastmodified": {
+              "a": true,
+              "h": "Lastmodified",
+              "n": "lastmodified",
+              "r": false,
+              "sh": "Last modified timestamp",
+              "t": "`$STRING`"
             },
             "link": {
               "a": true,
@@ -138,6 +145,22 @@
               "sh": "Publication date and time",
               "t": "`$STRING`"
             },
+            "status": {
+              "a": true,
+              "h": "Status",
+              "n": "status",
+              "r": false,
+              "sh": "Status of the API response",
+              "t": "`$STRING`"
+            },
+            "statuscode": {
+              "a": true,
+              "h": "Statuscode",
+              "n": "statuscode",
+              "r": false,
+              "sh": "HTTP status code",
+              "t": "`$INTEGER`"
+            },
             "summary": {
               "a": true,
               "h": "Summary",
@@ -152,6 +175,14 @@
               "n": "title",
               "r": false,
               "sh": "Title of the news item",
+              "t": "`$STRING`"
+            },
+            "version": {
+              "a": true,
+              "h": "Version",
+              "n": "version",
+              "r": false,
+              "sh": "API version",
               "t": "`$STRING`"
             }
           },
@@ -315,7 +346,7 @@
                   ],
                   "t": {
                     "req": "`reqdata`",
-                    "res": "`body.data`"
+                    "res": "`body`"
                   }
                 }
               ]
@@ -820,7 +851,12 @@
         },
         "base": "http://localhost:8000",
         "clean": {
-          "keys": "key,token,id"
+          "active": true,
+          "hint": "0",
+          "keys": "key,secret,token,password,passwd,authorization,cookie,credential,signature",
+          "mask": "[redacted]",
+          "min": "4",
+          "values": ""
         },
         "entity": {
           "`$CHILD`": {

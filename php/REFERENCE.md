@@ -92,13 +92,17 @@ $new = $client->New();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `channels` | `array` | No | List of news channels this item is published on |
-| `content` | `string` | No | Full HTML content of the news item |
+| `access` | `string` | No | Access level of the endpoint |
+| `data` | `array` | No |  |
 | `id` | `int` | No | Unique identifier for the news item |
+| `lastmodified` | `string` | No | Last modified timestamp |
 | `link` | `string` | No | URL to the full news article |
 | `published` | `string` | No | Publication date and time |
+| `status` | `string` | No | Status of the API response |
+| `statuscode` | `int` | No | HTTP status code |
 | `summary` | `string` | No | Brief summary of the news item |
 | `title` | `string` | No | Title of the news item |
+| `version` | `string` | No | API version |
 
 ### Operations
 

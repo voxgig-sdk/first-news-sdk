@@ -112,22 +112,27 @@ class FirstNewsConfig
         'new' => [
           'fields' => [
             [
-              'name' => 'channels',
-              'title' => 'Channels',
-              'type' => '`$ARRAY`',
-              'short' => 'List of news channels this item is published on',
+              'name' => 'access',
+              'title' => 'Access',
+              'type' => '`$STRING`',
+              'short' => 'Access level of the endpoint',
             ],
             [
-              'name' => 'content',
-              'title' => 'Content',
-              'type' => '`$STRING`',
-              'short' => 'Full HTML content of the news item',
+              'name' => 'data',
+              'title' => 'Data',
+              'type' => '`$OBJECT`',
             ],
             [
               'name' => 'id',
               'title' => 'Id',
               'type' => '`$INTEGER`',
               'short' => 'Unique identifier for the news item',
+            ],
+            [
+              'name' => 'lastmodified',
+              'title' => 'Lastmodified',
+              'type' => '`$STRING`',
+              'short' => 'Last modified timestamp',
             ],
             [
               'name' => 'link',
@@ -143,6 +148,18 @@ class FirstNewsConfig
               'short' => 'Publication date and time',
             ],
             [
+              'name' => 'status',
+              'title' => 'Status',
+              'type' => '`$STRING`',
+              'short' => 'Status of the API response',
+            ],
+            [
+              'name' => 'statuscode',
+              'title' => 'Statuscode',
+              'type' => '`$INTEGER`',
+              'short' => 'HTTP status code',
+            ],
+            [
               'name' => 'summary',
               'title' => 'Summary',
               'type' => '`$STRING`',
@@ -153,6 +170,12 @@ class FirstNewsConfig
               'title' => 'Title',
               'type' => '`$STRING`',
               'short' => 'Title of the news item',
+            ],
+            [
+              'name' => 'version',
+              'title' => 'Version',
+              'type' => '`$STRING`',
+              'short' => 'API version',
             ],
           ],
           'id' => [
@@ -276,7 +299,7 @@ class FirstNewsConfig
                   'rename' => [],
                   'transform' => [
                     'req' => '`reqdata`',
-                    'res' => '`body.data`',
+                    'res' => '`body`',
                   ],
                   'args' => [
                     'params' => [

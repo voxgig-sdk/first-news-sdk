@@ -10,14 +10,17 @@
 
 # New entity data model.
 #
-# @!attribute [rw] channels
-#   @return [Array, nil]
-#
-# @!attribute [rw] content
+# @!attribute [rw] access
 #   @return [String, nil]
+#
+# @!attribute [rw] data
+#   @return [Hash, nil]
 #
 # @!attribute [rw] id
 #   @return [Integer, nil]
+#
+# @!attribute [rw] lastmodified
+#   @return [String, nil]
 #
 # @!attribute [rw] link
 #   @return [String, nil]
@@ -25,19 +28,32 @@
 # @!attribute [rw] published
 #   @return [String, nil]
 #
+# @!attribute [rw] status
+#   @return [String, nil]
+#
+# @!attribute [rw] statuscode
+#   @return [Integer, nil]
+#
 # @!attribute [rw] summary
 #   @return [String, nil]
 #
 # @!attribute [rw] title
 #   @return [String, nil]
+#
+# @!attribute [rw] version
+#   @return [String, nil]
 New = Struct.new(
-  :channels,
-  :content,
+  :access,
+  :data,
   :id,
+  :lastmodified,
   :link,
   :published,
+  :status,
+  :statuscode,
   :summary,
   :title,
+  :version,
   keyword_init: true
 )
 

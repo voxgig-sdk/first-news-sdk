@@ -12,9 +12,14 @@ The SDK exposes the API as capitalised, semantic **Entities** — for example `$
 
 ## Install
 This package is not yet published to Packagist. Install it from the
-GitHub release tag (`php/vX.Y.Z`):
+GitHub release tag (`php/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/first-news-sdk/releases)), or
+from a clone as a Composer path repository:
 
-- Releases: [https://github.com/voxgig-sdk/first-news-sdk/releases](https://github.com/voxgig-sdk/first-news-sdk/releases)
+```bash
+git clone https://github.com/voxgig-sdk/first-news-sdk
+composer config repositories.first-news-sdk path ./first-news-sdk/php
+composer require voxgig-sdk/first-news-sdk:@dev
+```
 
 
 ## Tutorial: your first API call
@@ -39,7 +44,7 @@ try {
     $news = $client->New()->list();
     foreach ($news as $record) {
         $item = $record->data_get();
-        echo $item["id"] . " " . $item["channels"] . "\n";
+        echo $item["id"] . " " . $item["access"] . "\n";
     }
 } catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
@@ -264,13 +269,17 @@ On error, `ok` is `false` and `$err` contains the error value.
 
 | Field | Description |
 | --- | --- |
-| `channels` | List of news channels this item is published on |
-| `content` | Full HTML content of the news item |
+| `access` | Access level of the endpoint |
+| `data` |  |
 | `id` | Unique identifier for the news item |
+| `lastmodified` | Last modified timestamp |
 | `link` | URL to the full news article |
 | `published` | Publication date and time |
+| `status` | Status of the API response |
+| `statuscode` | HTTP status code |
 | `summary` | Brief summary of the news item |
 | `title` | Title of the news item |
+| `version` | API version |
 
 Operations: List, Load.
 
@@ -296,13 +305,17 @@ Create an instance: `$new = $client->New();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `channels` | `array` | List of news channels this item is published on |
-| `content` | `string` | Full HTML content of the news item |
+| `access` | `string` | Access level of the endpoint |
+| `data` | `array` |  |
 | `id` | `int` | Unique identifier for the news item |
+| `lastmodified` | `string` | Last modified timestamp |
 | `link` | `string` | URL to the full news article |
 | `published` | `string` | Publication date and time |
+| `status` | `string` | Status of the API response |
+| `statuscode` | `int` | HTTP status code |
 | `summary` | `string` | Brief summary of the news item |
 | `title` | `string` | Title of the news item |
+| `version` | `string` | API version |
 
 #### Example: Load
 

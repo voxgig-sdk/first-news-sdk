@@ -12,9 +12,18 @@ The SDK exposes the API as capitalised, semantic **Entities** — for example `c
 
 ## Install
 This package is not yet published to RubyGems. Install it from the
-GitHub release tag (`rb/vX.Y.Z`):
+GitHub release tag (`rb/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/first-news-sdk/releases)), or
+from a clone:
 
-- Releases: [https://github.com/voxgig-sdk/first-news-sdk/releases](https://github.com/voxgig-sdk/first-news-sdk/releases)
+```bash
+git clone https://github.com/voxgig-sdk/first-news-sdk
+```
+
+Then add it to your `Gemfile` by path, and run `bundle install`:
+
+```ruby
+gem "voxgig-sdk-first-news-sdk", path: "./first-news-sdk/rb"
+```
 
 
 ## Tutorial: your first API call
@@ -37,7 +46,7 @@ begin
   # list returns an Array of New records — iterate directly.
   news = client.New.list
   news.each do |item|
-    puts "#{item["id"]} #{item["channels"]}"
+    puts "#{item["id"]} #{item["access"]}"
   end
 rescue => err
   warn "list failed: #{err}"
@@ -253,13 +262,17 @@ returns a result `Hash` with these keys:
 
 | Field | Description |
 | --- | --- |
-| `channels` | List of news channels this item is published on |
-| `content` | Full HTML content of the news item |
+| `access` | Access level of the endpoint |
+| `data` |  |
 | `id` | Unique identifier for the news item |
+| `lastmodified` | Last modified timestamp |
 | `link` | URL to the full news article |
 | `published` | Publication date and time |
+| `status` | Status of the API response |
+| `statuscode` | HTTP status code |
 | `summary` | Brief summary of the news item |
 | `title` | Title of the news item |
+| `version` | API version |
 
 Operations: List, Load.
 
@@ -285,13 +298,17 @@ Create an instance: `new = client.New`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `channels` | `Array` | List of news channels this item is published on |
-| `content` | `String` | Full HTML content of the news item |
+| `access` | `String` | Access level of the endpoint |
+| `data` | `Hash` |  |
 | `id` | `Integer` | Unique identifier for the news item |
+| `lastmodified` | `String` | Last modified timestamp |
 | `link` | `String` | URL to the full news article |
 | `published` | `String` | Publication date and time |
+| `status` | `String` | Status of the API response |
+| `statuscode` | `Integer` | HTTP status code |
 | `summary` | `String` | Brief summary of the news item |
 | `title` | `String` | Title of the news item |
+| `version` | `String` | API version |
 
 #### Example: Load
 

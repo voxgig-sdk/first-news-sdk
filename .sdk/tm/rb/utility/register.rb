@@ -33,6 +33,8 @@ require_relative 'transform_response'
 
 FirstNewsUtility.registrar = ->(u) {
   u.clean = FirstNewsUtilities::Clean
+  u.clean_add = FirstNewsUtilities::CleanAdd
+  u.clean_explain = FirstNewsUtilities::CleanExplain
   u.done = FirstNewsUtilities::Done
   u.make_error = FirstNewsUtilities::MakeError
   u.feature_add = FirstNewsUtilities::FeatureAdd

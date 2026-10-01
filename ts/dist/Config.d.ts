@@ -84,6 +84,12 @@ declare class Config {
                 name: string;
                 title: string;
                 type: string;
+                short?: undefined;
+                format?: undefined;
+            } | {
+                name: string;
+                title: string;
+                type: string;
                 short: string;
                 format: string;
             })[];

@@ -90,22 +90,27 @@ func MakeConfig() map[string]any {
 			"new": map[string]any{
 				"fields": []any{
 					map[string]any{
-						"name": "channels",
-						"title": "Channels",
-						"type": "`$ARRAY`",
-						"short": "List of news channels this item is published on",
+						"name": "access",
+						"title": "Access",
+						"type": "`$STRING`",
+						"short": "Access level of the endpoint",
 					},
 					map[string]any{
-						"name": "content",
-						"title": "Content",
-						"type": "`$STRING`",
-						"short": "Full HTML content of the news item",
+						"name": "data",
+						"title": "Data",
+						"type": "`$OBJECT`",
 					},
 					map[string]any{
 						"name": "id",
 						"title": "Id",
 						"type": "`$INTEGER`",
 						"short": "Unique identifier for the news item",
+					},
+					map[string]any{
+						"name": "lastmodified",
+						"title": "Lastmodified",
+						"type": "`$STRING`",
+						"short": "Last modified timestamp",
 					},
 					map[string]any{
 						"name": "link",
@@ -121,6 +126,18 @@ func MakeConfig() map[string]any {
 						"short": "Publication date and time",
 					},
 					map[string]any{
+						"name": "status",
+						"title": "Status",
+						"type": "`$STRING`",
+						"short": "Status of the API response",
+					},
+					map[string]any{
+						"name": "statuscode",
+						"title": "Statuscode",
+						"type": "`$INTEGER`",
+						"short": "HTTP status code",
+					},
+					map[string]any{
 						"name": "summary",
 						"title": "Summary",
 						"type": "`$STRING`",
@@ -131,6 +148,12 @@ func MakeConfig() map[string]any {
 						"title": "Title",
 						"type": "`$STRING`",
 						"short": "Title of the news item",
+					},
+					map[string]any{
+						"name": "version",
+						"title": "Version",
+						"type": "`$STRING`",
+						"short": "API version",
 					},
 				},
 				"id": map[string]any{
@@ -254,7 +277,7 @@ func MakeConfig() map[string]any {
 								"rename": map[string]any{},
 								"transform": map[string]any{
 									"req": "`reqdata`",
-									"res": "`body.data`",
+									"res": "`body`",
 								},
 								"args": map[string]any{
 									"params": []any{

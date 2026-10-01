@@ -37,6 +37,8 @@ require_once __DIR__ . '/TransformResponse.php';
 
 FirstNewsUtility::setRegistrar(function (FirstNewsUtility $u): void {
     $u->clean = [FirstNewsClean::class, 'call'];
+    $u->clean_add = [FirstNewsClean::class, 'add'];
+    $u->clean_explain = [FirstNewsDone::class, 'clean_explain'];
     $u->done = [FirstNewsDone::class, 'call'];
     $u->make_error = [FirstNewsMakeError::class, 'call'];
     $u->feature_add = [FirstNewsFeatureAdd::class, 'call'];

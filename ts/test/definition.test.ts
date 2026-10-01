@@ -1,0 +1,116 @@
+import { describe, test } from 'node:test'
+import { SDK } from '..'
+import { runDefinitionPoint } from './definition-runner'
+import { isControlSkipped } from './utility'
+
+
+// Generated from the API definition, not from the model this SDK was built
+// from: the route, the declared query parameters, the credential the security
+// scheme names, and the definition's own response example.
+const PLAN: any[] = [
+  {
+    "entity": "new",
+    "accessor": "New",
+    "op": "list",
+    "method": "GET",
+    "path": "/news",
+    "args": [],
+    "select": {
+      "after": "v1",
+      "before": "v1",
+      "channel": "What's New",
+      "limit": "v1",
+      "link": "v1",
+      "offset": "v1",
+      "pretty": "v1",
+      "q": "v1"
+    },
+    "headers": [],
+    "query": [
+      "channel",
+      "link",
+      "before",
+      "after",
+      "q",
+      "limit",
+      "offset",
+      "pretty"
+    ],
+    "auth": null,
+    "status": 200,
+    "sample": {
+      "status": "OK",
+      "status-code": 200,
+      "version": "1",
+      "last-modified": "Tue, 12 Jul 2016 15:42:31 GMT",
+      "total": 249,
+      "limit": 3,
+      "offset": 0,
+      "access": "public",
+      "data": [
+        {
+          "id": 40558,
+          "title": "FIRST calls for participants for a new Special Interest Group (SIG) on Malware Analysis",
+          "summary": "Forum invites stakeholders to get involved in sharing best practice to mitigate malware incidents.",
+          "link": "https://www.first.org/newsroom/releases/20160711",
+          "published": "Mon, 11 Jul 2016 18:54:00 GMT"
+        }
+      ]
+    },
+    "idField": "id"
+  },
+  {
+    "entity": "new",
+    "accessor": "New",
+    "op": "load",
+    "method": "GET",
+    "path": "/news/{id}",
+    "args": [
+      {
+        "name": "id",
+        "wire": "id",
+        "value": 40558
+      }
+    ],
+    "select": {},
+    "headers": [],
+    "query": [],
+    "auth": null,
+    "status": 200,
+    "sample": {
+      "status": "OK",
+      "status-code": 200,
+      "version": "1",
+      "last-modified": "Mon, 11 Jul 2016 18:58:35 GMT",
+      "access": "public",
+      "data": {
+        "id": 40558,
+        "title": "FIRST calls for participants for a new Special Interest Group (SIG) on Malware Analysis",
+        "summary": "Forum invites stakeholders to get involved in sharing best practice to mitigate malware incidents.",
+        "link": "https://www.first.org/newsroom/releases/20160711",
+        "content": "<p><strong>Forum invites stakeholders to get involved in sharing best practice to mitigate malware incidents</strong></p>",
+        "channels": [
+          "FIRST Newsroom",
+          "Press Releases",
+          "What's New"
+        ],
+        "published": "Mon, 11 Jul 2016 18:54:00 GMT"
+      }
+    },
+    "idField": "id"
+  }
+]
+
+
+describe('definition', () => {
+  for (const point of PLAN) {
+    test(point.entity + '.' + point.op + ' ' + point.method + ' ' + point.path, async (t) => {
+      const control = isControlSkipped('entityOp', point.entity + '.' + point.op, 'definition')
+      if (control.skip) {
+        t.skip(control.reason || 'skipped via sdk-test-control.json')
+        return
+      }
+      await runDefinitionPoint(SDK, point)
+    })
+  }
+})

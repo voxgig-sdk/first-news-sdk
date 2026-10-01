@@ -256,13 +256,17 @@ On error, `ok` is `False` and `err` contains the error value.
 
 | Field | Description |
 | --- | --- |
-| `channels` | List of news channels this item is published on |
-| `content` | Full HTML content of the news item |
+| `access` | Access level of the endpoint |
+| `data` |  |
 | `id` | Unique identifier for the news item |
+| `lastmodified` | Last modified timestamp |
 | `link` | URL to the full news article |
 | `published` | Publication date and time |
+| `status` | Status of the API response |
+| `statuscode` | HTTP status code |
 | `summary` | Brief summary of the news item |
 | `title` | Title of the news item |
+| `version` | API version |
 
 Operations: List, Load.
 
@@ -288,13 +292,17 @@ Create an instance: `new = client.New()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `channels` | `list` | List of news channels this item is published on |
-| `content` | `str` | Full HTML content of the news item |
+| `access` | `str` | Access level of the endpoint |
+| `data` | `dict` |  |
 | `id` | `int` | Unique identifier for the news item |
+| `lastmodified` | `str` | Last modified timestamp |
 | `link` | `str` | URL to the full news article |
 | `published` | `str` | Publication date and time |
+| `status` | `str` | Status of the API response |
+| `statuscode` | `int` | HTTP status code |
 | `summary` | `str` | Brief summary of the news item |
 | `title` | `str` | Title of the news item |
+| `version` | `str` | API version |
 
 #### Example: Load
 

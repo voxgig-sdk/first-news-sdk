@@ -20,11 +20,11 @@ SDK operations: `list`, `load`.
 
 Key fields to recognise:
 
-- `channels`: List of news channels this item is published on
-- `content`: Full HTML content of the news item
+- `access`: Access level of the endpoint
+- `data`: Array of news items
 - `id`: Unique identifier for the news item
+- `lastmodified`: Last modified timestamp
 - `link`: URL to the full news article
-- `published`: Publication date and time
 
 ### Route map
 

@@ -17,13 +17,17 @@ from typing import TypedDict, Any
 
 
 class New(TypedDict, total=False):
-    channels: list
-    content: str
+    access: str
+    data: dict
     id: int
+    lastmodified: str
     link: str
     published: str
+    status: str
+    statuscode: int
     summary: str
     title: str
+    version: str
 
 
 class NewLoadMatch(TypedDict):
