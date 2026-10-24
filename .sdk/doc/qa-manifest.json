@@ -3,5 +3,18 @@
     "SUMMARY.md"
   ],
   "config": ".sdk/doc/qa/vale.ini",
-  "routes": {}
+  "routes": {},
+  "quoted": {
+    "SUMMARY.md": [
+      "Access level of the endpoint",
+      "Array of news items",
+      "FIRST API v1 Production Server",
+      "Last modified timestamp",
+      "Public query for FIRST News with additional parameters for filtering results. No credentials required.",
+      "Successful response with detailed news item",
+      "Successful response with news items",
+      "URL to the full news article",
+      "Unique identifier for the news item"
+    ]
+  }
 }

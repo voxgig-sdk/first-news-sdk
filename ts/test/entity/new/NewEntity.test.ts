@@ -9,7 +9,7 @@ import { createLiveTransport } from '../../live-runner'
 import { runLiveEntity } from '../../live-entity'
 
 
-import { FirstNewsSDK, BaseFeature, stdutil } from '../../..'
+import { FirstNewsSDK, BaseFeature, config, stdutil } from '../../..'
 
 import {
   envOverride,
@@ -41,6 +41,64 @@ describe('NewEntity', async () => {
   })
 
 
+  class FailHook extends BaseFeature {
+    name = 'failhook'
+    version = '0.0.1'
+    active = true
+    unexpected = 0
+    init() { }
+    PreSpec() { throw new Error('new hook failed') }
+    PreUnexpected() { this.unexpected++ }
+  }
+
+  test('stream-error', async () => {
+    const offline = { net: { offline: true } }
+    await assert.rejects(async () => {
+      for await (const _item of FirstNewsSDK.test(offline).New().stream('list')) { }
+    }, /offline/)
+
+    for await (const _item of FirstNewsSDK.test(offline).New()
+      .stream('list', undefined, { ctrl: { throw: false } })) { }
+
+    if (null != (config as any).feature?.rbac) {
+      const denied = FirstNewsSDK.test(undefined, { feature: { rbac: { active: true, deny: true } } })
+      await assert.rejects(async () => {
+        for await (const _item of denied.New().stream('list')) { }
+      }, (err: any) => 'rbac_denied' === err.code)
+    }
+  })
+
+  test('stream-ctrl', async () => {
+    const explain: any = {}
+    const ctrl: any = { explain }
+    for await (const _item of FirstNewsSDK.test().New().stream('list', undefined, { ctrl })) { }
+    assert.deepStrictEqual(Object.keys(ctrl), ['explain'])
+    assert(explain === ctrl.explain && 0 < Object.keys(explain).length)
+  })
+
+  test('unexpected', async () => {
+    const hook = new FailHook()
+    const client = new FirstNewsSDK({ feature: { test: { active: true } }, extend: [hook] })
+    await assert.rejects(client.New().list(), /hook failed/)
+    assert(0 < hook.unexpected)
+
+    const fired = hook.unexpected
+    assert.strictEqual(await client.New().list(undefined, { throw: false }), undefined)
+    assert(fired < hook.unexpected)
+  })
+
+  test('validate', async (t) => {
+    if (null == (config as any).feature?.validate) {
+      t.skip('feature not present in this SDK: validate')
+      return
+    }
+    const client = FirstNewsSDK.test(undefined, { feature: { validate: { active: true } } })
+    await assert.rejects(client.New().list({"after":1} as any),
+      (err: any) => 'validate_failed' === err.code)
+  })
+
+
+
   test('basic', async (t) => {
 
     const live = 'TRUE' === process.env.FIRST_NEWS_TEST_LIVE
@@ -51,7 +109,7 @@ describe('NewEntity', async () => {
     
     const setup = basicSetup()
     if (setup.live) {
-      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":{"access":{"a":true,"h":"Access","n":"access","r":false,"sh":"Access level of the endpoint","t":"`$STRING`","key$":"access","index$":0},"data":{"a":true,"h":"Data","n":"data","r":false,"t":"`$OBJECT`","key$":"data","index$":1},"id":{"a":true,"h":"Id","n":"id","r":false,"sh":"Unique identifier for the news item","t":"`$INTEGER`","key$":"id","index$":2},"lastmodified":{"a":true,"h":"Lastmodified","n":"lastmodified","r":false,"sh":"Last modified timestamp","t":"`$STRING`","key$":"lastmodified","index$":3},"link":{"a":true,"fo":"uri","h":"Link","n":"link","r":false,"sh":"URL to the full news article","t":"`$STRING`","key$":"link","index$":4},"published":{"a":true,"h":"Published","n":"published","r":false,"sh":"Publication date and time","t":"`$STRING`","key$":"published","index$":5},"status":{"a":true,"h":"Status","n":"status","r":false,"sh":"Status of the API response","t":"`$STRING`","key$":"status","index$":6},"statuscode":{"a":true,"h":"Statuscode","n":"statuscode","r":false,"sh":"HTTP status code","t":"`$INTEGER`","key$":"statuscode","index$":7},"summary":{"a":true,"h":"Summary","n":"summary","r":false,"sh":"Brief summary of the news item","t":"`$STRING`","key$":"summary","index$":8},"title":{"a":true,"h":"Title","n":"title","r":false,"sh":"Title of the news item","t":"`$STRING`","key$":"title","index$":9},"version":{"a":true,"h":"Version","n":"version","r":false,"sh":"API version","t":"`$STRING`","key$":"version","index$":10}},"id":{"field":"id","name":"id"},"name":"new","op":{"list":{"input":"data","name":"list","points":[{"a":true,"co":{"id":"GET /news","source":"openapi3","version":2},"g":{"query":[{"a":true,"k":"query","n":"after","or":"after","r":false,"t":"`$STRING`","index$":0},{"a":true,"k":"query","n":"before","or":"before","r":false,"t":"`$STRING`","index$":1},{"a":true,"ex":"What's New","k":"query","n":"channel","or":"channel","r":false,"t":"`$STRING`","index$":2},{"a":true,"ex":100,"k":"query","n":"limit","or":"limit","r":false,"t":"`$INTEGER`","index$":3},{"a":true,"k":"query","n":"link","or":"link","r":false,"t":"`$STRING`","index$":4},{"a":true,"ex":0,"k":"query","n":"offset","or":"offset","r":false,"t":"`$INTEGER`","index$":5},{"a":true,"ex":false,"k":"query","n":"pretty","or":"pretty","r":false,"t":"`$BOOLEAN`","index$":6},{"a":true,"k":"query","n":"q","or":"q","r":false,"t":"`$STRING`","index$":7}]},"k":"http","m":"GET","o":"/news","q":{"exist":["after","before","channel","limit","link","offset","pretty","q"]},"r":{},"s":[{"lit":"news"}],"t":{"req":"`reqdata`","res":"`body.data`"},"index$":0}],"key$":"list"},"load":{"input":"data","name":"load","points":[{"a":true,"co":{"id":"GET /news/{id}","source":"openapi3","version":2},"g":{"params":[{"a":true,"ex":40558,"k":"param","n":"id","or":"id","r":true,"t":"`$INTEGER`","index$":0}]},"k":"http","m":"GET","o":"/news/{id}","q":{"exist":["id"]},"r":{},"s":[{"lit":"news"},{"var":"id"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"load"}},"relations":{"ancestors":[]},"key$":"new","name__orig":"new","Name":"New","name_":"new","name-":"new","NAME":"NEW","index$":0}, {"active":true,"entity":"new","key$":"BasicNewFlow","kind":"basic","name":"BasicNewFlow","param":{},"step":[{"a":true,"d":{},"i":{},"m":{},"o":"list","s":[],"v":[{"apply":"ItemExists","def":{"ref":"new_ref01"}}],"index$":0},{"a":true,"d":{},"i":{"ref":"new_ref01","srcdatavar":"new_ref01_data","suffix":"_dt0"},"m":{"id":"new01"},"o":"load","s":[],"v":[{"apply":"TextFieldMark","def":{"mark":"Mark01-new_ref01"}}],"index$":1}]}, 'New', {"GET /news":{"protocol":"http","parameters":[{"name":"channel","in":"query","description":"Title of the news channel the news should be listed on. Each news item may be linked to more than one News Channel.","required":false,"schema":{"type":"string"},"example":"What's New","index$":0},{"name":"link","in":"query","description":"News item URL. Items published at FIRST website do not contain the domain name.","required":false,"schema":{"type":"string"},"index$":1},{"name":"before","in":"query","description":"ISO 8601 Formatted date. Returns only news older than the input. If the timezone is not specified, it'll be considered UTC.","required":false,"schema":{"type":"string","format":"date-time"},"index$":2},{"name":"after","in":"query","description":"ISO 8601 Formatted date. Returns only news newer than the input. If the timezone is not specified, it'll be considered UTC.","required":false,"schema":{"type":"string","format":"date-time"},"index$":3},{"name":"q","in":"query","description":"Free text search at the news title, summary and URL.","required":false,"schema":{"type":"string"},"index$":4},{"name":"limit","in":"query","description":"Maximum number of results to return. The maximum allowed resultset is 10,000 objects.","required":false,"schema":{"type":"integer","default":100,"maximum":10000},"index$":5},{"name":"offset","in":"query","description":"Number of results to skip for pagination.","required":false,"schema":{"type":"integer","default":0},"index$":6},{"name":"pretty","in":"query","description":"Format the JSON response for better readability.","required":false,"schema":{"type":"boolean","default":false},"index$":7}]},"GET /news/{id}":{"protocol":"http","parameters":[{"name":"id","in":"path","description":"The unique identifier of the news item","required":true,"schema":{"type":"integer"},"example":40558,"index$":0}]}})
+      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":{"access":{"a":true,"h":"Access","n":"access","r":false,"sh":"Access level of the endpoint","t":"`$STRING`","key$":"access","index$":0},"data":{"a":true,"h":"Data","n":"data","r":false,"t":"`$OBJECT`","key$":"data","index$":1},"id":{"a":true,"h":"Id","n":"id","r":false,"sh":"Unique identifier for the news item","t":"`$INTEGER`","key$":"id","index$":2},"lastmodified":{"a":true,"h":"Lastmodified","n":"lastmodified","r":false,"sh":"Last modified timestamp","t":"`$STRING`","key$":"lastmodified","index$":3},"link":{"a":true,"fo":"uri","h":"Link","n":"link","r":false,"sh":"URL to the full news article","t":"`$STRING`","key$":"link","index$":4},"published":{"a":true,"h":"Published","n":"published","r":false,"sh":"Publication date and time","t":"`$STRING`","key$":"published","index$":5},"status":{"a":true,"h":"Status","n":"status","r":false,"sh":"Status of the API response","t":"`$STRING`","key$":"status","index$":6},"statuscode":{"a":true,"h":"Statuscode","n":"statuscode","r":false,"sh":"HTTP status code","t":"`$INTEGER`","key$":"statuscode","index$":7},"summary":{"a":true,"h":"Summary","n":"summary","r":false,"sh":"Brief summary of the news item","t":"`$STRING`","key$":"summary","index$":8},"title":{"a":true,"h":"Title","n":"title","r":false,"sh":"Title of the news item","t":"`$STRING`","key$":"title","index$":9},"version":{"a":true,"h":"Version","n":"version","r":false,"sh":"API version","t":"`$STRING`","key$":"version","index$":10}},"id":{"field":"id","name":"id"},"name":"new","op":{"list":{"input":"data","name":"list","points":[{"a":true,"co":{"id":"GET /news","source":"openapi3","version":2},"g":{"query":[{"a":true,"k":"query","n":"after","or":"after","r":false,"t":"`$STRING`","index$":0},{"a":true,"k":"query","n":"before","or":"before","r":false,"t":"`$STRING`","index$":1},{"a":true,"ex":"What's New","k":"query","n":"channel","or":"channel","r":false,"t":"`$STRING`","index$":2},{"a":true,"ex":100,"k":"query","n":"limit","or":"limit","r":false,"t":"`$INTEGER`","index$":3},{"a":true,"k":"query","n":"link","or":"link","r":false,"t":"`$STRING`","index$":4},{"a":true,"ex":0,"k":"query","n":"offset","or":"offset","r":false,"t":"`$INTEGER`","index$":5},{"a":true,"ex":false,"k":"query","n":"pretty","or":"pretty","r":false,"t":"`$BOOLEAN`","index$":6},{"a":true,"k":"query","n":"q","or":"q","r":false,"t":"`$STRING`","index$":7}]},"k":"http","m":"GET","o":"/news","q":{},"r":{},"rs":{"kind":"json","media":"application/json"},"s":[{"lit":"news"}],"t":{"req":"`reqdata`","res":"`body.data`"},"index$":0}],"key$":"list"},"load":{"input":"data","name":"load","points":[{"a":true,"co":{"id":"GET /news/{id}","source":"openapi3","version":2},"g":{"params":[{"a":true,"ex":40558,"k":"param","n":"id","or":"id","r":true,"t":"`$INTEGER`","index$":0}]},"k":"http","m":"GET","o":"/news/{id}","q":{"exist":["id"]},"r":{},"rs":{"kind":"json","media":"application/json"},"s":[{"lit":"news"},{"var":"id"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"load"}},"relations":{"ancestors":[]},"key$":"new","name__orig":"new","Name":"New","name_":"new","name-":"new","NAME":"NEW","index$":0}, {"active":true,"entity":"new","key$":"BasicNewFlow","kind":"basic","name":"BasicNewFlow","param":{},"step":[{"a":true,"d":{},"i":{},"m":{},"o":"list","s":[],"v":[{"apply":"ItemExists","def":{"ref":"new_ref01"}}],"index$":0},{"a":true,"d":{},"i":{"ref":"new_ref01","srcdatavar":"new_ref01_data","suffix":"_dt0"},"m":{"id":"new01"},"o":"load","s":[],"v":[{"apply":"TextFieldMark","def":{"mark":"Mark01-new_ref01"}}],"index$":1}]}, 'New', {"GET /news":{"protocol":"http","parameters":[{"name":"channel","in":"query","description":"Title of the news channel the news should be listed on. Each news item may be linked to more than one News Channel.","required":false,"schema":{"type":"string"},"example":"What's New","index$":0},{"name":"link","in":"query","description":"News item URL. Items published at FIRST website do not contain the domain name.","required":false,"schema":{"type":"string"},"index$":1},{"name":"before","in":"query","description":"ISO 8601 Formatted date. Returns only news older than the input. If the timezone is not specified, it'll be considered UTC.","required":false,"schema":{"type":"string","format":"date-time"},"index$":2},{"name":"after","in":"query","description":"ISO 8601 Formatted date. Returns only news newer than the input. If the timezone is not specified, it'll be considered UTC.","required":false,"schema":{"type":"string","format":"date-time"},"index$":3},{"name":"q","in":"query","description":"Free text search at the news title, summary and URL.","required":false,"schema":{"type":"string"},"index$":4},{"name":"limit","in":"query","description":"Maximum number of results to return. The maximum allowed resultset is 10,000 objects.","required":false,"schema":{"type":"integer","default":100,"maximum":10000},"index$":5},{"name":"offset","in":"query","description":"Number of results to skip for pagination.","required":false,"schema":{"type":"integer","default":0},"index$":6},{"name":"pretty","in":"query","description":"Format the JSON response for better readability.","required":false,"schema":{"type":"boolean","default":false},"index$":7}]},"GET /news/{id}":{"protocol":"http","parameters":[{"name":"id","in":"path","description":"The unique identifier of the news item","required":true,"schema":{"type":"integer"},"example":40558,"index$":0}]}}, { strict: LIVE_STRICT, t })
     }
     const client = setup.client
     const struct = setup.struct
@@ -79,6 +137,12 @@ describe('NewEntity', async () => {
 })
 
 
+
+// main.kit.test.live.strict is true (the default is true): a live
+// request that fails, or a live test missing an input it needs,
+// fails the test.
+// An account with no record for a test to read skips it either way.
+const LIVE_STRICT = true
 
 function basicSetup(extra?: any) {
   // TODO: fix test def options

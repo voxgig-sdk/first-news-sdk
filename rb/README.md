@@ -12,7 +12,7 @@ The SDK exposes the API as capitalised, semantic **Entities** — for example `c
 
 ## Install
 This package is not yet published to RubyGems. Install it from the
-GitHub release tag (`rb/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/first-news-sdk/releases)), or
+GitHub release tag (`rb/vX.Y.Z`, see [Tags](https://github.com/voxgig-sdk/first-news-sdk/tags)), or
 from a clone:
 
 ```bash
@@ -43,10 +43,11 @@ client = FirstNewsSDK.new
 
 ```ruby
 begin
-  # list returns an Array of New records — iterate directly.
+  # list returns an Array of New entities, one per record; data_get reads the record.
   news = client.New.list
   news.each do |item|
-    puts "#{item["id"]} #{item["access"]}"
+    record = item.data_get
+    puts "#{record["id"]} #{record["access"]}"
   end
 rescue => err
   warn "list failed: #{err}"
@@ -59,7 +60,7 @@ end
 begin
   # load returns the ENTITY — call data_get for the New record (raises on error).
   new = client.New.load({ "id" => 1 })
-  puts new
+  puts new.data_get
 rescue => err
   warn "load failed: #{err}"
 end
@@ -143,10 +144,10 @@ client = FirstNewsSDK.test({
   "entity" => { "new" => { "test01" => { "id" => "test01" } } },
 })
 
-# Entity ops return the ENTITY (raises on error);
-# call data_get for the mock record.
-new = client.New.list()
-puts new
+# list returns an Array of New entities, one per mock record (raises on
+# error); data_get reads each record.
+news = client.New.list()
+news.each { |item| puts item.data_get }
 ```
 
 ### Use a custom fetch function
@@ -230,8 +231,8 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `load` | `(reqmatch, ctrl) -> any` | Load a single entity by match criteria. Raises on error. |
-| `list` | `(reqmatch = nil, ctrl) -> Array` | List entities matching the criteria (call with no argument to list all). Raises on error. |
+| `load` | `(reqmatch, ctrl) -> any` | Load a single entity by match criteria, and return it. Raises on error. |
+| `list` | `(reqmatch = nil, ctrl) -> Array` | List entities matching the criteria (call with no argument to list all), one per record. Raises on error. |
 | `data_get` | `() -> Hash` | Get entity data. |
 | `data_set` | `(data)` | Set entity data. |
 | `match_get` | `() -> Hash` | Get entity match criteria. |
@@ -241,9 +242,10 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the result data directly. On failure they
-raise a `FirstNewsError` (a `StandardError` subclass), so wrap
-calls in `begin`/`rescue` where you need to handle errors.
+Entity operations return the entity, and `list` an `Array` of entities, one
+per record; an entity's `data_get` reads its record. On failure they raise a
+`FirstNewsError` (a `StandardError` subclass), so wrap calls in
+`begin`/`rescue` where you need to handle errors.
 
 The `direct` escape hatch is the exception: it never raises and instead
 returns a result `Hash` with these keys:
@@ -320,8 +322,9 @@ new = client.New.load({ "id" => 1 })
 #### Example: List
 
 ```ruby
-# list returns an Array of New records (raises on error).
+# list returns an Array of New entities, one per record (raises on error).
 news = client.New.list
+news.each { |item| puts item.data_get }
 ```
 
 ## Features

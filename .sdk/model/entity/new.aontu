@@ -166,17 +166,9 @@ main: kit: entity: new: {
           }
           m: "GET"
           o: "/news"
-          q: {
-            exist: [
-              "after"
-              "before"
-              "channel"
-              "limit"
-              "link"
-              "offset"
-              "pretty"
-              "q"
-            ]
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {
@@ -217,6 +209,10 @@ main: kit: entity: new: {
             exist: [
               "id"
             ]
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {

@@ -79,6 +79,7 @@ module FirstNewsConfig
           },
           "optspec" => {
             "clearTimer" => "`$FUNCTION`",
+            "now" => "`$FUNCTION`",
             "setTimer" => "`$FUNCTION`",
           },
           "strict" => false,
@@ -224,6 +225,7 @@ module FirstNewsConfig
                         "orig" => "link",
                         "type" => "`$STRING`",
                         "kind" => "query",
+                        "field" => true,
                       },
                       {
                         "name" => "offset",
@@ -247,17 +249,10 @@ module FirstNewsConfig
                       },
                     ],
                   },
-                  "select" => {
-                    "exist" => [
-                      "after",
-                      "before",
-                      "channel",
-                      "limit",
-                      "link",
-                      "offset",
-                      "pretty",
-                      "q",
-                    ],
+                  "select" => {},
+                  "response" => {
+                    "kind" => "json",
+                    "media" => "application/json",
                   },
                 },
               ],
@@ -303,6 +298,10 @@ module FirstNewsConfig
                     "exist" => [
                       "id",
                     ],
+                  },
+                  "response" => {
+                    "kind" => "json",
+                    "media" => "application/json",
                   },
                 },
               ],

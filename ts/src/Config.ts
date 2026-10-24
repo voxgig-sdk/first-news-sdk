@@ -102,6 +102,7 @@ class Config {
       },
       "optspec": {
         "clearTimer": "`$FUNCTION`",
+        "now": "`$FUNCTION`",
         "setTimer": "`$FUNCTION`"
       },
       "strict": false,
@@ -256,7 +257,8 @@ class Config {
                     "name": "link",
                     "orig": "link",
                     "type": "`$STRING`",
-                    "kind": "query"
+                    "kind": "query",
+                    "field": true
                   },
                   {
                     "name": "offset",
@@ -280,17 +282,10 @@ class Config {
                   }
                 ]
               },
-              "select": {
-                "exist": [
-                  "after",
-                  "before",
-                  "channel",
-                  "limit",
-                  "link",
-                  "offset",
-                  "pretty",
-                  "q"
-                ]
+              "select": {},
+              "response": {
+                "kind": "json",
+                "media": "application/json"
               }
             }
           ]
@@ -336,6 +331,10 @@ class Config {
                 "exist": [
                   "id"
                 ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
               }
             }
           ]

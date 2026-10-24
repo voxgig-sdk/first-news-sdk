@@ -93,6 +93,7 @@ class FirstNewsConfig
           ],
           'optspec' => [
             'clearTimer' => '`$FUNCTION`',
+            'now' => '`$FUNCTION`',
             'setTimer' => '`$FUNCTION`',
           ],
           'strict' => false,
@@ -238,6 +239,7 @@ class FirstNewsConfig
                         'orig' => 'link',
                         'type' => '`$STRING`',
                         'kind' => 'query',
+                        'field' => true,
                       ],
                       [
                         'name' => 'offset',
@@ -261,17 +263,10 @@ class FirstNewsConfig
                       ],
                     ],
                   ],
-                  'select' => [
-                    'exist' => [
-                      'after',
-                      'before',
-                      'channel',
-                      'limit',
-                      'link',
-                      'offset',
-                      'pretty',
-                      'q',
-                    ],
+                  'select' => [],
+                  'response' => [
+                    'kind' => 'json',
+                    'media' => 'application/json',
                   ],
                 ],
               ],
@@ -317,6 +312,10 @@ class FirstNewsConfig
                     'exist' => [
                       'id',
                     ],
+                  ],
+                  'response' => [
+                    'kind' => 'json',
+                    'media' => 'application/json',
                   ],
                 ],
               ],

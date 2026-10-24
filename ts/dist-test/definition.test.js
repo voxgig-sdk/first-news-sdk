@@ -19,13 +19,17 @@ const PLAN = [
             "after": "v1",
             "before": "v1",
             "channel": "What's New",
-            "limit": "v1",
+            "limit": 100,
             "link": "v1",
-            "offset": "v1",
+            "offset": 0,
             "pretty": "v1",
             "q": "v1"
         },
         "headers": [],
+        "cookies": [],
+        "responseMedia": [
+            "application/json"
+        ],
         "query": [
             "channel",
             "link",
@@ -35,6 +39,40 @@ const PLAN = [
             "limit",
             "offset",
             "pretty"
+        ],
+        "queryArgs": [
+            {
+                "name": "after",
+                "wire": "after"
+            },
+            {
+                "name": "before",
+                "wire": "before"
+            },
+            {
+                "name": "channel",
+                "wire": "channel"
+            },
+            {
+                "name": "limit",
+                "wire": "limit"
+            },
+            {
+                "name": "link",
+                "wire": "link"
+            },
+            {
+                "name": "offset",
+                "wire": "offset"
+            },
+            {
+                "name": "pretty",
+                "wire": "pretty"
+            },
+            {
+                "name": "q",
+                "wire": "q"
+            }
         ],
         "auth": null,
         "status": 200,
@@ -74,7 +112,12 @@ const PLAN = [
         ],
         "select": {},
         "headers": [],
+        "cookies": [],
+        "responseMedia": [
+            "application/json"
+        ],
         "query": [],
+        "queryArgs": [],
         "auth": null,
         "status": 200,
         "sample": {
